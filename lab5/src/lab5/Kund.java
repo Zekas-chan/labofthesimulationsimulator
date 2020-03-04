@@ -27,6 +27,7 @@ public class Kund {
 	public int betalningsTid;
 	
 	//hej på dig med
+	//Philip hälsar också
 	/*
 	 * Enbart Spår i main
 	 */
