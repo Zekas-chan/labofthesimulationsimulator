@@ -11,18 +11,20 @@ public class State {
 	
 	private boolean run;	//The emergancy break
 	public int globalTime;
-
-	public static void main(String[] args) {
-		
-
-	}
+	private int timeMax;
+	
+	
+//	public static void main(String[] args) {
+//		
+//
+//	}
 	
 	/**
 	 * Constructor
 	 * @param time
 	 */
 	public State(int time) {
-		
+		timeMax = time;
 		
 	}
 
