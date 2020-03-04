@@ -26,7 +26,7 @@ public class Kund {
 	public int plockTid;
 	public int betalningsTid;
 	
-	
+	//hej
 	/*
 	 * Enbart Spår i main
 	 */
