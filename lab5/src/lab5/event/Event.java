@@ -8,19 +8,10 @@ import java.util.Observable;
  * @author 
  *
  */
-public class Event extends Observable{
-
-	public static void main(String[] args) {
-		
-
-	}
+public abstract class Event extends Observable{
 	
-	public Event() {
-		
-	}
+	public Event() {}
 	
-	public void execute() {
-		
-	}
+	public abstract void execute();
 
 }
