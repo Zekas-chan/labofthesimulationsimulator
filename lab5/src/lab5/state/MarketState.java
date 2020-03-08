@@ -1,29 +1,42 @@
 package lab5.state;
 
 import lab5.Kund;
+import lab5.classtemplates.state.*;
 
 public class MarketState extends State {
-
-	private int freeRegisters; //lediga kassor
-	private Kund[] CustomersInStore; //array som ska innehålla kunder.
-	//statistik
-	/*
-	 * Dessa spelar roll senare för själva optimeringen. Lägger in det nu så att vi har koll på dom.
-	 * -Philip
-	 */
-	private int idleRegisterTime; //summa tid kassor varit lediga.
-	private int missedCustomers; //Missade kunder, om affären var full.
-	private int timeSpentQueuing; //summa tid spenderad med att vänta på ledig kassa.
-	private int customersServed; //antal kunder som betjänats.
 	
+	public int antalKassor;
+	public int maxAntalKunder;
+	public int snabbKöpsÖppettider;
+	
+	public int antalGenomfördaKöp;
+	public int antalMissadeKunder;
+	public int tidOverksamKassa;
+	public int tidKassaKö;
+
+	private int ledigaKassor;
+	private Kund[] kunderIButiken;
+	public static void main(String[] args) {
+		
+
+	}
+	
+	/**
+	 * Constructor
+	 */
 	public MarketState(int time, int registers, int arrivalLambda, int gatherTime, int payTime, int seed, int storeCapacity) {
 		super(time); //java gnäller om saker som finns i superklassen inte konstrueras där
-		this.CustomersInStore = new Kund[storeCapacity];
+		this.kunderIButiken = new Kund[storeCapacity];
 	}
-
-//	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
-//
-//	}
+	
+	/**
+	 * Returnerar true om det FINNS öppna kassor.
+	 * False om det INTE finns öppna kassor.
+	 * @return 
+	 */
+	public boolean öppnaKassor() {
+		
+		return false;
+	}
 
 }

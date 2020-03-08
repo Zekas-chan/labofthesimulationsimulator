@@ -1,4 +1,4 @@
-package lab5.random;
+package lab5.classtemplates.random;
 
 import java.util.Random;
 

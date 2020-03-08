@@ -1,4 +1,4 @@
-package lab5.state;
+package lab5.classtemplates.state;
 
 /**
  * Represents the state of the program

@@ -1,4 +1,4 @@
-package lab5.event;
+package lab5.classtemplates.event;
 
 import java.util.Observable;
 
@@ -9,7 +9,7 @@ import java.util.Observable;
  *
  */
 public abstract class Event extends Observable{
-	
+	private int executionTime;
 	public Event() {}
 	
 	public abstract void execute();

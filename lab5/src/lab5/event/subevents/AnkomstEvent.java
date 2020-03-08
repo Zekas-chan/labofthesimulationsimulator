@@ -1,6 +1,6 @@
 package lab5.event.subevents;
 
-import lab5.event.Event;
+import lab5.classtemplates.event.Event;
 
 public class AnkomstEvent extends Event{
 

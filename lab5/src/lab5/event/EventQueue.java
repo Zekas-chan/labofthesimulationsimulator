@@ -2,6 +2,8 @@ package lab5.event;
 
 import java.util.ArrayList;
 
+import lab5.classtemplates.event.Event;
+
 /**
  * A queue with events
  * 

@@ -1,12 +1,12 @@
 package lab5;
 
-import lab5.event.Event;
 import lab5.event.subevents.StartEvent;
 import lab5.event.subevents.StopEvent;
 import lab5.event.subevents.PlockEvent;
 import lab5.event.subevents.BetalaEvent;
+import lab5.classtemplates.event.Event;
+import lab5.classtemplates.random.RandomMin;
 import lab5.event.subevents.AnkomstEvent;
-import lab5.random.RandomMin;
 
 /**
  * Represents a costumer in a supermarket

@@ -1,4 +1,4 @@
-package lab5.state;
+package lab5.classtemplates.view;
 
 import java.util.Observable;
 import java.util.Observer;
