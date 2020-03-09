@@ -13,9 +13,7 @@ import lab5.state.MarketState;
  */
 public abstract class Event extends Observable{
 	private int executionTime;
-	public int time;
 	public MarketState marketState;
-	public Kund kund;
 	public Event() {}
 	public void timeChange (int elapsedTime){
 		time = time - elapsedTime;

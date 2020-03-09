@@ -4,11 +4,14 @@ import lab5.Kund;
 import lab5.classtemplates.event.Event;
 
 public class PlockEvent extends Event{
+	
+	public int time;
+	public Kund kund;
 
 	
 	public PlockEvent(Kund kund) {
-		time = kund.plockTid;
-		super.kund=kund;
+		this.time = kund.plockTid;
+		this.kund=kund;
 	}
 	public static void main(String[] args) {
 		

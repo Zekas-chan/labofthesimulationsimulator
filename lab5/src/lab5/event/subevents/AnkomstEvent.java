@@ -4,11 +4,14 @@ import lab5.Kund;
 import lab5.classtemplates.event.Event;
 
 public class AnkomstEvent extends Event{
+	
+	public int time;
+	public Kund kund;
 
 	public AnkomstEvent(Kund kund) {
 		// kanske ha med att kolla max antal kunder här
-		time = kund.ankomstTid;
-		super.kund=kund;
+		this.time = kund.ankomstTid;
+		this.kund=kund;
 	}
 
 	public void execute() {
