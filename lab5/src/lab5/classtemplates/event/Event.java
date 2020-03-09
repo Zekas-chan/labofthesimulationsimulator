@@ -3,6 +3,7 @@ package lab5.classtemplates.event;
 import java.util.Observable;
 
 import lab5.Kund;
+import lab5.state.MarketState;
 
 /**
  * Represents different events in a concrete way
@@ -13,9 +14,12 @@ import lab5.Kund;
 public abstract class Event extends Observable{
 	private int executionTime;
 	public int time;
+	public MarketState marketState;
 	public Kund kund;
 	public Event() {}
-	
+	public void timeChange (int elapsedTime){
+		time = time - elapsedTime;
+	}
 	public abstract void execute();
 
 }

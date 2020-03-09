@@ -25,7 +25,9 @@ public class State {
 	 */
 	public State(int time) {
 		timeMax = time;
-		
+		run=true;
 	}
-
+	public boolean isRunning() {
+		return run;
+	}
 }
