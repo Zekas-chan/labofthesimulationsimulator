@@ -40,5 +40,16 @@ public class EventQueue{
 		
 		return false;
 	}
-
+	
+	public void getNext() {
+		list.remove(0);
+	}
+	
+	public void addEvent(Event event) {
+		list.add(event);
+	}
+	
+	public boolean hasNext() {
+		return (list.size() > 0) ? true : false;
+	}
 }
