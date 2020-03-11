@@ -20,7 +20,7 @@ public class AnkomstEvent extends Event{
 		marketState.globalTime += super.time();		//När ett event körts så lägg adderas tiden till den globala körstiden
 		
 		//Skapa nytt ankomstevent / ny kund
-		if (marketState.isRunning() && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
+		if (marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
 			Kund k = new Kund();
 			k.id = marketState.id.getID();
 			eventQueue.add(k);

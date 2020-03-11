@@ -32,9 +32,11 @@ public class MarketState extends State {
 	 * Variabler/referenser relevanta under körning.
 	 */
 	public ArrayList<Kund> kunderIButiken;
+	public ArrayList<Kund> kassaKö;
 	public EventQueue eq;
-	private int ledigaKassor;
+	public int ledigaKassor;
 	private boolean öppnaKassor;
+	public boolean öppet;
 	public static void main(String[] args) {
 		
 
@@ -50,6 +52,7 @@ public class MarketState extends State {
 		super(öppetTider); //State.timeMax
 		this.eq = eq;
 		this.kunderIButiken = new ArrayList<Kund>();
+		this.kassaKö = new ArrayList<Kund>();
 		this.antalKassor = kassor;
 		this.snabbKöpsÖppettider = öppetTider;
 		this.ankomstLambda = ankomstLambda;
@@ -66,6 +69,7 @@ public class MarketState extends State {
 		 */
 		ledigaKassor = antalKassor;
 		öppnaKassor = true;
+		öppet = true;
 		
 		id = new KundID();
 	}
@@ -76,6 +80,12 @@ public class MarketState extends State {
 	 * @return 
 	 */
 	public boolean öppnaKassor() {
+		if (ledigaKassor == 0) {
+			 öppnaKassor = false;
+		}
+		else {
+			 öppnaKassor = true;
+		}
 		return öppnaKassor;
 	}
 	

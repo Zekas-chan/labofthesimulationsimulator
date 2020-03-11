@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
+import lab5.event.subevents.BetalaEvent;
 
 /**
  * A queue with events
@@ -89,6 +90,13 @@ public class EventQueue{
 	}
 	public ArrayList<Kund> getList() {
 		return list;
+	}
+	public int antalBetalaEvent() {
+		int räknare = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if(list.get(i).currentEvent instanceof BetalaEvent)
+		}
+		
 	}
 	
 	/* Detta har vi redan

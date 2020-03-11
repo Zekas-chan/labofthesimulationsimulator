@@ -23,7 +23,7 @@ public class Kund {
 	public Event currentEvent;
 	
 	//Time is described in minutes (simulated time)
-	public int maxQueueTimer;
+	public int queueTimer;
 	public int ankomstTid;
 	public int plockTid;
 	public int betalningsTid;
@@ -42,7 +42,7 @@ public class Kund {
 		ankomstTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
 		plockTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
 		betalningsTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
-		maxQueueTimer = new RandomMin(lowerRandomRange,upperRandomRange).getRand(); //Tror jag kan ha svamlat och att den här inte är nödvändig -Philip
+		queueTimer = 0;
 		
 		currentEvent = new AnkomstEvent(this);
 		

@@ -4,6 +4,7 @@ import java.util.Observable;
 
 import lab5.Kund;
 import lab5.event.EventQueue;
+import lab5.event.subevents.BetalaEvent;
 import lab5.state.MarketState;
 
 /**
@@ -42,12 +43,24 @@ public abstract class Event extends Observable{
 	protected void runNextEvent() {
 		
 		int elapsedTime = eventQueue.getList().get(0).currentEvent.time();
-		eventQueue.getList().get(0).currentEvent.execute();	//kör eventet som ligger i kö
+		if(eventQueue.antalBetalaEvent()>= marketState.ledigaKassor) {
+			for (int i = 0; i < eventQueue.getList().size(); i++) {
+				if (eventQueue.getList().get(i).currentEvent instanceof BetalaEvent) {
+					eventQueue.getList().get(i).currentEvent.harKassa;
+					//flyttarutdetsenlunganerdigPhilip
+				}
+			}
+		}
 		
 		
 		for (int i = 0; i < eventQueue.getList().size(); i++) {
 			eventQueue.getList().get(i).currentEvent.timeChange(elapsedTime);
 		}
+		
+		eventQueue.getList().get(0).currentEvent.execute();	//kör eventet som ligger i kö
+		
+		
+
 	}
 
 }
