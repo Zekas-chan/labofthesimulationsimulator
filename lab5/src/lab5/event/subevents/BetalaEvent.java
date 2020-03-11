@@ -8,12 +8,10 @@ import lab5.Simulator;
 public class BetalaEvent extends Event{
 
 	public int maxQueueTimer;
-	public int time;
-	public Kund kund;
 	
 	public BetalaEvent(Kund kund) {
-		this.time = kund.betalningsTid;
-		this.kund=kund;
+		super.time = kund.betalningsTid;
+		super.kund = kund;
 		maxQueueTimer = kund.maxQueueTimer;
 	}
 	public static void main(String[] args) {
@@ -29,15 +27,20 @@ public class BetalaEvent extends Event{
 		}
 	}
 
-	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		
 		kund.currentEvent=null;
+		marketState.kunderIButiken.remove(kund);
+		
 		if (maxQueueTimer <=0) {
 			marketState.antalMissadeKunder++;
 		}
 		else {
 			marketState.antalGenomfördaKöp++;
+			marketState.globalTime += super.time();		//När ett event körts så adderas tiden till den globala körstiden
+			
+			this.runNextEvent();
+			eventQueue.reorganize();
 		}
 		
 	}

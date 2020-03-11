@@ -3,6 +3,7 @@ package lab5;
 import lab5.classtemplates.view.View;
 import lab5.event.EventQueue;
 import lab5.event.subevents.StartEvent;
+import lab5.event.subevents.StopEvent;
 import lab5.state.MarketState;
 
 /**
@@ -15,6 +16,7 @@ public class Simulator {
 	public MarketState marketState;
 	public EventQueue eventQueue;
 	public StartEvent startEvent;
+	public StopEvent stopEvent;
 	public static void main(String[] args) {
 		Simulator s = new Simulator();
 		s.run();
@@ -26,14 +28,10 @@ public class Simulator {
 	
 	public void run() {
 		eventQueue = new EventQueue();
-		marketState = new MarketState(0, 0, 0, 0, 0, eventQueue); //(360, 5, 0, 0, 0, 0, 50);
-		startEvent = new StartEvent(marketState);
+		marketState = new MarketState(360, 5, 0, 0, 20, eventQueue); //(360, 5, 0, 0, 0, 0, 50);
+		startEvent = new StartEvent(marketState, eventQueue);
+		stopEvent = new StopEvent(marketState.snabbKöpsÖppettider);
 		View view = new View(marketState);
-		while(marketState.isRunning()) {
-			
-			
-		}
-		
 				
 	}
 

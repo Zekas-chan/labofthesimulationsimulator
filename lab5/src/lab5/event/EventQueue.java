@@ -1,7 +1,9 @@
 package lab5.event;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import lab5.Kund;
 import lab5.classtemplates.event.Event;
 
 /**
@@ -12,18 +14,17 @@ import lab5.classtemplates.event.Event;
  */
 public class EventQueue{
 	
-	private ArrayList<Event> list = new ArrayList<Event>();
+	private ArrayList<Kund> list = new ArrayList<Kund>();
 
 	public static void main(String[] args) {
-		
 
 	}
 	/**
 	 * Lägger till ett event i kön och omorganiserar den sedan.
 	 * @param e Eventet som ska läggas till.
 	 */
-	public void add(Event e) {
-		list.add(e);
+	public void add(Kund k) {
+		getList().add(k);
 		reorganize();
 	}
 	
@@ -33,16 +34,50 @@ public class EventQueue{
 	 */
 	public void reorganize() {
 		
+		//Tar bort alla null events från listan
+		for (int i = 0; i < getList().size(); i++) {
+			Kund k = getList().get(i);
+			if (k.currentEvent == null) {
+				getList().remove(i);
+			}
+		}
+		
+		//Sortering
+		ArrayList<Integer> sortedTime = new ArrayList<Integer>();
+		ArrayList<Kund> sortedKund = new ArrayList<Kund>();
+		
+		for (int i = 0; i < getList().size(); i++) {
+			Kund k = getList().get(i);
+			int time = k.currentEvent.time();
+			
+			sortedTime.add(time);
+			
+		}
+		
+		Collections.sort(sortedTime);
+		
+		for (int i = 0; i < sortedTime.size(); i++) {
+			for (int j = 0; j < getList().size(); j++) {
+				if (sortedTime.get(i) == getList().get(j).currentEvent.time()) {
+					sortedKund.add(getList().get(j));
+					break;
+				}
+				
+			}
+		}
+		
+		list = sortedKund;
+		
 	}
 	
 	public int size() {
 		
-		return list.size();
+		return getList().size();
 	}
 
 	public boolean isEmpty() {
 		
-		if (list.size() == 0) {
+		if (getList().size() == 0) {
 			return true;
 		}
 		
@@ -50,9 +85,13 @@ public class EventQueue{
 	}
 	
 	public void getNext() {
-		list.remove(0);
+		getList().get(0);
+	}
+	public ArrayList<Kund> getList() {
+		return list;
 	}
 	
+	/* Detta har vi redan
 	public void addEvent(Event event) {
 		list.add(event);
 	}
@@ -60,5 +99,5 @@ public class EventQueue{
 	public boolean hasNext() {
 		return (list.size() > 0) ? true : false;
 		//return isEmpty(); //fungerar också
-	}
+	}*/
 }

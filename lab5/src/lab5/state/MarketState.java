@@ -1,10 +1,16 @@
 package lab5.state;
 
+import java.util.ArrayList;
+
 import lab5.Kund;
+import lab5.Kund.KundID;
 import lab5.classtemplates.state.*;
 import lab5.event.EventQueue;
 
 public class MarketState extends State {
+	
+	public KundID id;
+	
 	/*
 	 * Variabler för parametrar.
 	 */
@@ -25,7 +31,7 @@ public class MarketState extends State {
 	/*
 	 * Variabler/referenser relevanta under körning.
 	 */
-	private Kund[] kunderIButiken;
+	public ArrayList<Kund> kunderIButiken;
 	public EventQueue eq;
 	private int ledigaKassor;
 	private boolean öppnaKassor;
@@ -42,8 +48,8 @@ public class MarketState extends State {
 		 * Parameterblock
 		 */
 		super(öppetTider); //State.timeMax
-		this.kunderIButiken = new Kund[maxKunder];
 		this.eq = eq;
+		this.kunderIButiken = new ArrayList<Kund>();
 		this.antalKassor = kassor;
 		this.snabbKöpsÖppettider = öppetTider;
 		this.ankomstLambda = ankomstLambda;
@@ -60,6 +66,8 @@ public class MarketState extends State {
 		 */
 		ledigaKassor = antalKassor;
 		öppnaKassor = true;
+		
+		id = new KundID();
 	}
 	
 	/**
@@ -69,6 +77,19 @@ public class MarketState extends State {
 	 */
 	public boolean öppnaKassor() {
 		return öppnaKassor;
+	}
+	
+	public class KundID{
+		
+		private int id = 0;
+		
+		public int getID() {
+			
+			id++;
+			
+			return id;
+		}
+		
 	}
 
 }

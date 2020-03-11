@@ -8,10 +8,13 @@ public class StopEvent extends Event{
 		
 
 	}
+	
+	public StopEvent(int time) {
+		super.time = time;
+	}
 
-	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		marketState.run = false;
 		
 	}
 

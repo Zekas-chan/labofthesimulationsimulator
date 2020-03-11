@@ -18,6 +18,8 @@ public class Kund {
 	
 	private final int lowerRandomRange = 1, upperRandomRange = 10;
 	
+	public int id;
+	
 	public Event currentEvent;
 	
 	//Time is described in minutes (simulated time)
@@ -32,12 +34,6 @@ public class Kund {
 	 */
 	public static void main(String[] args) {
 		
-		Kund kund1 = new Kund();
-		
-		System.out.println(kund1.ankomstTid);
-		System.out.println(kund1.plockTid);
-		System.out.println(kund1.betalningsTid);
-		
 	}
 	
 	public Kund() {
@@ -48,7 +44,8 @@ public class Kund {
 		betalningsTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
 		maxQueueTimer = new RandomMin(lowerRandomRange,upperRandomRange).getRand(); //Tror jag kan ha svamlat och att den här inte är nödvändig -Philip
 		
-		//currentEvent = new StartEvent(); //ska inte finnas här?
+		currentEvent = new AnkomstEvent(this);
+		
 	}
-
 }
+
