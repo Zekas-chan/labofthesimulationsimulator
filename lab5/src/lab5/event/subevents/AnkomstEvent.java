@@ -23,6 +23,7 @@ public class AnkomstEvent extends Event{
 		if (marketState.isRunning()) {
 			Kund k = new Kund();
 			eventQueue.add(k);
+			
 		}
 		
 		super.runNextEvent();

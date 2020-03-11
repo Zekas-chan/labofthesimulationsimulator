@@ -32,12 +32,6 @@ public class Kund {
 	 */
 	public static void main(String[] args) {
 		
-		Kund kund1 = new Kund();
-		
-		System.out.println(kund1.ankomstTid);
-		System.out.println(kund1.plockTid);
-		System.out.println(kund1.betalningsTid);
-		
 	}
 	
 	public Kund() {
