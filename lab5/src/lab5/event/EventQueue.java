@@ -24,7 +24,7 @@ public class EventQueue{
 	 * @param e Eventet som ska läggas till.
 	 */
 	public void add(Kund k) {
-		list.add(k);
+		getList().add(k);
 		reorganize();
 	}
 	
@@ -35,10 +35,10 @@ public class EventQueue{
 	public void reorganize() {
 		
 		//Tar bort alla null events från listan
-		for (int i = 0; i < list.size(); i++) {
-			Kund k = list.get(i);
+		for (int i = 0; i < getList().size(); i++) {
+			Kund k = getList().get(i);
 			if (k.currentEvent == null) {
-				list.remove(i);
+				getList().remove(i);
 			}
 		}
 		
@@ -46,8 +46,8 @@ public class EventQueue{
 		ArrayList<Integer> sortedTime = new ArrayList<Integer>();
 		ArrayList<Kund> sortedKund = new ArrayList<Kund>();
 		
-		for (int i = 0; i < list.size(); i++) {
-			Kund k = list.get(i);
+		for (int i = 0; i < getList().size(); i++) {
+			Kund k = getList().get(i);
 			int time = k.currentEvent.time();
 			
 			sortedTime.add(time);
@@ -57,9 +57,9 @@ public class EventQueue{
 		Collections.sort(sortedTime);
 		
 		for (int i = 0; i < sortedTime.size(); i++) {
-			for (int j = 0; j < list.size(); j++) {
-				if (sortedTime.get(i) == list.get(j).currentEvent.time()) {
-					sortedKund.add(list.get(j));
+			for (int j = 0; j < getList().size(); j++) {
+				if (sortedTime.get(i) == getList().get(j).currentEvent.time()) {
+					sortedKund.add(getList().get(j));
 					break;
 				}
 				
@@ -72,12 +72,12 @@ public class EventQueue{
 	
 	public int size() {
 		
-		return list.size();
+		return getList().size();
 	}
 
 	public boolean isEmpty() {
 		
-		if (list.size() == 0) {
+		if (getList().size() == 0) {
 			return true;
 		}
 		
@@ -85,7 +85,10 @@ public class EventQueue{
 	}
 	
 	public void getNext() {
-		list.remove(0);
+		getList().get(0);
+	}
+	public ArrayList<Kund> getList() {
+		return list;
 	}
 	
 	/* Detta har vi redan

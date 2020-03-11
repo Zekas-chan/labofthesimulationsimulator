@@ -25,8 +25,8 @@ public abstract class Event extends Observable{
 		this.marketState = marketState;
 	}*/
 	
-	public void timeChange (int elapsedTime, MarketState marketState){
-		//executionTime = time - elapsedTime;
+	public void timeChange (int elapsedTime){
+		time -= elapsedTime;
 	}
 	
 	public abstract void execute();
@@ -34,6 +34,20 @@ public abstract class Event extends Observable{
 	public int time() {
 		
 		return this.time;
+	}
+	
+	/**
+	 * Kör nästa event och drar bort tiden ifrån resten
+	 */
+	protected void runNextEvent() {
+		
+		int elapsedTime = eventQueue.getList().get(0).currentEvent.time();
+		eventQueue.getList().get(0).currentEvent.execute();	//kör eventet som ligger i kö
+		
+		
+		for (int i = 0; i < eventQueue.getList().size(); i++) {
+			eventQueue.getList().get(i).currentEvent.timeChange(elapsedTime);
+		}
 	}
 
 }

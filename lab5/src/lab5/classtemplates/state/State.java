@@ -27,7 +27,7 @@ public class State extends Observable {
 	 */
 	public State(int time) {
 		timeMax = time;
-		run=true;
+		run = true;
 	}
 	public boolean isRunning() {
 		return run;

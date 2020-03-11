@@ -16,9 +16,11 @@ public class PlockEvent extends Event{
 
 
 	public void execute() {
-		// TODO Auto-generated method stub
 		kund.currentEvent = new BetalaEvent(kund);
+		marketState.globalTime += super.time();		//När ett event körts så lägg adderas tiden till den globala körstiden
 		
+		super.runNextEvent();
+		eventQueue.reorganize();
 	}
 
 }

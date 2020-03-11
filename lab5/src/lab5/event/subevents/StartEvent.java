@@ -12,12 +12,15 @@ public class StartEvent extends Event{
 
 	}
 
-	@Override
 	public void execute() {
 		super.marketState.eq.add(new Kund()); //Skapar en kund och med det, en ankomstevent, vilket läggs till i EventQueue
 	}
 	public StartEvent(MarketState ms, EventQueue eq) {
 		super.marketState = ms;
 		super.eventQueue = eq;
+		super.time = 0;
+		
+		super.runNextEvent();
+		eventQueue.reorganize();
 	}
 }

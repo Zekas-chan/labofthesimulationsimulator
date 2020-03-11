@@ -29,13 +29,17 @@ public class BetalaEvent extends Event{
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		
 		kund.currentEvent=null;
 		if (maxQueueTimer <=0) {
 			marketState.antalMissadeKunder++;
 		}
 		else {
 			marketState.antalGenomfördaKöp++;
+			marketState.globalTime += super.time();		//När ett event körts så adderas tiden till den globala körstiden
+			
+			this.runNextEvent();
+			eventQueue.reorganize();
 		}
 		
 	}
