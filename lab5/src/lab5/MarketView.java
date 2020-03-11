@@ -1,6 +1,6 @@
 package lab5;
 
-import java.awt.Event;
+import lab5.classtemplates.event.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -38,7 +38,7 @@ public class MarketView extends View implements Observer {
 	}
 	
 	private void eventDetails(Event a) {
-		System.out.print(ms.globalTime+"	"+a.toString()+"	"+a.Kund.getIndex()+"	"+isOpen()+"	"+ms.öppnaKassor()+"	"+ms.tidOverksamKassa+"	"+ms.getKundantal+"	"+ms.antalGenomfördaKöp+"	"+ms.antalMissadeKunder+"	"+ms.unikaKöandeKunder+"	"+ms.tidKassaKö+"	"+ms.KassaKö.length+"	"+köTillSträng());
+		System.out.print(ms.globalTime+"	"+a.toString()+"	"+a.kund.id+"	"+isOpen()+"	"+ms.öppnaKassor()+"	"+ms.tidOverksamKassa+"	"+ms.kunderIButiken.size()+"	"+ms.antalGenomfördaKöp+"	"+ms.antalMissadeKunder+"	"+ms.unikaKöandeKunder+"	"+ms.tidKassaKö+"	"+ms.KassaKö.length+"	"+köTillSträng());
 	}
 	
 	private String isOpen() {
@@ -52,7 +52,7 @@ public class MarketView extends View implements Observer {
 	private String köTillSträng() {
 		String arraystr = "[";
 		for(int i = 0; i < ms.KassaKö.length; i++) {
-			arraystr += KassaKö[i].kund.getIndex()+", ";
+			arraystr += KassaKö[i].kund.id+", ";
 		}
 		arraystr += "]";
 		return arraystr;
