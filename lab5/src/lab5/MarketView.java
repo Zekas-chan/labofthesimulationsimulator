@@ -9,7 +9,7 @@ import lab5.state.MarketState;
 
 /**
  * Concrete view of the program
- * 
+ * WORK IN PROGRESS
  * @author 
  *
  */
