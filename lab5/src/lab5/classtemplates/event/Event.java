@@ -20,7 +20,7 @@ public abstract class Event extends Observable{
 	public int time;
 	public Kund kund;
 	
-	/*
+	/* Behövs inte
 	public Event(MarketState marketState) {
 		this.marketState = marketState;
 	}*/

@@ -13,7 +13,6 @@ public class StopEvent extends Event{
 		super.time = time;
 	}
 
-	@Override
 	public void execute() {
 		marketState.run = false;
 		

@@ -27,7 +27,6 @@ public class BetalaEvent extends Event{
 		}
 	}
 
-	@Override
 	public void execute() {
 		
 		kund.currentEvent=null;
