@@ -26,8 +26,7 @@ public class Kund {
 	public int plockTid;
 	public int betalningsTid;
 	
-	//hej på dig med
-	//Philip hälsar också
+	
 	/*
 	 * Enbart Spår i main
 	 */
@@ -47,9 +46,9 @@ public class Kund {
 		ankomstTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
 		plockTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
 		betalningsTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
-		maxQueueTimer = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
+		maxQueueTimer = new RandomMin(lowerRandomRange,upperRandomRange).getRand(); //Tror jag kan ha svamlat och att den här inte är nödvändig -Philip
 		
-		currentEvent = new StartEvent();
+		//currentEvent = new StartEvent(); //ska inte finnas här?
 	}
 
 }

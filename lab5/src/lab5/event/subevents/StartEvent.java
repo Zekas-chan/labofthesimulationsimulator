@@ -12,10 +12,9 @@ public class StartEvent extends Event{
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		
+		super.marketState.eq.addEvent(new AnkomstEvent(null, super.marketState)); //ta bort null om AnkomstEvent ska skapa kunden
 	}
 	public StartEvent(MarketState ms) {
-		super.marketState = ms;
+		super(ms);
 	}
 }

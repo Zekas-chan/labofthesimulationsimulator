@@ -18,6 +18,14 @@ public class EventQueue{
 		
 
 	}
+	/**
+	 * Lägger till ett event i kön och omorganiserar den sedan.
+	 * @param e Eventet som ska läggas till.
+	 */
+	public void add(Event e) {
+		list.add(e);
+		reorganize();
+	}
 	
 	
 	/**
@@ -51,5 +59,6 @@ public class EventQueue{
 	
 	public boolean hasNext() {
 		return (list.size() > 0) ? true : false;
+		//return isEmpty(); //fungerar också
 	}
 }

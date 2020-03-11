@@ -2,31 +2,64 @@ package lab5.state;
 
 import lab5.Kund;
 import lab5.classtemplates.state.*;
+import lab5.event.EventQueue;
 
 public class MarketState extends State {
-	
+	/*
+	 * Variabler för parametrar.
+	 */
 	public int antalKassor;
 	public int maxAntalKunder;
 	public int snabbKöpsÖppettider;
+	public int ankomstLambda;
+	public int frö;
 	
+	/*
+	 * Variabler för statistik.
+	 */
 	public int antalGenomfördaKöp;
 	public int antalMissadeKunder;
 	public int tidOverksamKassa;
 	public int tidKassaKö;
-
-	private int ledigaKassor;
+	
+	/*
+	 * Variabler/referenser relevanta under körning.
+	 */
 	private Kund[] kunderIButiken;
+	public EventQueue eq;
+	private int ledigaKassor;
+	private boolean öppnaKassor;
 	public static void main(String[] args) {
 		
 
 	}
 	
-	/**
-	 * Constructor
+	/*
+	 * 
 	 */
-	public MarketState(int time, int registers, int arrivalLambda, int gatherTime, int payTime, int seed, int storeCapacity) {
-		super(time); //java gnäller om saker som finns i superklassen inte konstrueras där
-		this.kunderIButiken = new Kund[storeCapacity];
+	public MarketState(int öppetTider, int kassor, int ankomstLambda, int frö, int maxKunder, EventQueue eq) {
+		/*
+		 * Parameterblock
+		 */
+		super(öppetTider); //State.timeMax
+		this.kunderIButiken = new Kund[maxKunder];
+		this.eq = eq;
+		this.antalKassor = kassor;
+		this.snabbKöpsÖppettider = öppetTider;
+		this.ankomstLambda = ankomstLambda;
+		this.frö = frö;
+		/*
+		 * Initiering av statistikblocket.
+		 */
+		antalGenomfördaKöp	= 0;
+		antalMissadeKunder 	= 0;
+		tidOverksamKassa 	= 0;
+		tidKassaKö 			= 0;
+		/*
+		 * Initiering av körningsvariabler;
+		 */
+		ledigaKassor = antalKassor;
+		öppnaKassor = true;
 	}
 	
 	/**
@@ -35,8 +68,7 @@ public class MarketState extends State {
 	 * @return 
 	 */
 	public boolean öppnaKassor() {
-		
-		return false;
+		return öppnaKassor;
 	}
 
 }
