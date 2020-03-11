@@ -94,8 +94,11 @@ public class EventQueue{
 	public int antalBetalaEvent() {
 		int räknare = 0;
 		for (int i = 0; i < list.size(); i++) {
-			if(list.get(i).currentEvent instanceof BetalaEvent)
+			if(list.get(i).currentEvent instanceof BetalaEvent) {
+				räknare++;
+			}
 		}
+		return räknare;
 		
 	}
 	
