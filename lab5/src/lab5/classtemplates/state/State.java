@@ -1,5 +1,7 @@
 package lab5.classtemplates.state;
 
+import java.util.Observable;
+
 /**
  * Represents the state of the program
  * in a concrete way
@@ -7,7 +9,7 @@ package lab5.classtemplates.state;
  * @author 
  *
  */
-public class State {
+public class State extends Observable {
 	
 	private boolean run;	//The emergancy break
 	public int globalTime;

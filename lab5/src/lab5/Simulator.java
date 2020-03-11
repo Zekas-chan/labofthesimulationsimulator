@@ -1,5 +1,6 @@
 package lab5;
 
+import lab5.classtemplates.view.View;
 import lab5.event.EventQueue;
 import lab5.event.subevents.StartEvent;
 import lab5.state.MarketState;
@@ -24,10 +25,10 @@ public class Simulator {
 	 */
 	
 	public void run() {
-		
-		marketState = new MarketState(360, 5, 0, 0, 0, 0, 50);
 		eventQueue = new EventQueue();
+		marketState = new MarketState(0, 0, 0, 0, 0, eventQueue); //(360, 5, 0, 0, 0, 0, 50);
 		startEvent = new StartEvent(marketState);
+		View view = new View(marketState);
 		while(marketState.isRunning()) {
 			
 			
