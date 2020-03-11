@@ -18,6 +18,8 @@ public class Kund {
 	
 	private final int lowerRandomRange = 1, upperRandomRange = 10;
 	
+	public int id;
+	
 	public Event currentEvent;
 	
 	//Time is described in minutes (simulated time)
@@ -47,5 +49,5 @@ public class Kund {
 		currentEvent = new AnkomstEvent(this);
 		
 	}
-
 }
+

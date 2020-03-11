@@ -31,6 +31,8 @@ public class BetalaEvent extends Event{
 	public void execute() {
 		
 		kund.currentEvent=null;
+		marketState.kunderIButiken.remove(kund);
+		
 		if (maxQueueTimer <=0) {
 			marketState.antalMissadeKunder++;
 		}
