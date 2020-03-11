@@ -2,6 +2,7 @@ package lab5.event;
 
 import java.util.ArrayList;
 
+import lab5.Kund;
 import lab5.classtemplates.event.Event;
 
 /**
@@ -12,7 +13,7 @@ import lab5.classtemplates.event.Event;
  */
 public class EventQueue{
 	
-	private ArrayList<Event> list = new ArrayList<Event>();
+	private ArrayList<Kund> list = new ArrayList<Kund>();
 
 	public static void main(String[] args) {
 		
@@ -22,8 +23,8 @@ public class EventQueue{
 	 * Lägger till ett event i kön och omorganiserar den sedan.
 	 * @param e Eventet som ska läggas till.
 	 */
-	public void add(Event e) {
-		list.add(e);
+	public void add(Kund k) {
+		list.add(k);
 		reorganize();
 	}
 	
@@ -32,6 +33,14 @@ public class EventQueue{
 	 * Reorganizes the list
 	 */
 	public void reorganize() {
+		
+		//Tar bort alla null events från listan
+		for (int i = 0; i < list.size()-1; i++) {
+			Kund k = list.get(i);
+			if (k.currentEvent == null) {
+				list.remove(i);
+			}
+		}
 		
 	}
 	
@@ -53,6 +62,7 @@ public class EventQueue{
 		list.remove(0);
 	}
 	
+	/* Detta har vi redan
 	public void addEvent(Event event) {
 		list.add(event);
 	}
@@ -60,5 +70,5 @@ public class EventQueue{
 	public boolean hasNext() {
 		return (list.size() > 0) ? true : false;
 		//return isEmpty(); //fungerar också
-	}
+	}*/
 }
