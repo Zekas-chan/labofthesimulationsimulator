@@ -1,6 +1,7 @@
 package lab5.event;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
@@ -16,7 +17,6 @@ public class EventQueue{
 	private ArrayList<Kund> list = new ArrayList<Kund>();
 
 	public static void main(String[] args) {
-		
 
 	}
 	/**
@@ -35,12 +35,38 @@ public class EventQueue{
 	public void reorganize() {
 		
 		//Tar bort alla null events från listan
-		for (int i = 0; i < list.size()-1; i++) {
+		for (int i = 0; i < list.size(); i++) {
 			Kund k = list.get(i);
 			if (k.currentEvent == null) {
 				list.remove(i);
 			}
 		}
+		
+		//Sortering
+		ArrayList<Integer> sortedTime = new ArrayList<Integer>();
+		ArrayList<Kund> sortedKund = new ArrayList<Kund>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			Kund k = list.get(i);
+			int time = k.currentEvent.time();
+			
+			sortedTime.add(time);
+			
+		}
+		
+		Collections.sort(sortedTime);
+		
+		for (int i = 0; i < sortedTime.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if (sortedTime.get(i) == list.get(j).currentEvent.time()) {
+					sortedKund.add(list.get(j));
+					break;
+				}
+				
+			}
+		}
+		
+		list = sortedKund;
 		
 	}
 	

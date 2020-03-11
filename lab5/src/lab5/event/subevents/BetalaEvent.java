@@ -8,12 +8,10 @@ import lab5.Simulator;
 public class BetalaEvent extends Event{
 
 	public int maxQueueTimer;
-	public int time;
-	public Kund kund;
 	
 	public BetalaEvent(Kund kund) {
-		this.time = kund.betalningsTid;
-		this.kund=kund;
+		super.time = kund.betalningsTid;
+		super.kund = kund;
 		maxQueueTimer = kund.maxQueueTimer;
 	}
 	public static void main(String[] args) {

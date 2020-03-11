@@ -5,21 +5,22 @@ import lab5.classtemplates.event.Event;
 import lab5.state.MarketState;
 
 public class AnkomstEvent extends Event{
-	
-	public int time;
-	public Kund kund;
 	//private MarketState marketstate;
 
-	public AnkomstEvent(Kund kund, MarketState marketstate) {
+	public AnkomstEvent(Kund kund) {
 		// kanske ha med att kolla max antal kunder här
-		super(marketstate);
-		this.time = kund.ankomstTid + super.marketState.globalTime; //nuvarande tid + tiden det tar innan det händer
-		this.kund=kund;
+		
+		super.time = kund.ankomstTid + super.marketState.globalTime; //nuvarande tid + tiden det tar innan det händer
+		super.kund = kund;
 		
 	}
 
 	public void execute() {
 		kund.currentEvent = new PlockEvent(kund);
+		
+		//Skapa nytt ankomstevent / ny kund
+		Kund k = new Kund();
+		eventQueue.add(k);
 		
 	}
 	

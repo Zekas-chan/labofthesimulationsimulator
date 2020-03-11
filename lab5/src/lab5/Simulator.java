@@ -27,7 +27,7 @@ public class Simulator {
 	public void run() {
 		eventQueue = new EventQueue();
 		marketState = new MarketState(0, 0, 0, 0, 0, eventQueue); //(360, 5, 0, 0, 0, 0, 50);
-		startEvent = new StartEvent(marketState);
+		startEvent = new StartEvent(marketState, eventQueue);
 		View view = new View(marketState);
 		while(marketState.isRunning()) {
 			
