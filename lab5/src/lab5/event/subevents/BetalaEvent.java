@@ -2,10 +2,11 @@ package lab5.event.subevents;
 
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
+import lab5.event.MarketEvent;
 import lab5.state.MarketState;
 import lab5.Simulator;
 
-public class BetalaEvent extends Event{
+public class BetalaEvent extends MarketEvent{
 
 	public int queueTimer;
 	public boolean harKassa;

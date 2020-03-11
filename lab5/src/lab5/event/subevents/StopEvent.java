@@ -1,8 +1,8 @@
 package lab5.event.subevents;
 
-import lab5.classtemplates.event.Event;
+import lab5.event.MarketEvent;
 
-public class StopEvent extends Event{
+public class StopEvent extends MarketEvent{
 
 	public static void main(String[] args) {
 		

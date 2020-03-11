@@ -2,8 +2,9 @@ package lab5.event.subevents;
 
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
+import lab5.event.MarketEvent;
 
-public class PlockEvent extends Event{
+public class PlockEvent extends MarketEvent{
 	
 	public PlockEvent(Kund kund) {
 		super.time = kund.plockTid;

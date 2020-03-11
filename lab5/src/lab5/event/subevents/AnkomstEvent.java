@@ -3,9 +3,10 @@ package lab5.event.subevents;
 import lab5.Kund;
 import lab5.Kund.KundID;
 import lab5.classtemplates.event.Event;
+import lab5.event.MarketEvent;
 import lab5.state.MarketState;
 
-public class AnkomstEvent extends Event{
+public class AnkomstEvent extends MarketEvent{
 	//private MarketState marketstate;
 
 	public AnkomstEvent(Kund kund) {
