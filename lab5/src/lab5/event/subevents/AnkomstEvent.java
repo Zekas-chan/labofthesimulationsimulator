@@ -20,9 +20,10 @@ public class AnkomstEvent extends Event{
 		marketState.globalTime += super.time();		//När ett event körts så lägg adderas tiden till den globala körstiden
 		
 		//Skapa nytt ankomstevent / ny kund
-		Kund k = new Kund();
-		eventQueue.add(k);
-		
+		if (marketState.isRunning()) {
+			Kund k = new Kund();
+			eventQueue.add(k);
+		}
 		
 		super.runNextEvent();
 		eventQueue.reorganize();

@@ -11,9 +11,9 @@ import java.util.Observable;
  */
 public class State extends Observable {
 	
-	private boolean run;	//The emergancy break
+	public boolean run;	//The emergancy break
 	public int globalTime;
-	private int timeMax;
+	public int timeMax;
 	
 	
 //	public static void main(String[] args) {
