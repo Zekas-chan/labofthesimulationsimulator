@@ -9,7 +9,7 @@ import lab5.state.MarketState;
 /**
  * Runs the simulation
  * 
- * @author 
+ * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */
 public class Simulator {
@@ -27,7 +27,6 @@ public class Simulator {
 	/**
 	 * This method runs the simulation
 	 */
-	
 	public void run() {
 		eventQueue = new EventQueue();
 		marketState = new MarketState(360, 5, 0, 0, 20, eventQueue); //(360, 5, 0, 0, 0, 0, 50);

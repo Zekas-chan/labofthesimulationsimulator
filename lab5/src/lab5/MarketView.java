@@ -11,7 +11,7 @@ import lab5.state.MarketState;
 /**
  * Concrete view of the program.
  * 
- * @author
+ * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */
 public class MarketView extends View implements Observer {

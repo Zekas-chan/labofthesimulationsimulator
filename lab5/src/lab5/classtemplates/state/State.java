@@ -6,7 +6,7 @@ import java.util.Observable;
  * Represents the state of the program
  * in a concrete way
  * 
- * @author 
+ * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */
 public class State extends Observable {
@@ -22,13 +22,17 @@ public class State extends Observable {
 //	}
 	
 	/**
-	 * Constructor
-	 * @param time
+	 * Konstruerar ett State.
+	 * @param time Starttiden för tillståndet.
 	 */
 	public State(int time) {
 		timeMax = time;
 		run = true;
 	}
+	/**
+	 * Kollar om simuleringen körs.
+	 * @return True om den körs, annars false.
+	 */
 	public boolean isRunning() {
 		return run;
 	}

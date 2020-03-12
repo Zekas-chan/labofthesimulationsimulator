@@ -6,7 +6,11 @@ import lab5.Kund;
 import lab5.classtemplates.event.Event;
 import lab5.event.subevents.BetalaEvent;
 import lab5.state.MarketState;
-
+/**
+ * 
+ * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
+ *
+ */
 public class MarketEvent extends Event {
 
 	public MarketState marketState;

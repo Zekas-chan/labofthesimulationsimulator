@@ -9,9 +9,9 @@ import lab5.classtemplates.random.RandomMin;
 import lab5.event.subevents.AnkomstEvent;
 
 /**
- * Represents a costumer in a supermarket
+ * Represents a customer in a supermarket
  * 
- * @author 
+ * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */
 public class Kund {
