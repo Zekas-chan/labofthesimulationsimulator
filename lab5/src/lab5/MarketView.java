@@ -15,6 +15,7 @@ import lab5.state.MarketState;
  */
 public class MarketView extends View implements Observer {
 	MarketState ms;
+	
 	public MarketView(MarketState ms){
 		this.ms = ms;
 		ms.addObserver(this);
@@ -38,11 +39,11 @@ public class MarketView extends View implements Observer {
 	}
 	
 	private void eventDetails(Event a) {
-		System.out.print(ms.globalTime+"	"+a.toString()+"	"+a.kund.id+"	"+isOpen()+"	"+ms.öppnaKassor()+"	"+ms.tidOverksamKassa+"	"+ms.kunderIButiken.size()+"	"+ms.antalGenomfördaKöp+"	"+ms.antalMissadeKunder+"	"+ms.unikaKöandeKunder+"	"+ms.tidKassaKö+"	"+ms.KassaKö.length+"	"+köTillSträng());
+		System.out.print(ms.globalTime+"	"+a.toString()+"	"+a.kund.id+"	"+isOpen()+"	"+ms.öppnaKassor()+"	"+ms.tidOverksamKassa+"	"+ms.kunderIButiken.size()+"	"+ms.antalGenomfördaKöp+"	"+ms.antalMissadeKunder+"	"+ms.unikaKöandeKunder+"	"+ms.tidKassaKö+"	"+ms.kassaKö.length+"	"+köTillSträng());
 	}
 	
 	private String isOpen() {
-		if(ms.butikÖppen) {
+		if(ms.öppet) {
 			return "Ö";
 		}else {
 			return "S";
