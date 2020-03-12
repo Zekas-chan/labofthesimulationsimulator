@@ -12,7 +12,7 @@ public class AnkomstEvent extends MarketEvent{
 	public AnkomstEvent(Kund kund) {
 		// kanske ha med att kolla max antal kunder här
 		
-		super.time = kund.ankomstTid + super.marketState.globalTime; //nuvarande tid + tiden det tar innan det händer
+		super.time = kund.ankomstTid; //nuvarande tid + tiden det tar innan det händer
 		super.kund = kund;
 	}
 
