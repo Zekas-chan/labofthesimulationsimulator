@@ -14,8 +14,14 @@ public class StartEvent extends MarketEvent{
 	}
 
 	public void execute() {
-		super.eventQueue.add(new Kund()); //Skapar en kund och med det, en ankomstevent, vilket läggs till i EventQueue
+		
+		Kund k = new Kund();
+		k.id = marketState.getID();
+		System.out.println(k.id + " ID i starteevent");  //Spår
+		eventQueue.add(k.currentEvent);
+		
 	}
+		
 	public StartEvent(MarketState ms, EventQueue eq) {
 		super.marketState = ms;
 		super.eventQueue = eq;
