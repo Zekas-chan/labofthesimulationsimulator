@@ -26,7 +26,7 @@ public class MarketEvent extends Event {
 		int elapsedTime = eventQueue.getList().get(0).currentEvent.time();
 
 		ArrayList<Kund> betalaLista = new ArrayList<Kund>();
-
+		System.out.println("marketeventrunnext");
 		if (eventQueue.antalBetalaEvent() >= marketState.ledigaKassor) {
 			for (int i = 0; i < eventQueue.getList().size(); i++) {
 				if (eventQueue.getList().get(i).currentEvent instanceof BetalaEvent) {
@@ -45,14 +45,18 @@ public class MarketEvent extends Event {
 		for (int i = 0; i < eventQueue.getList().size(); i++) {
 			eventQueue.getList().get(i).currentEvent.timeChange(elapsedTime);
 		}
-
+		System.out.println("kommervi till try");
 		try {
-			eventQueue.getList().get(0).currentEvent.execute(); // kör eventet som ligger i kö
+			System.out.println(eventQueue.getList().get(0).currentEvent);
+			//eventQueue.getList().get(0).currentEvent.execute(); // kör eventet som ligger i kö
+			this.execute(eventQueue.getList().get(0).currentEvent);
+			System.out.println("tryen gjord i tryen");
 		}
 
 		catch (NullPointerException e) {
 			eventQueue.reorganize();
 		}
+		eventQueue.reorganize();
 
 	}
 
@@ -60,8 +64,9 @@ public class MarketEvent extends Event {
 		this.harKassa = harKassa;
 	}
 
-	public void execute() {
-
+	public void execute(Event e) {
+		System.out.println("execute");
+		e.execute();
 	}
 
 }

@@ -14,23 +14,32 @@ public class AnkomstEvent extends MarketEvent{
 		
 		super.time = kund.ankomstTid; //nuvarande tid + tiden det tar innan det händer
 		super.kund = kund;
+		
+		System.out.println("ankomstevent skapad");
 	}
 
 	public void execute() {
-		kund.currentEvent = new PlockEvent(kund);
-		marketState.globalTime += super.time();		//När ett event körts så lägg adderas tiden till den globala körstiden
-		
+		System.out.println("ankexe");
+			//När ett event körts så lägg adderas tiden till den globala körstiden
+		System.out.println("försökerskapakund");
 		//Skapa nytt ankomstevent / ny kund
+		
 		if (marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
+			System.out.println("pre ny kund");
 			Kund k = new Kund();
-			k.id = marketState.id.getID();
+			System.out.println(k + " : KUND");
+			int i = marketState.getID();
+			k.id = i;
+			System.out.println(" ny kund");
 			eventQueue.add(k);
 			marketState.kunderIButiken.add(k);
+			System.out.println("efternykund");
 		}
 		else {
 			marketState.antalMissadeKunder++;
 		}
-		
+		kund.currentEvent = new PlockEvent(kund);
+		marketState.globalTime += super.time();	
 		super.runNextEvent();
 		eventQueue.reorganize();
 	}

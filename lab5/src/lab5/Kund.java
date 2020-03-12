@@ -44,6 +44,8 @@ public class Kund {
 		betalningsTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
 		queueTimer = 0;
 		
+		System.out.println("Ny kund skapad");
+		
 		currentEvent = new AnkomstEvent(this);
 		
 	}

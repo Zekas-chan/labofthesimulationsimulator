@@ -68,7 +68,7 @@ public class EventQueue{
 		}
 		
 		list = sortedKund;
-		
+		System.out.println(list);
 	}
 	
 	public int size() {

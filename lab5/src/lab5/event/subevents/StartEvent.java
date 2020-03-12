@@ -21,6 +21,7 @@ public class StartEvent extends MarketEvent{
 		super.eventQueue = eq;
 		super.time = 0;
 		this.execute();
+		System.out.println("kommerdutillrunnextevent?");
 		super.runNextEvent();
 		eventQueue.reorganize();
 	}

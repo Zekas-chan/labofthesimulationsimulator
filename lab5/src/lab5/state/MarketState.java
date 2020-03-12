@@ -9,7 +9,7 @@ import lab5.event.EventQueue;
 
 public class MarketState extends State {
 	
-	public KundID id;
+	public int kundID;
 	
 	/*
 	 * Variabler för parametrar.
@@ -75,7 +75,13 @@ public class MarketState extends State {
 		öppnaKassor = true;
 		öppet = true;
 		
-		id = new KundID();
+		this.kundID = 0;
+	}
+	
+	public int getID() {
+		kundID++;
+		System.out.println(kundID + " id");
+		return this.kundID;
 	}
 	
 	/**
@@ -91,19 +97,6 @@ public class MarketState extends State {
 			 öppnaKassor = true;
 		}
 		return öppnaKassor;
-	}
-	
-	public class KundID{
-		
-		private int id = 0;
-		
-		public int getID() {
-			
-			id++;
-			
-			return id;
-		}
-		
 	}
 
 }
