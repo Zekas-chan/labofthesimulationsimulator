@@ -26,6 +26,8 @@ public class MarketEvent extends Event {
 	 * Kör nästa event och drar bort tiden ifrån resten
 	 */
 	public void runNextEvent() {
+		
+		System.out.println(marketState.öppet + "ms öppet i MarketEvent");
 
 		int elapsedTime = eventQueue.getList().get(0).time();
 		
@@ -49,33 +51,28 @@ public class MarketEvent extends Event {
 		
 		//Kör execute på nästa event i kön
 		System.out.println("kommervi till try");
-		try {
-			System.out.println(eventQueue.getList().get(0));
-			//eventQueue.getList().get(0).execute(); // kör eventet som ligger i kö
-			this.execute(eventQueue.getList().get(0));
-			System.out.println("tryen gjord i tryen");
-		}
-
-		catch (NullPointerException e) {
-			eventQueue.reorganize();
-		}
+		System.out.println(eventQueue.getList().get(0) + " först i listan, från MArketEvent");
+		
+		//this.execute(eventQueue.getList().get(0));
+		
+		eventQueue.getList().get(0).execute();
+		
+		System.out.println("tryen gjord i tryen");
 		
 		//drar bort körtiden på eventent från dem andra eventen i kön
 		for (int i = 0; i < eventQueue.getList().size(); i++) {
 			eventQueue.getList().get(i).timeChange(elapsedTime);
 		}
-		
-		eventQueue.reorganize();
-
 	}
 
 	public void harKassa(boolean harKassa) {
 		this.harKassa = harKassa;
 	}
 
-	public void execute(Event e) {
-		System.out.println("execute");
-		e.execute();
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
