@@ -38,7 +38,7 @@ public class BetalaEvent extends MarketEvent{
 		marketState.globalTime += super.time();		//När ett event körts så adderas tiden till den globala körstiden
 		marketState.tidKassaKö += queueTimer;
 		marketState.ledigaKassor--;
-		kund.currentEvent=null;
+		eventQueue.remove(this);
 		super.runNextEvent();
 		eventQueue.reorganize();
 		

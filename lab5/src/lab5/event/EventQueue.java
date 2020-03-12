@@ -35,14 +35,6 @@ public class EventQueue{
 	 */
 	public void reorganize() {
 		
-		//Tar bort alla null events från listan
-		for (int i = 0; i < getList().size(); i++) {
-			Event e = getList().get(i);
-			if (e == null) {
-				getList().remove(i);
-			}
-		}
-		
 		//Sortering
 		ArrayList<Integer> sortedTime = new ArrayList<Integer>();
 		ArrayList<Event> sortedEvent = new ArrayList<Event>();
@@ -69,6 +61,10 @@ public class EventQueue{
 		
 		list = sortedEvent;
 		System.out.println(list);
+	}
+	
+	public void remove(Event e) {
+		list.remove(e);
 	}
 	
 	public int size() {

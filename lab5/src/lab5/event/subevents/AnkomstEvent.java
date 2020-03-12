@@ -24,6 +24,7 @@ public class AnkomstEvent extends MarketEvent{
 		System.out.println("försökerskapakund");
 		//Skapa nytt ankomstevent / ny kund
 		
+		//Körs om butiken är öppen och det inte är fullt i butiken
 		if (marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
 			System.out.println("pre ny kund");
 			Kund k = new Kund();
@@ -31,15 +32,19 @@ public class AnkomstEvent extends MarketEvent{
 			int i = marketState.getID();
 			k.id = i;
 			System.out.println(" ny kund");
-			eventQueue.add(k);
+			eventQueue.add(k.currentEvent);
 			marketState.kunderIButiken.add(k);
 			System.out.println("efternykund");
 		}
+		
+		//om det är fullt i butiken eller affären är stängd så ökas antal missade kunder
 		else {
 			marketState.antalMissadeKunder++;
 		}
+		
 		kund.currentEvent = new PlockEvent(kund);
 		marketState.globalTime += super.time();	
+		eventQueue.remove(this);
 		super.runNextEvent();
 		eventQueue.reorganize();
 	}
