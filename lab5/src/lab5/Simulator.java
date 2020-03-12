@@ -17,6 +17,8 @@ public class Simulator {
 	public EventQueue eventQueue;
 	public StartEvent startEvent;
 	public StopEvent stopEvent;
+	public MarketView vy;
+	
 	public static void main(String[] args) {
 		Simulator s = new Simulator();
 		s.run();
@@ -33,6 +35,7 @@ public class Simulator {
 		stopEvent = new StopEvent(marketState.snabbKöpsÖppettider);
 		startEvent.execute();
 		
+		vy = new MarketView(marketState);
 				
 	}
 
