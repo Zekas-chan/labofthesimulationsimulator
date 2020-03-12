@@ -79,7 +79,6 @@ public class MarketState extends State {
 		ledigaKassor = antalKassor;
 		öppnaKassor = true;
 		öppet = true;
-		
 		this.kundID = 0;
 	}
 	

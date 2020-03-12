@@ -14,7 +14,8 @@ import lab5.Simulator;
 public class BetalaEvent extends MarketEvent{
 
 	public int queueTimer;
-	public boolean harKassa;
+	
+	
 	/**
 	 * Konstruerar ett nytt BetalaEvent.
 	 * @param kund En referens till den unika kund som betalar.
@@ -26,13 +27,19 @@ public class BetalaEvent extends MarketEvent{
 		super.marketState = ms;
 		super.eventQueue = eq;
 		eventQueue.add(this);
+		super.harKassa = false;
 	}
 	public static void main(String[] args) {
 		
 
 	}
 	public void timeChange (int elapsedTime){
-		if(marketState.öppnaKassor()) {
+		
+		System.out.println("-------- Timechange ----------");
+		System.out.println("Betalaevent");
+		System.out.println(harKassa + " : harKassa");
+		
+		if(harKassa) {
 			time = time - elapsedTime;
 		}
 		else {
@@ -50,13 +57,19 @@ public class BetalaEvent extends MarketEvent{
 	 * Samt kör nästa event och sorterar om kön i händelseordning.
 	 */
 	public void execute() {
+		eventQueue.remove(this);
 		marketState.kunderIButiken.remove(kund);
 		marketState.antalGenomfördaKöp++;
 		marketState.globalTime += super.time();		//När ett event körts så adderas tiden till den globala körstiden
 		marketState.tidKassaKö += queueTimer;
-		marketState.ledigaKassor--;
-		eventQueue.remove(this);
+		//Här vill vi ha en metod i marketstate som påverkar lediga kassor
+			//behöver hålla koll på max antal kassor i butiken
+		
 		//super.runNextEvent();
+	}
+	
+	public void geKassa() {
+		super.harKassa = true;
 	}
 
 }

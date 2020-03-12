@@ -6,6 +6,7 @@ import lab5.event.subevents.PlockEvent;
 import lab5.event.subevents.BetalaEvent;
 import lab5.classtemplates.event.Event;
 import lab5.classtemplates.random.RandomMin;
+import lab5.classtemplates.random.UniformRandomStream;
 import lab5.event.subevents.AnkomstEvent;
 
 /**
@@ -16,7 +17,7 @@ import lab5.event.subevents.AnkomstEvent;
  */
 public class Kund {
 	
-	private final int lowerRandomRange = 1, upperRandomRange = 10;
+	private final int lowerRandomRange = 1, upperRandomRange = 1;
 	
 	public int id;
 	
@@ -37,13 +38,19 @@ public class Kund {
 	}
 	
 	public Kund() {
-		
+		/*
 		//Ger varje kund en random tid till varje event samt till "enrage"
 		ankomstTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
 		plockTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
 		betalningsTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
 		queueTimer = 0;
+		*/
 		
+		ankomstTid = 15;
+		plockTid = 8;
+		betalningsTid = 1;
+		
+		System.out.println(ankomstTid + " :ankomstttid");
 		System.out.println("Ny kund skapad");
 		
 	}

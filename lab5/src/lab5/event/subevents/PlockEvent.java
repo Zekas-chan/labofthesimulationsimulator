@@ -41,9 +41,9 @@ public class PlockEvent extends MarketEvent {
 	 * kör nästa event i händelsekön.
 	 */
 	public void execute() {
+		eventQueue.remove(this);
 		kund.currentEvent = new BetalaEvent(kund, super.marketState, super.eventQueue);
 		marketState.globalTime += super.time();		//När ett event körts så lägg adderas tiden till den globala körstiden
-		eventQueue.remove(this);
 		//super.runNextEvent();
 	}
 

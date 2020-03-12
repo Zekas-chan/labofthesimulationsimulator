@@ -23,7 +23,7 @@ public class StartEvent extends MarketEvent{
 		
 		AnkomstEvent e = new AnkomstEvent(super.marketState, super.eventQueue);
 		eventQueue.add(e);
-		StängerEvent se = new StängerEvent(marketState.snabbKöpsÖppettider, marketState, eventQueue);
+		StängerEvent se = new StängerEvent(super.marketState.snabbKöpsÖppettider, super.marketState, super.eventQueue);
 		eventQueue.add(se);
 	}
 	

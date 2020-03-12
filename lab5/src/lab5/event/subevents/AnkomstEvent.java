@@ -42,6 +42,7 @@ public class AnkomstEvent extends MarketEvent{
 	 */
 	public void execute() {
 		
+		System.out.println("----- Ankomstevent saker -------");
 		System.out.println(marketState.öppet);
 		System.out.println(marketState.kunderIButiken.size());
 		System.out.println(marketState.maxAntalKunder);
@@ -60,11 +61,9 @@ public class AnkomstEvent extends MarketEvent{
 			System.out.println(marketState.antalMissadeKunder + " antalmissadekunder");
 		}
 		
-		System.out.println("fortfarande i execute i ank");
-		
+		eventQueue.remove(this);
 		kund.currentEvent = new PlockEvent(kund, super.marketState, super.eventQueue);
 		marketState.globalTime += super.time();	
-		eventQueue.remove(this);
 		//super.runNextEvent();
 	}
 	

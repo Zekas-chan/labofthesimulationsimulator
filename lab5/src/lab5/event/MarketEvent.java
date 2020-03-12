@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
 import lab5.event.subevents.BetalaEvent;
+import lab5.event.subevents.StopEvent;
 import lab5.state.MarketState;
 /**
  * 
@@ -27,28 +28,21 @@ public class MarketEvent extends Event {
 	 */
 	public void runNextEvent() {
 		
-		System.out.println(marketState.öppet + "ms öppet i MarketEvent");
-		
 		//Kollar hur många betalaevent som är i kön och tilldelar dem n första en kassa
-		ArrayList<Event> betalaLista = new ArrayList<Event>();
-		System.out.println("marketeventrunnext");
-		if (eventQueue.antalBetalaEvent() >= marketState.ledigaKassor) {
-			for (int i = 0; i < eventQueue.getList().size(); i++) {
-				if (eventQueue.getList().get(i) instanceof BetalaEvent) {
-
-					betalaLista.add(eventQueue.getList().get(i));
-
-				}
+		
+		int kassor = marketState.ledigaKassor;
+		for (int i = 0; i < eventQueue.getList().size(); i++) {
+			
+			if (eventQueue.getList().get(i) instanceof BetalaEvent && kassor > 0) {
+			
+				((BetalaEvent) eventQueue.getList().get(i)).geKassa();
+				kassor--;
 			}
-
-			for (int i = 0; i < marketState.ledigaKassor; i++) {
-				((MarketEvent) betalaLista.get(i)).harKassa(true);
-			}
-
+			
 		}
 		
+		
 		//Kör execute på nästa event i kön
-		System.out.println("kommervi till try");
 		//System.out.println("Nu kör vi reorganize");
 		//eventQueue.reorganize();
 		
@@ -62,15 +56,12 @@ public class MarketEvent extends Event {
 			for (int i = 0; i < eventQueue.getList().size(); i++) {
 				eventQueue.getList().get(i).timeChange(elapsedTime);
 			}
+			
+			if(marketState.run) {
+				runNextEvent();
+			}
+			
 		}
-		if(marketState.öppet) {
-			runNextEvent();
-		}
-		
-	}
-
-	public void harKassa(boolean harKassa) {
-		this.harKassa = harKassa;
 	}
 
 	@Override

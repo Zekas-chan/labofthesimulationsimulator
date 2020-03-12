@@ -1,4 +1,5 @@
 package lab5.event.subevents;
+import lab5.classtemplates.random.UniformRandomStream;
 import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
 import lab5.state.MarketState;
@@ -28,10 +29,9 @@ public class StängerEvent  extends MarketEvent{
 	public void execute() {
 		System.out.println("StängerEventet har körts...");	//spår
 		marketState.globalTime += super.time();	
-		StopEvent stop = new StopEvent(9999);
-		eventQueue.add(stop);
 		eventQueue.remove(this);
-		System.out.println(eventQueue.getList());
+		StopEvent stop = new StopEvent(99999, marketState, eventQueue);
+		eventQueue.add(stop);
 		marketState.öppet = false;
 	}
 
