@@ -10,7 +10,7 @@ import lab5.event.subevents.BetalaEvent;
 /**
  * A queue with events
  * 
- * @author 
+ * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */
 public class EventQueue{
@@ -31,7 +31,7 @@ public class EventQueue{
 	
 	
 	/**
-	 * Reorganizes the list
+	 * Omorganiserar listan.
 	 */
 	public void reorganize() {
 		

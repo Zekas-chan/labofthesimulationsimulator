@@ -6,7 +6,11 @@ import lab5.Kund;
 import lab5.Kund.KundID;
 import lab5.classtemplates.state.*;
 import lab5.event.EventQueue;
-
+/**
+ * 
+ * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
+ *
+ */
 public class MarketState extends State {
 	
 	public KundID id;

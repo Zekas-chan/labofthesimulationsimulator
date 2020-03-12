@@ -6,7 +6,7 @@ import java.util.Observer;
 /**
  * Concrete view of the program
  * 
- * @author 
+ * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */
 public class View implements Observer {
