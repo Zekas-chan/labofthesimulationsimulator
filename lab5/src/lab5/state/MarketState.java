@@ -59,6 +59,7 @@ public class MarketState extends State {
 		this.snabbKöpsÖppettider = öppetTider;
 		this.ankomstLambda = ankomstLambda;
 		this.frö = frö;
+		this.maxAntalKunder = maxKunder;
 		/*
 		 * Initiering av statistikblocket.
 		 */

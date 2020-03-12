@@ -9,6 +9,9 @@ public class PlockEvent extends MarketEvent{
 	public PlockEvent(Kund kund) {
 		super.time = kund.plockTid;
 		super.kund = kund;
+		
+		System.out.println("Plockeventskapas");
+		
 	}
 	public static void main(String[] args) {
 		
