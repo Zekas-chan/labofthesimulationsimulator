@@ -15,7 +15,7 @@ import lab5.event.subevents.BetalaEvent;
  */
 public class EventQueue{
 	
-	private ArrayList<Kund> list = new ArrayList<Kund>();
+	private ArrayList<Event> list = new ArrayList<Event>();
 
 	public static void main(String[] args) {
 
@@ -24,8 +24,8 @@ public class EventQueue{
 	 * Lägger till ett event i kön och omorganiserar den sedan.
 	 * @param e Eventet som ska läggas till.
 	 */
-	public void add(Kund k) {
-		getList().add(k);
+	public void add(Event e) {
+		getList().add(e);
 		reorganize();
 	}
 	
@@ -37,19 +37,19 @@ public class EventQueue{
 		
 		//Tar bort alla null events från listan
 		for (int i = 0; i < getList().size(); i++) {
-			Kund k = getList().get(i);
-			if (k.currentEvent == null) {
+			Event e = getList().get(i);
+			if (e == null) {
 				getList().remove(i);
 			}
 		}
 		
 		//Sortering
 		ArrayList<Integer> sortedTime = new ArrayList<Integer>();
-		ArrayList<Kund> sortedKund = new ArrayList<Kund>();
+		ArrayList<Event> sortedEvent = new ArrayList<Event>();
 		
 		for (int i = 0; i < getList().size(); i++) {
-			Kund k = getList().get(i);
-			int time = k.currentEvent.time();
+			Event e = getList().get(i);
+			int time = e.time();
 			
 			sortedTime.add(time);
 			
@@ -59,15 +59,15 @@ public class EventQueue{
 		
 		for (int i = 0; i < sortedTime.size(); i++) {
 			for (int j = 0; j < getList().size(); j++) {
-				if (sortedTime.get(i) == getList().get(j).currentEvent.time()) {
-					sortedKund.add(getList().get(j));
+				if (sortedTime.get(i) == getList().get(j).time()) {
+					sortedEvent.add(getList().get(j));
 					break;
 				}
 				
 			}
 		}
 		
-		list = sortedKund;
+		list = sortedEvent;
 		System.out.println(list);
 	}
 	
@@ -88,27 +88,17 @@ public class EventQueue{
 	public void getNext() {
 		getList().get(0);
 	}
-	public ArrayList<Kund> getList() {
+	public ArrayList<Event> getList() {
 		return list;
 	}
 	public int antalBetalaEvent() {
 		int räknare = 0;
 		for (int i = 0; i < list.size(); i++) {
-			if(list.get(i).currentEvent instanceof BetalaEvent) {
+			if(list.get(i)instanceof BetalaEvent) {
 				räknare++;
 			}
 		}
 		return räknare;
 		
 	}
-	
-	/* Detta har vi redan
-	public void addEvent(Event event) {
-		list.add(event);
-	}
-	
-	public boolean hasNext() {
-		return (list.size() > 0) ? true : false;
-		//return isEmpty(); //fungerar också
-	}*/
 }
