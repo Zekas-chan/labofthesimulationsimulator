@@ -35,7 +35,7 @@ public class Simulator {
 		stopEvent = new StopEvent(marketState.snabbKöpsÖppettider);
 		startEvent.execute();
 		
-		vy = new MarketView(marketState);
+		vy = new MarketView(marketState, false);
 				
 	}
 
