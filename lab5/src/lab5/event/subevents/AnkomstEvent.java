@@ -26,7 +26,9 @@ public class AnkomstEvent extends MarketEvent{
 			k.id = marketState.id.getID();
 			eventQueue.add(k);
 			marketState.kunderIButiken.add(k);
-			
+		}
+		else {
+			marketState.antalMissadeKunder++;
 		}
 		
 		super.runNextEvent();
