@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import lab5.classtemplates.view.View;
+import lab5.event.MarketEvent;
 import lab5.state.MarketState;
 
 /**
@@ -15,11 +16,16 @@ import lab5.state.MarketState;
  */
 public class MarketView extends View implements Observer {
 	MarketState ms;
+	boolean optimizationMode;
 	
-	public MarketView(MarketState ms){
+	public MarketView(MarketState ms, boolean mode){
 		this.ms = ms;
 		ms.addObserver(this);
-		initiatePrinting(); //skriver ut raden som indikerar vad respektive informationssnutt är
+		optimizationMode = mode;
+		if(!optimizationMode) {
+			initiatePrinting(); //skriver ut raden som indikerar vad respektive informationssnutt är
+		}
+		
 	}
 	
 	/*
@@ -27,9 +33,9 @@ public class MarketView extends View implements Observer {
 	 * Tid Händelse  Kund  Öppet/Stängt  led    ledT    I     $    :-(   köat    köT   köar  [Kassakö..]
 	 */
 	public void update(Observable o, Object arg) throws ClassCastException {
-		if(ms.isRunning()) {
-			eventDetails((Event)arg);
-		}else {
+		if(ms.isRunning() && !optimizationMode) {
+			eventDetails((MarketEvent)arg);
+		}else if (!ms.isRunning()) {
 			results();
 		}
 	}
@@ -38,8 +44,8 @@ public class MarketView extends View implements Observer {
 		System.out.println("Tid		Händelse	Kund	Ö/S		led		ledT	I	$	:-(		köat	köT		köar	[Kassakö...]");
 	}
 	
-	private void eventDetails(Event a) {
-		System.out.print(ms.globalTime+"	"+a.toString()+"	"+a.kund.id+"	"+isOpen()+"	"+ms.öppnaKassor()+"	"+ms.tidOverksamKassa+"	"+ms.kunderIButiken.size()+"	"+ms.antalGenomfördaKöp+"	"+ms.antalMissadeKunder+"	"+ms.unikaKöandeKunder+"	"+ms.tidKassaKö+"	"+ms.kassaKö.length+"	"+köTillSträng());
+	private void eventDetails(MarketEvent a) {
+		System.out.print(ms.globalTime+"	"+a.toString()+"	"+a.kund.id+"	"+isOpen()+"	"+ms.öppnaKassor()+"	"+ms.tidOverksamKassa+"	"+ms.kunderIButiken.size()+"	"+ms.antalGenomfördaKöp+"	"+ms.antalMissadeKunder+"	"+ms.unikaKöandeKunder+"	"+ms.tidKassaKö+"	"+ms.kassaKö.size()+"	"+köTillSträng());
 	}
 	
 	private String isOpen() {
@@ -52,8 +58,11 @@ public class MarketView extends View implements Observer {
 	
 	private String köTillSträng() {
 		String arraystr = "[";
-		for(int i = 0; i < ms.KassaKö.length; i++) {
-			arraystr += KassaKö[i].kund.id+", ";
+		for(int i = 0; i < ms.kassaKö.size(); i++) {
+			arraystr += ms.kassaKö.get(i).id;
+			if(i < ms.kassaKö.size()-1) {
+				arraystr += ", ";
+			}
 		}
 		arraystr += "]";
 		return arraystr;

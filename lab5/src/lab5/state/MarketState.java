@@ -24,6 +24,8 @@ public class MarketState extends State {
 	 * Variabler för statistik.
 	 */
 	public int antalGenomfördaKöp;
+	public int unikaKunder; //antal kunder som kom, oavsett om dom missades eller inte
+	public int unikaKöandeKunder; //antal unika kunder som behövde köa
 	public int antalMissadeKunder;
 	public int tidOverksamKassa;
 	public int tidKassaKö;
@@ -60,6 +62,8 @@ public class MarketState extends State {
 		/*
 		 * Initiering av statistikblocket.
 		 */
+		unikaKunder			= 0;
+		unikaKöandeKunder	= 0;
 		antalGenomfördaKöp	= 0;
 		antalMissadeKunder 	= 0;
 		tidOverksamKassa 	= 0;
