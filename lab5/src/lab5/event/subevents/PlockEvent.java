@@ -2,7 +2,9 @@ package lab5.event.subevents;
 
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
+import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
+import lab5.state.MarketState;
 
 /**
  * Gör ett plockevent som representerar en kund som samlar varor.
@@ -16,9 +18,14 @@ public class PlockEvent extends MarketEvent {
 	 * 
 	 * @param kund Referens till den unika kunden som handlar.
 	 */
-	public PlockEvent(Kund kund) {
+	public PlockEvent(Kund kund, MarketState ms, EventQueue eq) {
 		super.time = kund.plockTid;
 		super.kund = kund;
+		
+		super.marketState = ms;
+		super.eventQueue = eq;
+		
+		eventQueue.add(this);
 		
 		System.out.println("Plockeventskapas");
 		
@@ -34,11 +41,10 @@ public class PlockEvent extends MarketEvent {
 	 * kör nästa event i händelsekön.
 	 */
 	public void execute() {
-		kund.currentEvent = new BetalaEvent(kund);
+		kund.currentEvent = new BetalaEvent(kund, super.marketState, super.eventQueue);
 		marketState.globalTime += super.time();		//När ett event körts så lägg adderas tiden till den globala körstiden
 		eventQueue.remove(this);
-		super.runNextEvent();
-		eventQueue.reorganize();
+		//super.runNextEvent();
 	}
 
 }

@@ -2,6 +2,7 @@ package lab5.event.subevents;
 
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
+import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
 import lab5.state.MarketState;
 import lab5.Simulator;
@@ -18,10 +19,13 @@ public class BetalaEvent extends MarketEvent{
 	 * Konstruerar ett nytt BetalaEvent.
 	 * @param kund En referens till den unika kund som betalar.
 	 */
-	public BetalaEvent(Kund kund) {
+	public BetalaEvent(Kund kund, MarketState ms, EventQueue eq) {
 		super.time = kund.betalningsTid;
 		super.kund = kund;
 		queueTimer = kund.queueTimer;
+		super.marketState = ms;
+		super.eventQueue = eq;
+		eventQueue.add(this);
 	}
 	public static void main(String[] args) {
 		
@@ -52,8 +56,7 @@ public class BetalaEvent extends MarketEvent{
 		marketState.tidKassaKö += queueTimer;
 		marketState.ledigaKassor--;
 		eventQueue.remove(this);
-		super.runNextEvent();
-		eventQueue.reorganize();
+		//super.runNextEvent();
 	}
 
 }

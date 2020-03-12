@@ -27,6 +27,7 @@ public class StopEvent extends MarketEvent{
 	 */
 	public void execute() {
 		marketState.run = false;
+		System.out.println("Program STOP!");
 		
 	}
 

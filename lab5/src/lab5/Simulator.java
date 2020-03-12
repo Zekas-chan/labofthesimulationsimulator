@@ -29,9 +29,10 @@ public class Simulator {
 	 */
 	public void run() {
 		eventQueue = new EventQueue();
-		marketState = new MarketState(360, 5, 0, 0, 20, eventQueue); //(360, 5, 0, 0, 0, 0, 50);
+		marketState = new MarketState(8600, 5, 0, 0, 20, eventQueue); //(360, 5, 0, 0, 0, 0, 50);
 		startEvent = new StartEvent(marketState, eventQueue);
 		stopEvent = new StopEvent(marketState.snabbKöpsÖppettider);
+		System.out.println(marketState.antalGenomfördaKöp);
 		
 		vy = new MarketView(marketState, false);
 				

@@ -28,8 +28,6 @@ public class MarketEvent extends Event {
 	public void runNextEvent() {
 		
 		System.out.println(marketState.öppet + "ms öppet i MarketEvent");
-
-		int elapsedTime = eventQueue.getList().get(0).time();
 		
 		//Kollar hur många betalaevent som är i kön och tilldelar dem n första en kassa
 		ArrayList<Event> betalaLista = new ArrayList<Event>();
@@ -51,18 +49,24 @@ public class MarketEvent extends Event {
 		
 		//Kör execute på nästa event i kön
 		System.out.println("kommervi till try");
-		System.out.println(eventQueue.getList().get(0) + " först i listan, från MArketEvent");
+		//System.out.println("Nu kör vi reorganize");
+		//eventQueue.reorganize();
 		
 		//this.execute(eventQueue.getList().get(0));
-		
-		eventQueue.getList().get(0).execute();
-		
-		System.out.println("tryen gjord i tryen");
-		
-		//drar bort körtiden på eventent från dem andra eventen i kön
-		for (int i = 0; i < eventQueue.getList().size(); i++) {
-			eventQueue.getList().get(i).timeChange(elapsedTime);
+		if (!eventQueue.isEmpty()) {
+			
+			int elapsedTime = eventQueue.getList().get(0).time();
+			eventQueue.getList().get(0).execute();
+			
+			//drar bort körtiden på eventent från dem andra eventen i kön
+			for (int i = 0; i < eventQueue.getList().size(); i++) {
+				eventQueue.getList().get(i).timeChange(elapsedTime);
+			}
 		}
+		if(marketState.öppet) {
+			runNextEvent();
+		}
+		
 	}
 
 	public void harKassa(boolean harKassa) {

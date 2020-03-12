@@ -46,8 +46,6 @@ public class Kund {
 		
 		System.out.println("Ny kund skapad");
 		
-		currentEvent = new AnkomstEvent(this);
-		
 	}
 }
 

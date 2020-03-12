@@ -39,20 +39,25 @@ public class EventQueue{
 		ArrayList<Integer> sortedTime = new ArrayList<Integer>();
 		ArrayList<Event> sortedEvent = new ArrayList<Event>();
 		
-		for (int i = 0; i < getList().size(); i++) {
-			Event e = getList().get(i);
-			int time = e.time();
+		for (int i = 0; i < list.size(); i++) {
 			
-			sortedTime.add(time);
-			
+			try {
+				Event e = list.get(i);
+				int time = e.time();
+				sortedTime.add(time);
+			}
+			catch(NullPointerException e) {
+				break;
+			}
+
 		}
 		
 		Collections.sort(sortedTime);
 		
 		for (int i = 0; i < sortedTime.size(); i++) {
-			for (int j = 0; j < getList().size(); j++) {
-				if (sortedTime.get(i) == getList().get(j).time()) {
-					sortedEvent.add(getList().get(j));
+			for (int j = 0; j < list.size(); j++) {
+				if (sortedTime.get(i) == list.get(j).time()) {
+					sortedEvent.add(list.get(j));
 					break;
 				}
 				
@@ -65,6 +70,7 @@ public class EventQueue{
 	
 	public void remove(Event e) {
 		list.remove(e);
+		reorganize();
 	}
 	
 	public int size() {

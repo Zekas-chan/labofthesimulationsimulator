@@ -21,11 +21,10 @@ public class StartEvent extends MarketEvent{
 	 */
 	public void execute() {
 		
-		Kund k = new Kund();
-		k.id = marketState.getID();
-		System.out.println(k.id + " ID i starteevent");  //Spår
-		eventQueue.add(k.currentEvent);
-		
+		AnkomstEvent e = new AnkomstEvent(super.marketState, super.eventQueue);
+		eventQueue.add(e);
+		StängerEvent se = new StängerEvent(marketState.snabbKöpsÖppettider, marketState, eventQueue);
+		eventQueue.add(se);
 	}
 	
 	/**
