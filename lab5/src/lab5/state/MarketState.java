@@ -3,9 +3,9 @@ package lab5.state;
 import java.util.ArrayList;
 
 import lab5.Kund;
-import lab5.Kund.KundID;
 import lab5.classtemplates.state.*;
 import lab5.event.EventQueue;
+import lab5.event.MarketEvent;
 /**
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
@@ -101,6 +101,11 @@ public class MarketState extends State {
 			 öppnaKassor = true;
 		}
 		return öppnaKassor;
+	}
+	
+	public void incomingEvent(MarketEvent e) {
+		setChanged();
+		notifyObservers(e);
 	}
 
 }

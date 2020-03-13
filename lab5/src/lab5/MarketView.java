@@ -54,7 +54,7 @@ public class MarketView extends View implements Observer {
 	 */
 	private void eventDetails(MarketEvent a) {
 		System.out.print(ms.globalTime + "\t" + a.toString() + "\t" + a.kund.id + "\t" + isOpen() + "\t"
-				+ ms.öppnaKassor() + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
+				+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
 				+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
 				+ ms.tidKassaKö + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
 	}
