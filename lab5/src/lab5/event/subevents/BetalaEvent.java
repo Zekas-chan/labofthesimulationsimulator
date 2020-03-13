@@ -68,6 +68,10 @@ public class BetalaEvent extends MarketEvent{
 		//super.runNextEvent();
 	}
 	
+	public String toString() {
+		return "Betalning";
+	}
+	
 	public void geKassa() {
 		super.harKassa = true;
 	}

@@ -40,4 +40,8 @@ public class StartEvent extends MarketEvent{
 		System.out.println("kommerdutillrunnextevent?");
 		super.runNextEvent();
 	}
+	
+	public String toString() {
+		return "START";
+	}
 }

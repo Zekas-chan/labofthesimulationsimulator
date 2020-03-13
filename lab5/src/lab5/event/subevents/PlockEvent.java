@@ -46,5 +46,9 @@ public class PlockEvent extends MarketEvent {
 		marketState.globalTime += super.time();		//När ett event körts så lägg adderas tiden till den globala körstiden
 		//super.runNextEvent();
 	}
+	
+	public String toString() {
+		return "Handlar";
+	}
 
 }

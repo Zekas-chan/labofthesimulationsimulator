@@ -67,6 +67,10 @@ public class AnkomstEvent extends MarketEvent{
 		//super.runNextEvent();
 	}
 	
+	public String toString() {
+		return "Ankomst";
+	}
+	
 	public static void main(String[] args) {
 		
 

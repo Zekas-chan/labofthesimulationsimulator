@@ -6,6 +6,9 @@ import java.util.Observer;
 
 import lab5.classtemplates.view.View;
 import lab5.event.MarketEvent;
+import lab5.event.subevents.StartEvent;
+import lab5.event.subevents.StopEvent;
+import lab5.event.subevents.StängerEvent;
 import lab5.state.MarketState;
 
 /**
@@ -37,6 +40,9 @@ public class MarketView extends View implements Observer {
 	 */
 	public void update(Observable o, Object arg) throws ClassCastException {
 		if (ms.isRunning() && !optimizationMode) {
+			if(arg instanceof StopEvent || arg instanceof StartEvent) {
+				sparseEvent((MarketEvent)arg);
+			}
 			eventDetails((MarketEvent) arg);
 		} else if (!ms.isRunning()) {
 			results();
@@ -53,10 +59,25 @@ public class MarketView extends View implements Observer {
 	 * @param a Ett MarketEvent. 
 	 */
 	private void eventDetails(MarketEvent a) {
+		if(a instanceof StängerEvent) {
+			System.out.print(ms.globalTime + "\t" + a.toString() + "\t" + "---" + "\t" + isOpen() + "\t"
+					+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
+					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
+					+ ms.tidKassaKö + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
+			return;
+		}
 		System.out.print(ms.globalTime + "\t" + a.toString() + "\t" + a.kund.id + "\t" + isOpen() + "\t"
 				+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
 				+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
 				+ ms.tidKassaKö + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
+	}
+	
+	private void sparseEvent(MarketEvent e) {
+		if(e instanceof StartEvent) {
+			System.out.println(ms.globalTime+"\t"+e.toString());
+		}else if(e instanceof StopEvent) {
+			System.out.println(ms.globalTime+"\t"+e.toString());
+		}
 	}
 	
 	/**
@@ -88,7 +109,7 @@ public class MarketView extends View implements Observer {
 	/**
 	 * Hjälpmetod för update. Om simuleringen kört klart skrivs simuleringens statistikvariabler ut.
 	 */
-	public void results() {
+	private void results() {
 		System.out.println("RESULTAT\n========\n \n");
 		System.out.println("1) Av " + ms.unikaKunder + " kunder handlade " + ms.antalGenomfördaKöp + " medan "
 				+ ms.antalMissadeKunder + " missades.\n");

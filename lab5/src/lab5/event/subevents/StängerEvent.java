@@ -34,5 +34,9 @@ public class StängerEvent  extends MarketEvent{
 		eventQueue.add(stop);
 		marketState.öppet = false;
 	}
+	
+	public String toString() {
+		return "Stängning";
+	}
 
 }

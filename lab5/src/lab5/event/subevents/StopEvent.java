@@ -34,5 +34,9 @@ public class StopEvent extends MarketEvent{
 		System.out.println("Program STOP!");
 		
 	}
+	
+	public String toString() {
+		return "STOP";
+	}
 
 }
