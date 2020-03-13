@@ -12,7 +12,7 @@ import lab5.state.MarketState;
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */
-public class MarketEvent extends Event {
+public class MarketEvent extends Event{
 
 	public MarketState marketState;
 
@@ -27,26 +27,36 @@ public class MarketEvent extends Event {
 	 * Kör nästa event och drar bort tiden ifrån resten
 	 */
 	public void runNextEvent() {
+		//Updaterar vyn
+		marketState.incomingEvent(eventQueue.getList().get(0));
 		
 		//Kollar hur många betalaevent som är i kön och tilldelar dem n första en kassa
-		
-		int kassor = marketState.ledigaKassor;
 		for (int i = 0; i < eventQueue.getList().size(); i++) {
 			
-			if (eventQueue.getList().get(i) instanceof BetalaEvent && kassor > 0) {
-			
+			if (eventQueue.getList().get(i) instanceof BetalaEvent && marketState.ledigaKassor > 0) {
+				
 				((BetalaEvent) eventQueue.getList().get(i)).geKassa();
-				kassor--;
+				marketState.ledigaKassor--;
+				
+				//Om kunden finns nånstans i kassakön tas den bort ur den listan
+				for (int j = 0; j < marketState.kassaKö.size(); j++) {
+					if (((BetalaEvent) eventQueue.getList().get(i)).kund == marketState.kassaKö.get(j)) {
+						marketState.kassaKö.remove(((BetalaEvent) eventQueue.getList().get(i)).kund);
+					}
+				}
+				
+			}
+			
+			//när alla kassor är upptagna läggs resternade kunder in i kassakö-listan
+			else if (eventQueue.getList().get(i) instanceof BetalaEvent && marketState.ledigaKassor <= 0) {
+				
+				marketState.kassaKö.add(((BetalaEvent) eventQueue.getList().get(i)).kund);
 			}
 			
 		}
 		
 		
 		//Kör execute på nästa event i kön
-		//System.out.println("Nu kör vi reorganize");
-		//eventQueue.reorganize();
-		
-		//this.execute(eventQueue.getList().get(0));
 		if (!eventQueue.isEmpty()) {
 			
 			int elapsedTime = eventQueue.getList().get(0).time();

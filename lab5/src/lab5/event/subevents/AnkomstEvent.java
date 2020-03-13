@@ -22,11 +22,9 @@ public class AnkomstEvent extends MarketEvent{
 		super.eventQueue = eq;
 		
 		// kanske ha med att kolla max antal kunder här
-		System.out.println("ankomstevent skapad");
 		Kund k = new Kund();
 		k.id = marketState.getID();
 		k.currentEvent = this;
-		System.out.println(k.id + " ID i starteevent");  //Spår
 		super.time = k.ankomstTid; //nuvarande tid + tiden det tar innan det händer
 		super.kund = k;
 		
@@ -42,29 +40,21 @@ public class AnkomstEvent extends MarketEvent{
 	 */
 	public void execute() {
 		
-		System.out.println("----- Ankomstevent saker -------");
-		System.out.println(marketState.öppet);
-		System.out.println(marketState.kunderIButiken.size());
-		System.out.println(marketState.maxAntalKunder);
-		
 		if (marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
 			//När en kund anländer i butiken läggs den till i "kundeributiken" listan
 			marketState.kunderIButiken.add(this.kund);
 			
-			System.out.println("pre ny ankomstevent");
-			AnkomstEvent e = new AnkomstEvent(marketState, eventQueue);
+			new AnkomstEvent(marketState, eventQueue);
 		}
 		
 		//om det är fullt i butiken eller affären är stängd så ökas antal missade kunder
 		else {
 			marketState.antalMissadeKunder++;
-			System.out.println(marketState.antalMissadeKunder + " antalmissadekunder");
 		}
 		
 		eventQueue.remove(this);
 		kund.currentEvent = new PlockEvent(kund, super.marketState, super.eventQueue);
 		marketState.globalTime += super.time();	
-		//super.runNextEvent();
 	}
 	
 	public String toString() {

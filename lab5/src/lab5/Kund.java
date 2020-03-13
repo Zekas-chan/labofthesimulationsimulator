@@ -50,9 +50,6 @@ public class Kund {
 		plockTid = 8;
 		betalningsTid = 1;
 		
-		System.out.println(ankomstTid + " :ankomstttid");
-		System.out.println("Ny kund skapad");
-		
 	}
 }
 

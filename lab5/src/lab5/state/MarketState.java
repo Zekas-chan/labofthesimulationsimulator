@@ -3,6 +3,7 @@ package lab5.state;
 import java.util.ArrayList;
 
 import lab5.Kund;
+import lab5.classtemplates.event.Event;
 import lab5.classtemplates.state.*;
 import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
@@ -84,7 +85,6 @@ public class MarketState extends State {
 	
 	public int getID() {
 		kundID++;
-		System.out.println(kundID + " id");
 		return this.kundID;
 	}
 	
@@ -103,9 +103,11 @@ public class MarketState extends State {
 		return öppnaKassor;
 	}
 	
-	public void incomingEvent(MarketEvent e) {
+	public void incomingEvent(Event e) {
+		
 		setChanged();
 		notifyObservers(e);
+		
 	}
 
 }

@@ -24,6 +24,7 @@ public class StopEvent extends MarketEvent{
 		super.time = time;
 		super.marketState = ms;
 		super.eventQueue = eq;
+		eventQueue.add(this);
 	}
 	
 	/**

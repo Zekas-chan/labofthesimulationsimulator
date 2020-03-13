@@ -43,7 +43,11 @@ public class MarketView extends View implements Observer {
 			if(arg instanceof StopEvent || arg instanceof StartEvent) {
 				sparseEvent((MarketEvent)arg);
 			}
-			eventDetails((MarketEvent) arg);
+			
+			else {	//Jack och Patrik la till en else
+				eventDetails((MarketEvent) arg);
+			}
+			
 		} else if (!ms.isRunning()) {
 			results();
 		}
@@ -70,6 +74,8 @@ public class MarketView extends View implements Observer {
 				+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
 				+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
 				+ ms.tidKassaKö + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
+		
+		System.out.println(); //ny rad
 	}
 	
 	private void sparseEvent(MarketEvent e) {

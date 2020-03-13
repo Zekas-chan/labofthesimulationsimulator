@@ -65,7 +65,6 @@ public class EventQueue{
 		}
 		
 		list = sortedEvent;
-		System.out.println(list + " print i eventqueue");
 	}
 	
 	public void remove(Event e) {

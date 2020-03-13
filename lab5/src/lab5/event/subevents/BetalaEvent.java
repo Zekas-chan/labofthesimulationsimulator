@@ -33,12 +33,7 @@ public class BetalaEvent extends MarketEvent{
 		
 
 	}
-	public void timeChange (int elapsedTime){
-		
-		System.out.println("-------- Timechange ----------");
-		System.out.println("Betalaevent");
-		System.out.println(harKassa + " : harKassa");
-		
+	public void timeChange (int elapsedTime){		
 		if(harKassa) {
 			time = time - elapsedTime;
 		}
@@ -58,6 +53,7 @@ public class BetalaEvent extends MarketEvent{
 	 */
 	public void execute() {
 		eventQueue.remove(this);
+		marketState.ledigaKassor++;
 		marketState.kunderIButiken.remove(kund);
 		marketState.antalGenomfördaKöp++;
 		marketState.globalTime += super.time();		//När ett event körts så adderas tiden till den globala körstiden

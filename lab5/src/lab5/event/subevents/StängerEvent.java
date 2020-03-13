@@ -22,16 +22,15 @@ public class StängerEvent  extends MarketEvent{
 		super.time = time;
 		super.marketState = ms;
 		super.eventQueue = eq;
+		eventQueue.add(this);
 	}
 	/**
 	 * Stänger butiken när den körs.
 	 */
 	public void execute() {
-		System.out.println("StängerEventet har körts...");	//spår
 		marketState.globalTime += super.time();	
 		eventQueue.remove(this);
-		StopEvent stop = new StopEvent(99999, marketState, eventQueue);
-		eventQueue.add(stop);
+		new StopEvent(99999, marketState, eventQueue);
 		marketState.öppet = false;
 	}
 	

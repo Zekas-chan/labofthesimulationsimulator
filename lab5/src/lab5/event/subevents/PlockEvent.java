@@ -27,8 +27,6 @@ public class PlockEvent extends MarketEvent {
 		
 		eventQueue.add(this);
 		
-		System.out.println("Plockeventskapas");
-		
 	}
 
 	public static void main(String[] args) {

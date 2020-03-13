@@ -21,10 +21,8 @@ public class StartEvent extends MarketEvent{
 	 */
 	public void execute() {
 		
-		AnkomstEvent e = new AnkomstEvent(super.marketState, super.eventQueue);
-		eventQueue.add(e);
-		StängerEvent se = new StängerEvent(super.marketState.snabbKöpsÖppettider, super.marketState, super.eventQueue);
-		eventQueue.add(se);
+		new AnkomstEvent(super.marketState, super.eventQueue);
+		new StängerEvent(super.marketState.snabbKöpsÖppettider, super.marketState, super.eventQueue);
 	}
 	
 	/**
@@ -37,7 +35,6 @@ public class StartEvent extends MarketEvent{
 		super.eventQueue = eq;
 		super.time = 0;
 		this.execute();	
-		System.out.println("kommerdutillrunnextevent?");
 		super.runNextEvent();
 	}
 	

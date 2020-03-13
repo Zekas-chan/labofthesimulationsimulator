@@ -26,7 +26,7 @@ public class Simulator {
 	 */
 	public void run() {
 		eventQueue = new EventQueue();
-		marketState = new MarketState(600, 5, 0, 0, 20, eventQueue); //(360, 5, 0, 0, 0, 0, 50);
+		marketState = new MarketState(600, 1, 0, 0, 10, eventQueue); //(360, 5, 0, 0, 0, 0, 50);
 		vy = new MarketView(marketState, false);
 		startEvent = new StartEvent(marketState, eventQueue);
 		System.out.println(marketState.antalGenomfördaKöp);
