@@ -22,11 +22,17 @@ public class Simulator {
 	}
 	
 	/**
-	 * This method runs the simulation
+	 * Denna metod kör simuleringen.
 	 */
 	public void run() {
 		eventQueue = new EventQueue();
 		marketState = new MarketState(600, 1, 0, 0, 10, eventQueue); //(360, 5, 0, 0, 0, 0, 50);
+		/*
+		 * Det behövs fler parametrar:
+		 * Plocktider, [P_min..Pmax]: [0.5..1.0]
+		 * Betaltider, [K_min..Kmax]: [2.0..3.0]
+		 * -Philip
+		 */
 		vy = new MarketView(marketState, false);
 		startEvent = new StartEvent(marketState, eventQueue);
 		System.out.println(marketState.antalGenomfördaKöp);

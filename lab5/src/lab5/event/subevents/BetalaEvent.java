@@ -29,10 +29,11 @@ public class BetalaEvent extends MarketEvent{
 		eventQueue.add(this);
 		super.harKassa = false;
 	}
-	public static void main(String[] args) {
-		
-
-	}
+	
+	/**
+	 * När ett event före detta event utförs i kön reduceras tiden tills detta event kan utförs.
+	 * @param elapsedTime Hur lång tid som förflutit.
+	 */
 	public void timeChange (int elapsedTime){		
 		if(harKassa) {
 			time = time - elapsedTime;
@@ -64,10 +65,15 @@ public class BetalaEvent extends MarketEvent{
 		//super.runNextEvent();
 	}
 	
+	/**
+	 * @return Returnerar namnet på detta event.
+	 */
 	public String toString() {
 		return "Betalning";
 	}
-	
+	/**
+	 * @return Returnerar en boolean gällande huruvida kunden kan betala eller måste ställa sig i kö.
+	 */
 	public void geKassa() {
 		super.harKassa = true;
 	}

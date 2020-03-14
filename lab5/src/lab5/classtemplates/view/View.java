@@ -10,11 +10,6 @@ import java.util.Observer;
  *
  */
 public class View implements Observer {
-
-	public static void main(String[] args) {
-		
-
-	}
 	
 	public void update(Observable o, Object arg) {
 		

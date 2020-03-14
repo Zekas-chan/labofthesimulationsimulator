@@ -16,40 +16,41 @@ import lab5.event.subevents.AnkomstEvent;
  *
  */
 public class Kund {
-	
+
 	private final int lowerRandomRange = 1, upperRandomRange = 1;
-	
-	public int id;
-	
+
+	public int id; //kundens unika identifierare
+
 	public Event currentEvent;
-	
-	//Time is described in minutes (simulated time)
+
+	// Time is described in minutes (simulated time)
 	public int queueTimer;
 	public int ankomstTid;
 	public int plockTid;
 	public int betalningsTid;
-	
-	
+
 	/*
 	 * Enbart Spår i main
 	 */
 	public static void main(String[] args) {
-		
+
 	}
-	
+
+	/**
+	 * Generar en kund. När kunden genererats bestäms tiderna det tar för kunden att
+	 * göra olika saker i butiken.
+	 */
 	public Kund() {
 		/*
-		//Ger varje kund en random tid till varje event samt till "enrage"
-		ankomstTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
-		plockTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
-		betalningsTid = new RandomMin(lowerRandomRange,upperRandomRange).getRand();
-		queueTimer = 0;
-		*/
-		
+		 * //Ger varje kund en random tid till varje event samt till "enrage" ankomstTid
+		 * = new RandomMin(lowerRandomRange,upperRandomRange).getRand(); plockTid = new
+		 * RandomMin(lowerRandomRange,upperRandomRange).getRand(); betalningsTid = new
+		 * RandomMin(lowerRandomRange,upperRandomRange).getRand(); queueTimer = 0;
+		 */
+
 		ankomstTid = 15;
 		plockTid = 8;
 		betalningsTid = 1;
-		
+
 	}
 }
-

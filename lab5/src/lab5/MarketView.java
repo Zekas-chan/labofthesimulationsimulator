@@ -20,9 +20,11 @@ import lab5.state.MarketState;
 public class MarketView extends View implements Observer {
 	MarketState ms;
 	boolean optimizationMode;
+
 	/**
 	 * Konstruerar en MarketView som observerar en MarketState.
-	 * @param ms Referens till ett MarketState
+	 * 
+	 * @param ms   Referens till ett MarketState
 	 * @param mode Om satt till true skrivs bara resultatutskriften ut.
 	 */
 	public MarketView(MarketState ms, boolean mode) {
@@ -36,34 +38,39 @@ public class MarketView extends View implements Observer {
 	}
 
 	/**
-	 * 
+	 * Skrivet ut vilket event som inträffat. Om simuleringen är klar skrivs
+	 * istället statistiken för simuleringen ut.
 	 */
 	public void update(Observable o, Object arg) throws ClassCastException {
 		if (ms.isRunning() && !optimizationMode) {
-			if(arg instanceof StopEvent || arg instanceof StartEvent) {
-				sparseEvent((MarketEvent)arg);
+			if (arg instanceof StopEvent || arg instanceof StartEvent) {
+				sparseEvent((MarketEvent) arg);
 			}
-			
-			else {	//Jack och Patrik la till en else
+
+			else { // Jack och Patrik la till en else
 				eventDetails((MarketEvent) arg);
 			}
-			
+
 		} else if (!ms.isRunning()) {
 			results();
 		}
 	}
+
 	/**
 	 * Hjälpmetod för Update
 	 */
 	private void initiatePrinting() {
 		System.out.println("Tid\tHändelse\tKund\tÖ/S\tled\tledT\tI\t$\t:-(\tköat\tköT\tköar\t[Kassakö...]");
 	}
-	/**
-	 * Hjälpmetod för update. Tar ett MarketEvent som argument för att kunna veta dess typ.
-	 * @param a Ett MarketEvent. 
+
+	/*
+	 * Hjälpmetod för update. Tar ett MarketEvent som argument för att kunna veta
+	 * dess typ.
+	 * 
+	 * @param a Ett MarketEvent.
 	 */
 	private void eventDetails(MarketEvent a) {
-		if(a instanceof StängerEvent) {
+		if (a instanceof StängerEvent) {
 			System.out.print(ms.globalTime + "\t" + a.toString() + "\t" + "---" + "\t" + isOpen() + "\t"
 					+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
 					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
@@ -74,20 +81,21 @@ public class MarketView extends View implements Observer {
 				+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
 				+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
 				+ ms.tidKassaKö + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
-		
-		System.out.println(); //ny rad
+
+		System.out.println(); // ny rad
 	}
-	
+
 	private void sparseEvent(MarketEvent e) {
-		if(e instanceof StartEvent) {
-			System.out.println(ms.globalTime+"\t"+e.toString());
-		}else if(e instanceof StopEvent) {
-			System.out.println(ms.globalTime+"\t"+e.toString());
+		if (e instanceof StartEvent) {
+			System.out.println(ms.globalTime + "\t" + e.toString());
+		} else if (e instanceof StopEvent) {
+			System.out.println(ms.globalTime + "\t" + e.toString());
 		}
 	}
-	
-	/**
-	 * Hjälpmetod för Update.
+
+	/*
+	 * Hjälpmetod för update.
+	 * 
 	 * @return Ö om det är öppet, annars S för stängt.
 	 */
 	private String isOpen() {
@@ -97,9 +105,10 @@ public class MarketView extends View implements Observer {
 			return "S";
 		}
 	}
-	/**
-	 * Hjälpmetod till update. Läser igenom kassakön och gör den till en array i en String.
-	 * @return En Sträng med innehållet utformat som en array.
+
+	/*
+	 * Hjälpmetod till update. Läser igenom kassakön och gör den till en array i en
+	 * String. Returnerar en sträng med innehållet utformat som en array.
 	 */
 	private String köTillSträng() {
 		String arraystr = "[";
@@ -112,15 +121,18 @@ public class MarketView extends View implements Observer {
 		arraystr += "]";
 		return arraystr;
 	}
-	/**
-	 * Hjälpmetod för update. Om simuleringen kört klart skrivs simuleringens statistikvariabler ut.
+
+	/*
+	 * Hjälpmetod för update. Om simuleringen kört klart skrivs simuleringens
+	 * statistikvariabler ut.
 	 */
 	private void results() {
 		System.out.println("RESULTAT\n========\n \n");
 		System.out.println("1) Av " + ms.unikaKunder + " kunder handlade " + ms.antalGenomfördaKöp + " medan "
 				+ ms.antalMissadeKunder + " missades.\n");
-		System.out.println("2) Total tid " + ms.antalKassor + " kassor varit lediga: " + ms.tidOverksamKassa + " minuter.\n");
-		System.out.println("3) Total tid " + ms.unikaKöandeKunder + " tvingats köa: " + ms.tidKassaKö +" minuter."
+		System.out.println(
+				"2) Total tid " + ms.antalKassor + " kassor varit lediga: " + ms.tidOverksamKassa + " minuter.\n");
+		System.out.println("3) Total tid " + ms.unikaKöandeKunder + " tvingats köa: " + ms.tidKassaKö + " minuter."
 				+ ". \n Genomsnittlig kötid: " + (ms.tidKassaKö / ms.unikaKöandeKunder + "\n"));
 	}
 }

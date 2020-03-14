@@ -21,15 +21,11 @@ public class PlockEvent extends MarketEvent {
 	public PlockEvent(Kund kund, MarketState ms, EventQueue eq) {
 		super.time = kund.plockTid;
 		super.kund = kund;
-		
+
 		super.marketState = ms;
 		super.eventQueue = eq;
-		
-		eventQueue.add(this);
-		
-	}
 
-	public static void main(String[] args) {
+		eventQueue.add(this);
 
 	}
 
@@ -41,10 +37,13 @@ public class PlockEvent extends MarketEvent {
 	public void execute() {
 		eventQueue.remove(this);
 		kund.currentEvent = new BetalaEvent(kund, super.marketState, super.eventQueue);
-		marketState.globalTime += super.time();		//När ett event körts så lägg adderas tiden till den globala körstiden
-		//super.runNextEvent();
+		marketState.globalTime += super.time(); // När ett event körts så lägg adderas tiden till den globala körstiden
+		// super.runNextEvent();
 	}
-	
+
+	/**
+	 * Returnerar namnet på detta event.
+	 */
 	public String toString() {
 		return "Handlar";
 	}
