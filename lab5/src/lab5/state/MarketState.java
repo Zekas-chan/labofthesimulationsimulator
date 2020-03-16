@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
+import lab5.classtemplates.random.ExponentialRandomStream;
+import lab5.classtemplates.random.RandomMin;
+import lab5.classtemplates.random.UniformRandomStream;
 import lab5.classtemplates.state.*;
 import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
@@ -47,6 +50,8 @@ public class MarketState extends State {
 	public int ledigaKassor;
 	private boolean öppnaKassor;
 	public boolean öppet;
+	private UniformRandomStream rM;
+	private ExponentialRandomStream rE;
 
 	/**
 	 * Konstruerar ett nytt MarketState.
@@ -92,6 +97,12 @@ public class MarketState extends State {
 		öppnaKassor = true;
 		öppet = true;
 		this.kundID = 0;
+		
+		/*
+		 * Initiering av slumpmotorer.
+		 */
+		rM = new UniformRandomStream(plockTid[0], plockTid[1], frö);
+		rE = new ExponentialRandomStream(ankomstLambda, frö);
 	}
 
 	public int getID() {
@@ -124,6 +135,18 @@ public class MarketState extends State {
 		setChanged();
 		notifyObservers(e);
 
+	}
+	
+	public double getBetalTid() { //kan behöva avrundas
+		return rM.nextDouble();
+	}
+	
+	public double getPlockTid() { //kan behöva avrundas, och kanske bör använda en annan ny slumpmotor pga hur frön fungerar
+		return rM.nextDouble();
+	}
+	
+	public double getAnkomst() { //kan behöva avrundas
+		return rE.next();
 	}
 
 }
