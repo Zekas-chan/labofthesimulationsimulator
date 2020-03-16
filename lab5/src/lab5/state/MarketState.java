@@ -23,8 +23,10 @@ public class MarketState extends State {
 	public int antalKassor;
 	public int maxAntalKunder;
 	public int snabbKöpsÖppettider;
-	public int ankomstLambda;
+	public double ankomstLambda;
 	public int frö;
+	public double[] plockTid;
+	public double[] betalTid;
 
 	/*
 	 * Variabler för statistik.
@@ -59,7 +61,7 @@ public class MarketState extends State {
 	 *                      plocka varor. @param(saknas) int[] betalningsTider Anger
 	 *                      ett intervall för hur länge det tar att betala.
 	 */
-	public MarketState(int öppetTider, int kassor, int ankomstLambda, int frö, int maxKunder, EventQueue eq) {
+	public MarketState(int öppetTider, int kassor, double ankomstLambda, int frö, int maxKunder, double[] plocktid, double[] betaltid, EventQueue eq) {
 		/*
 		 * Parameterblock
 		 */
@@ -72,6 +74,8 @@ public class MarketState extends State {
 		this.ankomstLambda = ankomstLambda;
 		this.frö = frö;
 		this.maxAntalKunder = maxKunder;
+		this.plockTid = plocktid;
+		this.betalTid = betaltid;
 		/*
 		 * Initiering av statistikblocket.
 		 */
