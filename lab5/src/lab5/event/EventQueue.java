@@ -33,14 +33,14 @@ public class EventQueue {
 	public void reorganize() {
 
 		// Sortering
-		ArrayList<Integer> sortedTime = new ArrayList<Integer>();
+		ArrayList<Double> sortedTime = new ArrayList<Double>();
 		ArrayList<Event> sortedEvent = new ArrayList<Event>();
 
 		for (int i = 0; i < list.size(); i++) {
 
 			try {
 				Event e = list.get(i);
-				int time = e.time();
+				double time = e.time();
 				sortedTime.add(time);
 			} catch (NullPointerException e) {
 				break;

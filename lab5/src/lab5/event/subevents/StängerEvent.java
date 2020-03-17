@@ -13,16 +13,12 @@ import lab5.state.MarketState;
  */
 public class StängerEvent extends MarketEvent {
 
-	public static void main(String[] args) {
-
-	}
-
 	/**
 	 * Konstruerar ett StängerEvent.
 	 * 
 	 * @param time Tiden vid vilken butiken ska stänga.
 	 */
-	public StängerEvent(int time, MarketState ms, EventQueue eq) {
+	public StängerEvent(double time, MarketState ms, EventQueue eq) {
 		super.time = time;
 		super.marketState = ms;
 		super.eventQueue = eq;

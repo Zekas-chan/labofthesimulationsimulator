@@ -38,8 +38,8 @@ public class MarketState extends State {
 	public int unikaKunder; // antal kunder som kom, oavsett om dom missades eller inte
 	public int unikaKöandeKunder; // antal unika kunder som behövde köa
 	public int antalMissadeKunder;
-	public int tidOverksamKassa;
-	public int tidKassaKö;
+	public double tidOverksamKassa;
+	public double tidKassaKö;
 
 	/*
 	 * Variabler/referenser relevanta under körning.

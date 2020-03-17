@@ -18,12 +18,12 @@ public abstract class Event extends Observable{
 	private int executionTime;
 	public EventQueue eventQueue;
 	
-	public int time;
+	public double time;
 	/**
 	 * Förändrar hur lång tid som återstår innan eventet ska hända.
 	 * @param elapsedTime Mängden tid som förflutit.
 	 */
-	public void timeChange (int elapsedTime){
+	public void timeChange (double elapsedTime){
 		time -= elapsedTime;
 	}
 	/*
@@ -38,7 +38,7 @@ public abstract class Event extends Observable{
 	 * Hämtar tiden som återstår innan eventet händer.
 	 * @return Tiden som återstår.
 	 */
-	public int time() {
+	public double time() {
 		
 		return this.time;
 	}

@@ -45,7 +45,7 @@ public class PlockEvent extends MarketEvent {
 	 * Returnerar namnet på detta event.
 	 */
 	public String toString() {
-		return "Handlar";
+		return "Handlar   ";
 	}
 
 }

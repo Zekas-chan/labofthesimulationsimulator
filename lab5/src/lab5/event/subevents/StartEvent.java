@@ -22,7 +22,7 @@ public class StartEvent extends MarketEvent {
 	 * Lägger till ett nytt ankomstevent i kön.
 	 */
 	public void execute() {
-
+		super.marketState.incomingEvent(this);
 		new AnkomstEvent(super.marketState, super.eventQueue);
 		new StängerEvent(super.marketState.snabbKöpsÖppettider, super.marketState, super.eventQueue);
 	}

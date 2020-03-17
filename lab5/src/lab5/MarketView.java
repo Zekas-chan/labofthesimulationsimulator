@@ -1,6 +1,9 @@
 package lab5;
 
 import lab5.classtemplates.event.*;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -20,6 +23,7 @@ import lab5.state.MarketState;
 public class MarketView extends View implements Observer {
 	MarketState ms;
 	boolean optimizationMode;
+	DecimalFormat df;
 
 	/**
 	 * Konstruerar en MarketView som observerar en MarketState.
@@ -31,6 +35,8 @@ public class MarketView extends View implements Observer {
 		this.ms = ms;
 		ms.addObserver(this);
 		optimizationMode = mode;
+		df = new DecimalFormat("#.##");
+		df.setRoundingMode(RoundingMode.HALF_UP);
 		if (!optimizationMode) {
 			initiatePrinting(); // skriver ut raden som indikerar vad respektive informationssnutt är
 		}
@@ -56,7 +62,7 @@ public class MarketView extends View implements Observer {
 		}
 	}
 
-	/**
+	/*
 	 * Hjälpmetod för Update
 	 */
 	private void initiatePrinting() {
@@ -71,25 +77,25 @@ public class MarketView extends View implements Observer {
 	 */
 	private void eventDetails(MarketEvent a) {
 		if (a instanceof StängerEvent) {
-			System.out.print(ms.globalTime + "\t" + a.toString() + "\t" + "---" + "\t" + isOpen() + "\t"
+			System.out.print(df.format(ms.globalTime) + "\t" + a.toString() + "\t" + "---" + "\t" + isOpen() + "\t"
 					+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
 					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
-					+ ms.tidKassaKö + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
-			return;
-		}
-		System.out.print(ms.globalTime + "\t" + a.toString() + "\t" + a.kund.id + "\t" + isOpen() + "\t"
+					+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
+		}else {
+		System.out.print(df.format(ms.globalTime) + "\t" + a.toString() + "\t" + a.kund.id + "\t" + isOpen() + "\t"
 				+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
 				+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
-				+ ms.tidKassaKö + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
-
+				+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
+		}
 		System.out.println(); // ny rad
 	}
 
 	private void sparseEvent(MarketEvent e) {
 		if (e instanceof StartEvent) {
-			System.out.println(ms.globalTime + "\t" + e.toString());
+			System.out.println(df.format(ms.globalTime) + "\t" + e.toString());
 		} else if (e instanceof StopEvent) {
-			System.out.println(ms.globalTime + "\t" + e.toString());
+			System.out.println(df.format(ms.globalTime) + "\t" + e.toString());
+			results();
 		}
 	}
 
@@ -131,8 +137,8 @@ public class MarketView extends View implements Observer {
 		System.out.println("1) Av " + ms.unikaKunder + " kunder handlade " + ms.antalGenomfördaKöp + " medan "
 				+ ms.antalMissadeKunder + " missades.\n");
 		System.out.println(
-				"2) Total tid " + ms.antalKassor + " kassor varit lediga: " + ms.tidOverksamKassa + " minuter.\n");
-		System.out.println("3) Total tid " + ms.unikaKöandeKunder + " tvingats köa: " + ms.tidKassaKö + " minuter."
+				"2) Total tid " + ms.antalKassor + " kassor varit lediga: " + df.format(ms.tidOverksamKassa) + " minuter.\n");
+		System.out.println("3) Total tid " + ms.unikaKöandeKunder + " tvingats köa: " + df.format(ms.tidKassaKö) + " te."
 				+ ". \n Genomsnittlig kötid: " + (ms.tidKassaKö / ms.unikaKöandeKunder + "\n"));
 	}
 }

@@ -11,8 +11,8 @@ import java.util.Observable;
 public class State extends Observable {
 
 	public boolean run; // Nödbromsen.
-	public int globalTime;
-	public int timeMax;
+	public double globalTime;
+	public double timeMax;
 
 	/**
 	 * Konstruerar ett State.

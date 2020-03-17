@@ -2,6 +2,7 @@ package lab5;
 
 import lab5.event.subevents.StartEvent;
 import lab5.event.subevents.StopEvent;
+import lab5.state.MarketState;
 import lab5.event.subevents.PlockEvent;
 import lab5.event.subevents.BetalaEvent;
 import lab5.classtemplates.event.Event;
@@ -20,14 +21,23 @@ public class Kund {
 	private final int lowerRandomRange = 1, upperRandomRange = 1;
 
 	public int id; //kundens unika identifierare
+	
+	private MarketState ms;
 
 	public Event currentEvent;
 
 	// Time is described in minutes (simulated time)
 	public int queueTimer;
-	public int ankomstTid;
-	public int plockTid;
-	public int betalningsTid;
+//	public int ankomstTid;
+//	public int plockTid;
+//	public int betalningsTid;
+	
+	
+	
+	
+	public double ankomstTid;
+	public double plockTid;
+	public double betalningsTid;
 
 	/*
 	 * Enbart Spår i main
@@ -40,17 +50,20 @@ public class Kund {
 	 * Generar en kund. När kunden genererats bestäms tiderna det tar för kunden att
 	 * göra olika saker i butiken.
 	 */
-	public Kund() {
+	public Kund(MarketState ms) {
+		this.ms = ms;
 		/*
 		 * //Ger varje kund en random tid till varje event samt till "enrage" ankomstTid
 		 * = new RandomMin(lowerRandomRange,upperRandomRange).getRand(); plockTid = new
 		 * RandomMin(lowerRandomRange,upperRandomRange).getRand(); betalningsTid = new
 		 * RandomMin(lowerRandomRange,upperRandomRange).getRand(); queueTimer = 0;
 		 */
-
-		ankomstTid = 15;
-		plockTid = 8;
-		betalningsTid = 1;
+		ankomstTid = ms.getAnkomst();
+		plockTid = ms.getPlockTid();
+		betalningsTid = ms.getPlockTid();
+//		ankomstTid = 15;
+//		plockTid = 8;
+//		betalningsTid = 1;
 
 	}
 }

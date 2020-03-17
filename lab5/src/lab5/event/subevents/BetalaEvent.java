@@ -13,7 +13,7 @@ import lab5.Simulator;
  */
 public class BetalaEvent extends MarketEvent{
 
-	public int queueTimer;
+	public double queueTimer;
 	
 	
 	/**
@@ -34,7 +34,7 @@ public class BetalaEvent extends MarketEvent{
 	 * När ett event före detta event utförs i kön reduceras tiden tills detta event kan utförs.
 	 * @param elapsedTime Hur lång tid som förflutit.
 	 */
-	public void timeChange (int elapsedTime){		
+	public void timeChange (double elapsedTime){		
 		if(harKassa) {
 			time = time - elapsedTime;
 		}

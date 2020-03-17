@@ -12,16 +12,12 @@ import lab5.state.MarketState;
  */
 public class StopEvent extends MarketEvent {
 
-	public static void main(String[] args) {
-
-	}
-
 	/**
 	 * Konstruerar ett stoppevent.
 	 * 
 	 * @param time Tidpunkten vid vilken simuleringens stopp inträffar.
 	 */
-	public StopEvent(int time, MarketState ms, EventQueue eq) {
+	public StopEvent(double time, MarketState ms, EventQueue eq) {
 		super.time = time;
 		super.marketState = ms;
 		super.eventQueue = eq;
@@ -32,8 +28,9 @@ public class StopEvent extends MarketEvent {
 	 * Stoppar simuleringen när den anropas.
 	 */
 	public void execute() {
+		marketState.incomingEvent(this);
 		marketState.run = false;
-		System.out.println("Program STOP!");
+		//System.out.println("Program STOP!");
 
 	}
 

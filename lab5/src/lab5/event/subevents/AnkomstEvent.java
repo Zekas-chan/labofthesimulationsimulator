@@ -24,7 +24,7 @@ public class AnkomstEvent extends MarketEvent {
 		super.eventQueue = eq;
 
 		// kanske ha med att kolla max antal kunder här
-		Kund k = new Kund();
+		Kund k = new Kund(ms);
 		k.id = marketState.getID();
 		k.currentEvent = this;
 		super.time = k.ankomstTid; // nuvarande tid + tiden det tar innan det händer
@@ -65,11 +65,7 @@ public class AnkomstEvent extends MarketEvent {
 	 * @return Returnerar namnet på detta event.
 	 */
 	public String toString() {
-		return "Ankomst";
-	}
-
-	public static void main(String[] args) {
-
+		return "Ankomst   ";
 	}
 
 }

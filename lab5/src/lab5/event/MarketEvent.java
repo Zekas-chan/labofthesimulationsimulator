@@ -45,7 +45,7 @@ public class MarketEvent extends Event {
 			}
 
 			// när alla kassor är upptagna läggs resternade kunder in i kassakö-listan
-			else if (eventQueue.getList().get(i) instanceof BetalaEvent && marketState.ledigaKassor <= 0) {
+			else if (eventQueue.getList().get(i) instanceof BetalaEvent && marketState.ledigaKassor == 0) {
 
 				marketState.kassaKö.add(((BetalaEvent) eventQueue.getList().get(i)).kund);
 			}
@@ -55,7 +55,7 @@ public class MarketEvent extends Event {
 		// Kör execute på nästa event i kön
 		if (!eventQueue.isEmpty()) {
 
-			int elapsedTime = eventQueue.getList().get(0).time();
+			double elapsedTime = eventQueue.getList().get(0).time();
 			eventQueue.getList().get(0).execute();
 
 			// drar bort körtiden på eventent från dem andra eventen i kön
