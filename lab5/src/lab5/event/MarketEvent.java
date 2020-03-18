@@ -69,8 +69,8 @@ public class MarketEvent extends Event {
 			double elapsedTime = eventQueue.getList().get(0).time();
 			eventQueue.getList().get(0).execute();
 
-			// drar bort körtiden på eventent från dem andra eventen i kön
-			for (int i = 0; i < eventQueue.getList().size(); i++) {
+			// drar bort körtiden på eventent från dem andra eventen i kön - därför i börjar på 1
+			for (int i = 1; i < eventQueue.getList().size(); i++) {
 				eventQueue.getList().get(i).timeChange(elapsedTime);
 			}
 

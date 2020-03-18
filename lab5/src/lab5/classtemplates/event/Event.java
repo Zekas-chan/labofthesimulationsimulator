@@ -23,7 +23,14 @@ public abstract class Event extends Observable{
 	 * @param elapsedTime Mängden tid som förflutit.
 	 */
 	public void timeChange (double elapsedTime){
-		time -= elapsedTime;
+		
+		if ((time - elapsedTime) < 0) {
+			time = 0;
+		}
+		
+		else {
+			time -= elapsedTime;
+		}
 	}
 	/*
 	 * En metod som utför Eventets händelser.

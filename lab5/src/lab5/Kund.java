@@ -48,6 +48,5 @@ public class Kund {
 		plockTid = ms.getPlockTid();
 		betalningsTid = ms.getBetalTid();
 
-
 	}
 }

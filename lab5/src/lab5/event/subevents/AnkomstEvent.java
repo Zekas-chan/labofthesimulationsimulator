@@ -44,6 +44,7 @@ public class AnkomstEvent extends MarketEvent {
 	 */
 	public void execute() {
 		marketState.globalTime += super.time();
+		marketState.unikaKunder++;
 		
 		if (marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
 			// När en kund anländer i butiken läggs den till i "kundeributiken" listan
