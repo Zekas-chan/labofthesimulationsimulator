@@ -53,16 +53,17 @@ public class BetalaEvent extends MarketEvent{
 	 * Samt kör nästa event och sorterar om kön i händelseordning.
 	 */
 	public void execute() {
+		marketState.kassaKö.remove(this.kund);
 		eventQueue.remove(this);
 		marketState.ledigaKassor++;
 		marketState.kunderIButiken.remove(kund);
 		marketState.antalGenomfördaKöp++;
 		marketState.globalTime += super.time();		//När ett event körts så adderas tiden till den globala körstiden
 		marketState.tidKassaKö += queueTimer;
-		//Här vill vi ha en metod i marketstate som påverkar lediga kassor
-			//behöver hålla koll på max antal kassor i butiken
 		
-		//super.runNextEvent();
+		// Uppdaterar vyn
+		marketState.incomingEvent(this);
+			
 	}
 	
 	/**

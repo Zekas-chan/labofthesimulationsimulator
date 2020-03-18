@@ -34,11 +34,13 @@ public class PlockEvent extends MarketEvent {
 	 * den skapades med i det Eventet, avancerar den globala simuleringstiden samt
 	 * kör nästa event i händelsekön.
 	 */
-	public void execute() {
+	public void execute() {		
 		eventQueue.remove(this);
 		kund.currentEvent = new BetalaEvent(kund, super.marketState, super.eventQueue);
 		marketState.globalTime += super.time(); // När ett event körts så lägg adderas tiden till den globala körstiden
-		// super.runNextEvent();
+		
+		// Uppdaterar vyn
+		marketState.incomingEvent(this);
 	}
 
 	/**

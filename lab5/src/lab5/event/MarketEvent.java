@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
+import lab5.event.subevents.AnkomstEvent;
 import lab5.event.subevents.BetalaEvent;
 import lab5.event.subevents.StopEvent;
 import lab5.state.MarketState;
@@ -24,11 +25,10 @@ public class MarketEvent extends Event {
 	 * Kör nästa event och drar bort tiden ifrån resten
 	 */
 	public void runNextEvent() {
-		// Updaterar vyn
-		marketState.incomingEvent(eventQueue.getList().get(0));
 
 		// Kollar hur många betalaevent som är i kön och tilldelar dem n första en kassa
 		for (int i = 0; i < eventQueue.getList().size(); i++) {
+			boolean exists = false;
 
 			if (eventQueue.getList().get(i) instanceof BetalaEvent && marketState.ledigaKassor > 0) {
 
@@ -46,11 +46,22 @@ public class MarketEvent extends Event {
 
 			// när alla kassor är upptagna läggs resternade kunder in i kassakö-listan
 			else if (eventQueue.getList().get(i) instanceof BetalaEvent && marketState.ledigaKassor == 0) {
-
-				marketState.kassaKö.add(((BetalaEvent) eventQueue.getList().get(i)).kund);
+				
+				//Kollar om kunden redan ligger i kassakön
+				for (int j = 0; j < marketState.kassaKö.size(); j++) {
+					if ((((BetalaEvent) eventQueue.getList().get(i)).kund) == marketState.kassaKö.get(j)) {
+						exists = true;
+					}
+				}
+				
+				if (!exists) {
+					marketState.kassaKö.add(((BetalaEvent) eventQueue.getList().get(i)).kund);
+				}
 			}
 
 		}
+		
+		
 
 		// Kör execute på nästa event i kön
 		if (!eventQueue.isEmpty()) {
@@ -71,6 +82,10 @@ public class MarketEvent extends Event {
 	}
 
 	public void execute() {
+	}
+	
+	public void newAnkomst(MarketState ms, EventQueue eq) {
+		new AnkomstEvent(ms, eq);
 	}
 
 }

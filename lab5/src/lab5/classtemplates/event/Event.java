@@ -15,7 +15,6 @@ import lab5.state.MarketState;
  *
  */
 public abstract class Event extends Observable{
-	private int executionTime;
 	public EventQueue eventQueue;
 	
 	public double time;

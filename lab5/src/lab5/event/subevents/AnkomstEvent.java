@@ -27,6 +27,7 @@ public class AnkomstEvent extends MarketEvent {
 		Kund k = new Kund(ms);
 		k.id = marketState.getID();
 		k.currentEvent = this;
+		
 		super.time = k.ankomstTid; // nuvarande tid + tiden det tar innan det händer
 		super.kund = k;
 
@@ -42,12 +43,12 @@ public class AnkomstEvent extends MarketEvent {
 	 * nästa event och kön omorganiseras.
 	 */
 	public void execute() {
-
+		marketState.globalTime += super.time();
+		
 		if (marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
 			// När en kund anländer i butiken läggs den till i "kundeributiken" listan
 			marketState.kunderIButiken.add(this.kund);
-
-			new AnkomstEvent(marketState, eventQueue);
+			newAnkomst(super.marketState, super.eventQueue);
 		}
 
 		// om det är fullt i butiken eller affären är stängd så ökas antal missade
@@ -58,7 +59,9 @@ public class AnkomstEvent extends MarketEvent {
 
 		eventQueue.remove(this);
 		kund.currentEvent = new PlockEvent(kund, super.marketState, super.eventQueue);
-		marketState.globalTime += super.time();
+		
+		// Uppdaterar vyn
+		marketState.incomingEvent(this);
 	}
 
 	/**

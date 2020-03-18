@@ -96,7 +96,7 @@ public class MarketState extends State {
 		ledigaKassor = antalKassor;
 		öppnaKassor = true;
 		öppet = true;
-		this.kundID = 0;
+		this.kundID = -1;
 		
 		/*
 		 * Initiering av slumpmotorer.
@@ -138,15 +138,18 @@ public class MarketState extends State {
 	}
 	
 	public double getBetalTid() { //kan behöva avrundas
-		return rM.nextDouble();
+		double rm = rM.nextDouble();
+		return rm;
 	}
 	
 	public double getPlockTid() { //kan behöva avrundas, och kanske bör använda en annan ny slumpmotor pga hur frön fungerar
-		return rM.nextDouble();
+		double rm = rM.nextDouble();
+		return rm;
 	}
 	
 	public double getAnkomst() { //kan behöva avrundas
-		return rE.next();
+		double re = rE.next();
+		return re;
 	}
 
 }

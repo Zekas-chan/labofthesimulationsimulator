@@ -18,8 +18,6 @@ import lab5.event.subevents.AnkomstEvent;
  */
 public class Kund {
 
-	private final int lowerRandomRange = 1, upperRandomRange = 1;
-
 	public int id; //kundens unika identifierare
 	
 	private MarketState ms;
@@ -28,12 +26,6 @@ public class Kund {
 
 	// Time is described in minutes (simulated time)
 	public int queueTimer;
-//	public int ankomstTid;
-//	public int plockTid;
-//	public int betalningsTid;
-	
-	
-	
 	
 	public double ankomstTid;
 	public double plockTid;
@@ -52,18 +44,10 @@ public class Kund {
 	 */
 	public Kund(MarketState ms) {
 		this.ms = ms;
-		/*
-		 * //Ger varje kund en random tid till varje event samt till "enrage" ankomstTid
-		 * = new RandomMin(lowerRandomRange,upperRandomRange).getRand(); plockTid = new
-		 * RandomMin(lowerRandomRange,upperRandomRange).getRand(); betalningsTid = new
-		 * RandomMin(lowerRandomRange,upperRandomRange).getRand(); queueTimer = 0;
-		 */
 		ankomstTid = ms.getAnkomst();
 		plockTid = ms.getPlockTid();
-		betalningsTid = ms.getPlockTid();
-//		ankomstTid = 15;
-//		plockTid = 8;
-//		betalningsTid = 1;
+		betalningsTid = ms.getBetalTid();
+
 
 	}
 }

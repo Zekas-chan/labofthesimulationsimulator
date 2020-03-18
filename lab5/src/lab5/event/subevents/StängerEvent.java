@@ -28,11 +28,14 @@ public class StängerEvent extends MarketEvent {
 	/**
 	 * Stänger butiken när den körs.
 	 */
-	public void execute() {
+	public void execute() {	
 		marketState.globalTime += super.time();
 		eventQueue.remove(this);
-		new StopEvent(99999, marketState, eventQueue);
+		new StopEvent(999, marketState, eventQueue);
 		marketState.öppet = false;
+		
+		// Uppdaterar vyn
+		marketState.incomingEvent(this);
 	}
 
 	/**

@@ -28,10 +28,8 @@ public class StopEvent extends MarketEvent {
 	 * Stoppar simuleringen när den anropas.
 	 */
 	public void execute() {
-		marketState.incomingEvent(this);
 		marketState.run = false;
-		//System.out.println("Program STOP!");
-
+		marketState.incomingEvent(this);
 	}
 
 	/**
