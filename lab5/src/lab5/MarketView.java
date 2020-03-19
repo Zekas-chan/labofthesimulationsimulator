@@ -38,7 +38,8 @@ public class MarketView extends View implements Observer {
 		df = new DecimalFormat("#.##");
 		df.setRoundingMode(RoundingMode.HALF_UP);
 		if (!optimizationMode) {
-			initiatePrinting(); // skriver ut raden som indikerar vad respektive informationssnutt är
+			parameterPrint();
+			informationColumns(); // skriver ut raden som indikerar vad respektive informationssnutt är
 		}
 
 	}
@@ -61,11 +62,23 @@ public class MarketView extends View implements Observer {
 			results();
 		}
 	}
+	
+	
+	private void parameterPrint() {
+		System.out.println("PARAMETRAR\n==========");
+		System.out.println("Antal kassor, N: \t\t"+ms.antalKassor);
+		System.out.println("Max som ryms, M: \t\t"+ms.maxAntalKunder);
+		System.out.println("Ankomsthastighet, lambda: \t"+ms.ankomstLambda);
+		System.out.println("Plocktider, [P_min..Pmax]: \t["+ms.plockTid[0]+", "+ms.plockTid[1]+"]");
+		System.out.println("Betaltider, [K_min..Kmax]: \t["+ms.betalTid[0]+", "+ms.betalTid[1]+"]");
+		System.out.println("Frö, f: \t\t\t"+ms.frö);
+	}
 
 	/*
 	 * Hjälpmetod för Update
 	 */
-	private void initiatePrinting() {
+	private void informationColumns() {
+		System.out.println("\nFÖRLOPP\n=======");
 		System.out.println("Tid\tHändelse\tKund\tÖ/S\tled\tledT\tI\t$\t:-(\tköat\tköT\tköar\t[Kassakö...]");
 	}
 
