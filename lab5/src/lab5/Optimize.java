@@ -7,79 +7,66 @@ import lab5.event.subevents.StartEvent;
 import lab5.state.MarketState;
 
 public class Optimize {
-	MarketState marketState;
-	EventQueue eventQueue;
-	StartEvent startEvent;
-	Random r;
-
-	/*
-	 * Parametrar
-	 */
-	int simtid;
-	int kassor;
-	int maxkunder;
-	double lambda;
-	double[] plocktid;
-	double[] betaltid;
-	int frö;
-	/*
-	 * Statistik
-	 */
-	int unikaKunder = 0;
-	int unikaKöandeKunder = 0;
-	int antalGenomfördaKöp = 0;
-	int antalMissadeKunder = 0;
-	double tidOverksamKassa = 0;
-	double tidKassaKö = 0;
-
-	public Optimize() {
-		// Initiala parametrar
-		this.simtid = 10; // öppettid
-		this.kassor = 2; // kassor
-		this.maxkunder = 5;
-		this.lambda = 1.0;
-		this.plocktid = new double[] { 0.5, 1.0 };
-		this.betaltid = new double[] { 2.0, 3.0 };
-		this.frö = 1234;
-		this.r = new Random(System.currentTimeMillis());
-	}
-
+//	MarketState marketState;
+//	EventQueue eventQueue;
+//	StartEvent startEvent;
 	public static void main(String[] args) {
-		Optimize s = new Optimize();
-		s.optimization();
-
+		
 	}
-
-	private void optimization() {
-		for (int i = 0; i < 100; i++) { // kör simuleringen många gånger med olika frön
-			frö = r.nextInt(); // slumpa nytt frö
-			eventQueue = new EventQueue();
-			marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid, eventQueue);
-			startEvent = new StartEvent(marketState, eventQueue);
-			// Sammanställ statistiken som genomsnitt
-			unikaKunder += marketState.unikaKunder;
-			unikaKöandeKunder += marketState.unikaKöandeKunder;
-			antalGenomfördaKöp += marketState.antalGenomfördaKöp;
-			antalMissadeKunder += marketState.antalMissadeKunder;
-			tidOverksamKassa += marketState.tidOverksamKassa;
-			tidKassaKö += marketState.tidKassaKö;
-		}
-		unikaKunder /= 100;
-		unikaKöandeKunder /= 100;
-		antalGenomfördaKöp /= 100;
-		antalMissadeKunder /= 100;
-		tidOverksamKassa /= 100;
-		tidKassaKö /= 100;
-	}
-
+	
 	/**
-	 * Ska returnera true om en förbättring har skett i statistiken, annars false.
-	 * Bör ta statistik som parametrar.
-	 * 
-	 * @return
+	 * Kör en simulering med fixerade parametrar och returnerar sluttillståndet.
+	 * @return Sluttillståndet (MarketState)
 	 */
-	private boolean determineImprovement() {
-
+	public MarketState metod1(int registers, int FRÖ) {
+		int simtid = 10; //öppettid
+		int kassor = registers; //kassor
+		int maxkunder = 5;
+		double lambda = 1.0;
+		double[] plocktid = {0.5, 1.0};
+		double[] betaltid = {2.0, 3.0};
+		int frö = FRÖ;
+		
+		EventQueue eventQueue = new EventQueue();
+		MarketState marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid, eventQueue);
+		StartEvent startEvent = new StartEvent(marketState, eventQueue);
+		return marketState;
 	}
-
+	/**
+	 * Kör flera simuleringar med fixerat frö men varierande mängd kassor tills optimal mängd kassor hittats.
+	 */
+	public int metod2(int FRÖ) {
+		/*
+		 * Logiken är inte optimal eller testad än. Tanken är att köra på en ineffektivare metod för att få fram funktionaliteten först och sedan optimera.
+		 */
+		int missadeKunder = 0;
+		int kassor = 1;
+		int missadeFörraKörning = metod1(kassor, FRÖ).antalMissadeKunder; //etablerar en baseline med minimal mängd kassor; optimeras sedan för att missa så få kunder som möjligt.
+		
+		while (missadeKunder > missadeFörraKörning) {
+			missadeKunder = metod1(kassor, FRÖ).antalMissadeKunder;
+			if(missadeKunder < missadeFörraKörning) {
+				kassor++;
+			}
+			
+		}
+		
+		return kassor;
+	}
+	
+	/**
+	 * Kör en simulering med varierande frön.
+	 */
+	public void metod3() {
+		/*
+		 * Behöver testas... mycket.
+		 */
+		Random r = new Random(System.currentTimeMillis());
+		int change = 0;
+		int previousRun = 0;
+		while(change < 100) {
+			previousRun = metod2(r.nextInt());
+			if()
+		}
+	}
 }
