@@ -22,7 +22,6 @@ import lab5.state.MarketState;
  */
 public class MarketView extends View implements Observer {
 	MarketState ms;
-	boolean optimizationMode;
 	DecimalFormat df;
 
 	/**
@@ -31,16 +30,13 @@ public class MarketView extends View implements Observer {
 	 * @param ms   Referens till ett MarketState
 	 * @param mode Om satt till true skrivs bara resultatutskriften ut.
 	 */
-	public MarketView(MarketState ms, boolean mode) {
+	public MarketView(MarketState ms) {
 		this.ms = ms;
 		ms.addObserver(this);
-		optimizationMode = mode;
 		df = new DecimalFormat("#.##");
 		df.setRoundingMode(RoundingMode.HALF_UP);
-		if (!optimizationMode) {
-			parameterPrint();
-			informationColumns(); // skriver ut raden som indikerar vad respektive informationssnutt är
-		}
+		parameterPrint();
+		informationColumns(); // skriver ut raden som indikerar vad respektive informationssnutt är
 
 	}
 
@@ -49,7 +45,7 @@ public class MarketView extends View implements Observer {
 	 * istället statistiken för simuleringen ut.
 	 */
 	public void update(Observable o, Object arg) throws ClassCastException {
-		if (ms.isRunning() && !optimizationMode) {
+		if (ms.isRunning()) {
 			if (arg instanceof StopEvent || arg instanceof StartEvent) {
 				sparseEvent((MarketEvent) arg);
 			}
@@ -62,16 +58,15 @@ public class MarketView extends View implements Observer {
 			results();
 		}
 	}
-	
-	
+
 	private void parameterPrint() {
 		System.out.println("PARAMETRAR\n==========");
-		System.out.println("Antal kassor, N: \t\t"+ms.antalKassor);
-		System.out.println("Max som ryms, M: \t\t"+ms.maxAntalKunder);
-		System.out.println("Ankomsthastighet, lambda: \t"+ms.ankomstLambda);
-		System.out.println("Plocktider, [P_min..Pmax]: \t["+ms.plockTid[0]+", "+ms.plockTid[1]+"]");
-		System.out.println("Betaltider, [K_min..Kmax]: \t["+ms.betalTid[0]+", "+ms.betalTid[1]+"]");
-		System.out.println("Frö, f: \t\t\t"+ms.frö);
+		System.out.println("Antal kassor, N: \t\t" + ms.antalKassor);
+		System.out.println("Max som ryms, M: \t\t" + ms.maxAntalKunder);
+		System.out.println("Ankomsthastighet, lambda: \t" + ms.ankomstLambda);
+		System.out.println("Plocktider, [P_min..Pmax]: \t[" + ms.plockTid[0] + ", " + ms.plockTid[1] + "]");
+		System.out.println("Betaltider, [K_min..Kmax]: \t[" + ms.betalTid[0] + ", " + ms.betalTid[1] + "]");
+		System.out.println("Frö, f: \t\t\t" + ms.frö);
 	}
 
 	/*
@@ -94,11 +89,11 @@ public class MarketView extends View implements Observer {
 					+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
 					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
 					+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
-		}else {
-		System.out.print(df.format(ms.globalTime) + "\t" + a.toString() + "\t" + a.kund.id + "\t" + isOpen() + "\t"
-				+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
-				+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
-				+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
+		} else {
+			System.out.print(df.format(ms.globalTime) + "\t" + a.toString() + "\t" + a.kund.id + "\t" + isOpen() + "\t"
+					+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
+					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
+					+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
 		}
 		System.out.println(); // ny rad
 	}
@@ -149,9 +144,9 @@ public class MarketView extends View implements Observer {
 		System.out.println("RESULTAT\n========\n \n");
 		System.out.println("1) Av " + ms.unikaKunder + " kunder handlade " + ms.antalGenomfördaKöp + " medan "
 				+ ms.antalMissadeKunder + " missades.\n");
-		System.out.println(
-				"2) Total tid " + ms.antalKassor + " kassor varit lediga: " + df.format(ms.tidOverksamKassa) + " minuter.\n");
-		System.out.println("3) Total tid " + ms.unikaKöandeKunder + " tvingats köa: " + df.format(ms.tidKassaKö) + " te."
-				+ ". \n Genomsnittlig kötid: " + (ms.tidKassaKö / ms.unikaKöandeKunder + "\n"));
+		System.out.println("2) Total tid " + ms.antalKassor + " kassor varit lediga: " + df.format(ms.tidOverksamKassa)
+				+ " minuter.\n");
+		System.out.println("3) Total tid " + ms.unikaKöandeKunder + " tvingats köa: " + df.format(ms.tidKassaKö)
+				+ " te." + ". \n Genomsnittlig kötid: " + (ms.tidKassaKö / ms.unikaKöandeKunder + "\n"));
 	}
 }

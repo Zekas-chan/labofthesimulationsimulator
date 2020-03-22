@@ -53,6 +53,9 @@ public class BetalaEvent extends MarketEvent{
 	 * Samt kör nästa event och sorterar om kön i händelseordning.
 	 */
 	public void execute() {
+		// Uppdaterar vyn
+		marketState.incomingEvent(this);
+		
 		marketState.globalTime += super.time();		//När ett event körts så adderas tiden till den globala körstiden
 		marketState.kassaKö.remove(this.kund);
 		eventQueue.remove(this);
@@ -61,8 +64,7 @@ public class BetalaEvent extends MarketEvent{
 		marketState.antalGenomfördaKöp++;
 		marketState.tidKassaKö += queueTimer;
 		
-		// Uppdaterar vyn
-		marketState.incomingEvent(this);
+		
 			
 	}
 	

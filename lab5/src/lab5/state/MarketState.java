@@ -50,8 +50,9 @@ public class MarketState extends State {
 	public int ledigaKassor;
 	private boolean öppnaKassor;
 	public boolean öppet;
-	private UniformRandomStream rM;
-	private ExponentialRandomStream rE;
+	private UniformRandomStream rM; //betalningar
+	private UniformRandomStream rMB; //plock
+	private ExponentialRandomStream rE; //ankomster
 
 	/**
 	 * Konstruerar ett nytt MarketState.
@@ -102,6 +103,7 @@ public class MarketState extends State {
 		 * Initiering av slumpmotorer.
 		 */
 		rM = new UniformRandomStream(plockTid[0], plockTid[1], frö);
+		rMB = new UniformRandomStream(betaltid[0], betaltid[1], frö);
 		rE = new ExponentialRandomStream(ankomstLambda, frö);
 	}
 
@@ -137,17 +139,17 @@ public class MarketState extends State {
 
 	}
 	
-	public double getBetalTid() { //kan behöva avrundas
+	public double getBetalTid() {
 		double rm = rM.nextDouble();
 		return rm;
 	}
 	
-	public double getPlockTid() { //kan behöva avrundas, och kanske bör använda en annan ny slumpmotor pga hur frön fungerar
-		double rm = rM.nextDouble();
+	public double getPlockTid() {
+		double rm = rMB.nextDouble();
 		return rm;
 	}
 	
-	public double getAnkomst() { //kan behöva avrundas
+	public double getAnkomst() {
 		double re = rE.next();
 		return re;
 	}

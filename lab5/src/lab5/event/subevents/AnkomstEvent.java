@@ -43,6 +43,9 @@ public class AnkomstEvent extends MarketEvent {
 	 * nästa event och kön omorganiseras.
 	 */
 	public void execute() {
+		// Uppdaterar vyn
+		marketState.incomingEvent(this);
+		
 		marketState.globalTime += super.time();
 		marketState.unikaKunder++;
 		
@@ -61,8 +64,7 @@ public class AnkomstEvent extends MarketEvent {
 		eventQueue.remove(this);
 		kund.currentEvent = new PlockEvent(kund, super.marketState, super.eventQueue);
 		
-		// Uppdaterar vyn
-		marketState.incomingEvent(this);
+		
 	}
 
 	/**
