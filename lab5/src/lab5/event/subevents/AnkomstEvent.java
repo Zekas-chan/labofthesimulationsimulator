@@ -20,8 +20,8 @@ public class AnkomstEvent extends MarketEvent {
 	 * @param eq Referens till EventQueue
 	 */
 	public AnkomstEvent(MarketState ms, EventQueue eq) {
-		super.marketState = ms;
-		super.eventQueue = eq;
+		marketState = ms;
+		eventQueue = eq;
 
 		Kund k = new Kund(ms);
 		k.id = marketState.getID();
@@ -46,7 +46,7 @@ public class AnkomstEvent extends MarketEvent {
 		marketState.incomingEvent(this);
 		
 		//Eventet inträffar och tiden sätts till denna tid
-		marketState.globalTime += super.time();
+		marketState.globalTime = super.time();
 		
 		//En ny unik kund har anlänt till butiken
 		marketState.unikaKunder++;
