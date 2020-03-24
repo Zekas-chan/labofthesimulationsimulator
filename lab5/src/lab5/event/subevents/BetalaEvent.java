@@ -24,6 +24,7 @@ public class BetalaEvent extends MarketEvent{
 		super.marketState = ms;
 		super.eventQueue = eq;
 		eventQueue.add(this);
+		//System.out.println("Betalningstid: "+kund.betalningsTid); //debug
 	}
 	
 	/**

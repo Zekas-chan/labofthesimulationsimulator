@@ -30,7 +30,7 @@ public class AnkomstEvent extends MarketEvent {
 		kund = k;
 
 		eventQueue.add(this);
-		
+		//System.out.println("Ankomsttid: "+k.ankomstTid); //debug
 	}
 
 	/**

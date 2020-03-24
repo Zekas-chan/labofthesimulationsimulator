@@ -138,12 +138,12 @@ public class MarketState extends State {
 	}
 	
 	public double getBetalTid() {
-		double rm = rM.nextDouble();
-		return rm;
+		double rmB = rMB.nextDouble();
+		return rmB;
 	}
 	
 	public double getPlockTid() {
-		double rm = rMB.nextDouble();
+		double rm = rM.nextDouble();
 		return rm;
 	}
 	

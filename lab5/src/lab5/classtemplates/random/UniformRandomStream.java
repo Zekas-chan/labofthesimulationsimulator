@@ -18,7 +18,7 @@ public class UniformRandomStream {
 	public UniformRandomStream(double lower, double upper, long seed) {
 		rand = new Random(seed);
 		this.lowerD = lower;
-		this.widthD = upper;
+		this.widthD = upper-lower;
 	}
 	
 	public UniformRandomStream(int lower, int upper) {
@@ -28,7 +28,7 @@ public class UniformRandomStream {
 	}
 	
 	public double nextDouble() {
-		return lowerD+rand.nextDouble()*widthD;
+		return lowerD+(rand.nextDouble()*widthD);
 	}
 	
 	public int next() {

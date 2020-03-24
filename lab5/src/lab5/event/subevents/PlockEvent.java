@@ -19,6 +19,7 @@ public class PlockEvent extends MarketEvent {
 	 * @param kund Referens till den unika kunden som handlar.
 	 */
 	public PlockEvent(Kund kund, MarketState ms, EventQueue eq) {
+		
 		super.time = ms.globalTime + kund.plockTid;
 		super.kund = kund;
 
@@ -26,7 +27,7 @@ public class PlockEvent extends MarketEvent {
 		super.eventQueue = eq;
 
 		eventQueue.add(this);
-
+		//System.out.println("Plocktid: "+kund.plockTid); //debug
 	}
 
 	/**
