@@ -28,8 +28,6 @@ public class StopEvent extends MarketEvent {
 	 * Stoppar simuleringen när den anropas.
 	 */
 	public void execute() {
-		marketState.finalEvent = marketState.globalTime;
-		
 		marketState.incomingEvent(this);
 		
 		marketState.globalTime = time;

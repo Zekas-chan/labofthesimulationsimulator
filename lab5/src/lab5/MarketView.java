@@ -146,8 +146,8 @@ public class MarketView extends View implements Observer {
 		System.out.println("1) Av " + ms.unikaKunder + " kunder handlade " + ms.antalGenomfördaKöp + " medan "
 				+ ms.antalMissadeKunder + " missades.\n");
 		System.out.println("2) Total tid " + ms.antalKassor + " kassor varit lediga: " + df.format(ms.tidOverksamKassa)
-				+ " minuter.");
-		System.out.println("   Genomsnittlig ledig kassatid: "+df.format((ms.tidOverksamKassa / ms.antalKassor))+" te (dvs "+df.format(((ms.tidOverksamKassa / ms.antalKassor) / ms.finalEvent)*100)+"% av tiden från öppning tills sista kunden betalat).\n");
+				+ " te.");
+		System.out.println("   Genomsnittlig ledig kassatid: "+df.format((ms.tidOverksamKassa / ms.antalKassor))+" te (dvs "+df.format(((ms.tidOverksamKassa / ms.antalKassor) / ms.finalPaymentEvent)*100)+"% av tiden från öppning tills sista kunden betalat).\n");
 		System.out.println("3) Total tid " + ms.unikaKöandeKunder + " tvingats köa: " + df.format(ms.tidKassaKö)
 				+ " te." + ". \n Genomsnittlig kötid: " + df.format((ms.tidKassaKö / ms.unikaKöandeKunder)) + " te.\n");
 	}

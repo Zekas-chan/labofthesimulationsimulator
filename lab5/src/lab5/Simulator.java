@@ -18,7 +18,7 @@ public class Simulator {
 
 	public static void main(String[] args) {
 		Simulator s = new Simulator();
-		s.runH1();
+		s.runH2();
 	}
 
 	/**

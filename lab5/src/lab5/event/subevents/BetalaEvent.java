@@ -43,6 +43,9 @@ public class BetalaEvent extends MarketEvent{
 		
 		//
 		idleRegisters(time - marketState.globalTime);
+		
+		marketState.finalPaymentEvent = super.time();
+		
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
 		

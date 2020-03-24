@@ -40,7 +40,7 @@ public class MarketState extends State {
 	public int antalMissadeKunder;
 	public double tidOverksamKassa;
 	public double tidKassaKö;
-	public double finalEvent;
+	public double finalPaymentEvent;
 
 	/*
 	 * Variabler/referenser relevanta under körning.
@@ -92,7 +92,7 @@ public class MarketState extends State {
 		antalMissadeKunder = 0;
 		tidOverksamKassa = 0;
 		tidKassaKö = 0;
-		finalEvent = 0;
+		finalPaymentEvent = 0;
 		/*
 		 * Initiering av körningsvariabler;
 		 */

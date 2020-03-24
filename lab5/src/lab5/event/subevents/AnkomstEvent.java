@@ -46,7 +46,10 @@ public class AnkomstEvent extends MarketEvent {
 		registerQueue(time - marketState.globalTime);
 		
 		//
-		idleRegisters(time - marketState.globalTime);
+		if(marketState.öppet) {
+			idleRegisters(time - marketState.globalTime);
+		}
+		
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
 		
