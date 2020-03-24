@@ -87,12 +87,12 @@ public class MarketView extends View implements Observer {
 	private void eventDetails(MarketEvent a) {
 		if (a instanceof StängerEvent) {
 			System.out.print(df.format(a.time) + "\t" + a.toString() + "\t" + "---" + "\t" + isOpen() + "\t"
-					+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
+					+ ms.ledigaKassor + "\t" + df.format(ms.tidOverksamKassa) + "\t" + ms.kunderIButiken.size() + "\t"
 					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
 					+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
 		} else {
 			System.out.print(df.format(a.time) + "\t" + a.toString() + "\t" + a.kund.id + "\t" + isOpen() + "\t"
-					+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
+					+ ms.ledigaKassor + "\t" + df.format(ms.tidOverksamKassa) + "\t" + ms.kunderIButiken.size() + "\t"
 					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
 					+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
 		}
@@ -146,8 +146,9 @@ public class MarketView extends View implements Observer {
 		System.out.println("1) Av " + ms.unikaKunder + " kunder handlade " + ms.antalGenomfördaKöp + " medan "
 				+ ms.antalMissadeKunder + " missades.\n");
 		System.out.println("2) Total tid " + ms.antalKassor + " kassor varit lediga: " + df.format(ms.tidOverksamKassa)
-				+ " minuter.\n");
+				+ " minuter.");
+		System.out.println("   Genomsnittlig ledig kassatid: "+df.format((ms.tidOverksamKassa / ms.antalKassor))+" te (dvs "+df.format(((ms.tidOverksamKassa / ms.antalKassor) / ms.finalEvent)*100)+"% av tiden från öppning tills sista kunden betalat).\n");
 		System.out.println("3) Total tid " + ms.unikaKöandeKunder + " tvingats köa: " + df.format(ms.tidKassaKö)
-				+ " te." + ". \n Genomsnittlig kötid: " + (ms.tidKassaKö / ms.unikaKöandeKunder + "\n"));
+				+ " te." + ". \n Genomsnittlig kötid: " + df.format((ms.tidKassaKö / ms.unikaKöandeKunder)) + " te.\n");
 	}
 }

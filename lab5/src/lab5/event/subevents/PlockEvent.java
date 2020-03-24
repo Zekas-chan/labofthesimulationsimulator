@@ -20,7 +20,7 @@ public class PlockEvent extends MarketEvent {
 	 */
 	public PlockEvent(Kund kund, MarketState ms, EventQueue eq) {
 		
-		super.time = ms.globalTime + kund.plockTid;
+		super.time = ms.globalTime + kund.getPlockTid();
 		super.kund = kund;
 
 		super.marketState = ms;
@@ -36,15 +36,28 @@ public class PlockEvent extends MarketEvent {
 	 * kör nästa event i händelsekön.
 	 */
 	public void execute() {
+		//Ökar tiden spenderat köande.
+		registerQueue(time - marketState.globalTime);
+		
+		//
+		idleRegisters(time - marketState.globalTime);
+		
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
 		
+		//
 		marketState.globalTime = super.time(); // När ett event körts så lägg adderas tiden till den globala körstiden
+		
+		//
 		eventQueue.remove(this);
 		
+		//
 		if(!registersFull()) {
 			kund.currentEvent = new BetalaEvent(kund, super.marketState, super.eventQueue);
 			marketState.ledigaKassor--;
+		}else {
+			marketState.kassaKö.add(this.kund);
+			marketState.unikaKöandeKunder++;
 		}
 		
 		
@@ -52,8 +65,6 @@ public class PlockEvent extends MarketEvent {
 	
 	private boolean registersFull() {
 		if(marketState.ledigaKassor == 0) {
-			marketState.kassaKö.add(this.kund);
-			marketState.unikaKöandeKunder++;
 			return true;
 		}else {
 			return false;

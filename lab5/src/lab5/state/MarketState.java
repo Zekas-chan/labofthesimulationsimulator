@@ -40,6 +40,7 @@ public class MarketState extends State {
 	public int antalMissadeKunder;
 	public double tidOverksamKassa;
 	public double tidKassaKö;
+	public double finalEvent;
 
 	/*
 	 * Variabler/referenser relevanta under körning.
@@ -91,6 +92,7 @@ public class MarketState extends State {
 		antalMissadeKunder = 0;
 		tidOverksamKassa = 0;
 		tidKassaKö = 0;
+		finalEvent = 0;
 		/*
 		 * Initiering av körningsvariabler;
 		 */
@@ -103,7 +105,7 @@ public class MarketState extends State {
 		 * Initiering av slumpmotorer.
 		 */
 		rM = new UniformRandomStream(plockTid[0], plockTid[1], frö);
-		rMB = new UniformRandomStream(betaltid[0], betaltid[1], frö);
+		rMB = new UniformRandomStream(betalTid[0], betalTid[1], frö);
 		rE = new ExponentialRandomStream(ankomstLambda, frö);
 	}
 

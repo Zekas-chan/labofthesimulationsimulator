@@ -42,24 +42,28 @@ public class AnkomstEvent extends MarketEvent {
 	 * nästa event och kön omorganiseras.
 	 */
 	public void execute() {
+		//
+		registerQueue(time - marketState.globalTime);
+		
+		//
+		idleRegisters(time - marketState.globalTime);
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
 		
 		//Eventet inträffar och tiden sätts till denna tid
 		marketState.globalTime = super.time();
 		
-		//En ny unik kund har anlänt till butiken
-		marketState.unikaKunder++;
-		
-//		//Ett nytt AnkomstEvent skapas.
-//		new AnkomstEvent(marketState, eventQueue);
-		
 		if(canEnter()) {
 			// När en kund anländer i butiken läggs den till i "kundeributiken" listan
 			marketState.kunderIButiken.add(this.kund);
+			
+			//En ny unik kund har anlänt till butiken
+			marketState.unikaKunder++;
+			
 			kund.currentEvent = new PlockEvent(kund, super.marketState, super.eventQueue);
 		}else {
 			if(marketState.kunderIButiken.size() == marketState.maxAntalKunder) {
+			marketState.unikaKunder++;
 			marketState.antalMissadeKunder++;
 			}
 		}

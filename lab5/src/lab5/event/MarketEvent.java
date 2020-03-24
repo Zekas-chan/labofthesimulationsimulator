@@ -38,5 +38,18 @@ public class MarketEvent extends Event {
 
 	public void execute() {
 	}
+	
+	public void idleRegisters(double time) {
+		marketState.tidOverksamKassa += time * marketState.ledigaKassor;
+	}
+	
+	
+	/**
+	 * När ett event inträffat har tid passerat. Mängden tid spenderad i kö är den tiden gånger antalet personer i kön.
+	 * @param time Mängden tid.
+	 */
+	public void registerQueue(double time) {
+		marketState.tidKassaKö += time * marketState.kassaKö.size();
+	}
 
 }

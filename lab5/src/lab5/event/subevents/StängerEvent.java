@@ -29,6 +29,12 @@ public class StängerEvent extends MarketEvent {
 	 * Stänger butiken när den körs.
 	 */
 	public void execute() {	
+		//Ökar tiden spenderat köande.
+		registerQueue(time - marketState.globalTime);
+				
+		//
+		idleRegisters(time - marketState.globalTime);
+		
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
 		

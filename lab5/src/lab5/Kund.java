@@ -38,10 +38,20 @@ public class Kund {
 	public Kund(MarketState ms) {
 		this.ms = ms;
 		ankomstTid = ms.getAnkomst();
-		plockTid = ms.getPlockTid();
-		betalningsTid = ms.getBetalTid();
+//		plockTid = ms.getPlockTid();
+//		betalningsTid = ms.getBetalTid();
 		
 		queueTimer = 0;
 
+	}
+	
+	public double getPlockTid() {
+		plockTid = ms.getPlockTid();
+		return plockTid;
+	}
+	
+	public double getBetalTid() {
+		betalningsTid = ms.getBetalTid();
+		return betalningsTid;
 	}
 }

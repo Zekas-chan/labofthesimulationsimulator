@@ -19,7 +19,7 @@ public class BetalaEvent extends MarketEvent{
 	 * @param kund En referens till den unika kund som betalar.
 	 */
 	public BetalaEvent(Kund kund, MarketState ms, EventQueue eq) {
-		super.time = ms.globalTime + kund.betalningsTid;
+		super.time = ms.globalTime + kund.getBetalTid();
 		super.kund = kund;
 		super.marketState = ms;
 		super.eventQueue = eq;
@@ -38,17 +38,21 @@ public class BetalaEvent extends MarketEvent{
 	 * Samt kör nästa event och sorterar om kön i händelseordning.
 	 */
 	public void execute() {
+		//Väntande kunders kötid ökas.
+		registerQueue(time - marketState.globalTime);
+		
+		//
+		idleRegisters(time - marketState.globalTime);
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
+		
+		
 		
 		//När ett event körts så adderas tiden till den globala körstiden
 		marketState.globalTime = super.time();
 		
 		//Tar bort detta event från kön.
 		eventQueue.remove(this);
-		
-		//Mängden lediga kassor ökar.
-		marketState.ledigaKassor++;
 		
 		//Kunden är nu klar i butiken och tas bort.
 		marketState.kunderIButiken.remove(kund);
@@ -59,24 +63,20 @@ public class BetalaEvent extends MarketEvent{
 		//Mängden tid kunden stod i kö läggs till i statistiken.
 		marketState.tidKassaKö += kund.queueTimer;
 		
-		//Väntande kunders kötid ökas.
-		queueTime();
+		
 		
 		//Nästa kund i kön läggs nu till i EventQueue och börjar betala. Om det inte finns någon kund i kön ökar antalet lediga kassor, annars förblir det konstant.
-		marketState.ledigaKassor = nextInQueue() ? marketState.ledigaKassor : marketState.ledigaKassor++;
-			
-	}
-	
-	private void queueTime() {
-		for(int i = 0; i < marketState.kassaKö.size(); i++) {
-			marketState.kassaKö.get(i).queueTimer += kund.betalningsTid;
+		marketState.ledigaKassor += nextInQueue() ? marketState.ledigaKassor : 1;
+		
+		//Om det finns en kund i kön skapas ett nytt betalaevent med den kunden, och kunden tas bort från kassakön.
+		if(nextInQueue()) {
+			new BetalaEvent(marketState.kassaKö.get(0),super.marketState, super.eventQueue);
+			marketState.kassaKö.remove(0);
 		}
 	}
 	
 	private boolean nextInQueue() {
 		if(marketState.kassaKö.size() > 0) {
-			new BetalaEvent(marketState.kassaKö.get(0),super.marketState, super.eventQueue);
-			marketState.kassaKö.remove(0);
 			return true;
 		}else {
 			return false;
