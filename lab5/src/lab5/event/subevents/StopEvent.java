@@ -29,7 +29,9 @@ public class StopEvent extends MarketEvent {
 	 */
 	public void execute() {
 		marketState.incomingEvent(this);
+		marketState.globalTime = time;
 		marketState.run = false;
+		eventQueue.remove(this);
 	}
 
 	/**

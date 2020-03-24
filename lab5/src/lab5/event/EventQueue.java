@@ -61,6 +61,12 @@ public class EventQueue {
 		}
 
 		list = sortedEvent;
+		
+		//Debug
+//		for(int i = 0; i < list.size(); i++) {
+//			System.out.print(list.get(i).toString()+", ");
+//		}
+//		System.out.println();
 	}
 
 	/**

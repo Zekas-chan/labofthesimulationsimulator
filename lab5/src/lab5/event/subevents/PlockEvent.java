@@ -19,7 +19,7 @@ public class PlockEvent extends MarketEvent {
 	 * @param kund Referens till den unika kunden som handlar.
 	 */
 	public PlockEvent(Kund kund, MarketState ms, EventQueue eq) {
-		super.time = kund.plockTid;
+		super.time = ms.globalTime + kund.plockTid;
 		super.kund = kund;
 
 		super.marketState = ms;
@@ -37,18 +37,33 @@ public class PlockEvent extends MarketEvent {
 	public void execute() {
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
-		marketState.globalTime += super.time(); // När ett event körts så lägg adderas tiden till den globala körstiden
+		
+		marketState.globalTime = super.time(); // När ett event körts så lägg adderas tiden till den globala körstiden
 		eventQueue.remove(this);
-		kund.currentEvent = new BetalaEvent(kund, super.marketState, super.eventQueue);
+		
+		if(!registersFull()) {
+			kund.currentEvent = new BetalaEvent(kund, super.marketState, super.eventQueue);
+			marketState.ledigaKassor--;
+		}
 		
 		
+	}
+	
+	private boolean registersFull() {
+		if(marketState.ledigaKassor == 0) {
+			marketState.kassaKö.add(this.kund);
+			marketState.unikaKöandeKunder++;
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	/**
 	 * Returnerar namnet på detta event.
 	 */
 	public String toString() {
-		return "Handlar   ";
+		return "Plock   ";
 	}
 
 }

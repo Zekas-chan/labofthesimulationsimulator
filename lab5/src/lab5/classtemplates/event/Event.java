@@ -14,40 +14,25 @@ import lab5.state.MarketState;
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */
-public abstract class Event extends Observable{
+public abstract class Event extends Observable {
 	public EventQueue eventQueue;
-	
+
 	public double time;
-	/**
-	 * Förändrar hur lång tid som återstår innan eventet ska hända.
-	 * @param elapsedTime Mängden tid som förflutit.
-	 */
-	public void timeChange (double elapsedTime){
-		
-		if ((time - elapsedTime) < 0) {
-			time = 0;
-		}
-		
-		else {
-			time -= elapsedTime;
-		}
-	}
+
 	/*
 	 * En metod som utför Eventets händelser.
 	 */
 	public abstract void execute();
-	/**
-	 * 
-	 * @return
-	 */
+	
 	/**
 	 * Hämtar tiden som återstår innan eventet händer.
+	 * 
 	 * @return Tiden som återstår.
 	 */
 	public double time() {
-		
 		return this.time;
 	}
+
 	/**
 	 * Kör nästa event i kön.
 	 */

@@ -31,7 +31,8 @@ public class StängerEvent extends MarketEvent {
 	public void execute() {	
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
-		marketState.globalTime += super.time();
+		
+		marketState.globalTime = super.time();
 		eventQueue.remove(this);
 		new StopEvent(999, marketState, eventQueue);
 		marketState.öppet = false;

@@ -18,17 +18,17 @@ public class Simulator {
 
 	public static void main(String[] args) {
 		Simulator s = new Simulator();
-		s.runH1();
+		s.run();
 	}
 
 	/**
-	 * Simuleringsfall 1 med testparametrar.
+	 * Simulering med testparametrar.
 	 */
 	public void run() {
 		int simtid = 10; // öppettid (när StängerEvent händer)
 		int kassor = 2; // kassor
 		int maxkunder = 5;
-		double lambda = 1.0;
+		double lambda = 20;
 		double[] plocktid = { 0.5, 1.0 };
 		double[] betaltid = { 2.0, 3.0 };
 		int frö = 1337;
@@ -41,11 +41,11 @@ public class Simulator {
 	}
 
 	/**
-	 * Testfall 2 med parametrar givna från uppgiften.
+	 * Testfall 1 med parametrar givna från uppgiften.
 	 */
 	public void runH1() { // simuleringsmetod som ska ge identiskt resultat till Håkans första exempel
 		// kör Håkans första exempel med identiska parametrar.
-		int simtid = 10; // öppettid
+		double simtid = 10; // öppettid
 		int kassor = 2; // kassor
 		int maxkunder = 5;
 		double lambda = 1.0;
@@ -60,11 +60,11 @@ public class Simulator {
 	}
 
 	/**
-	 * Testfall 3 med parametrar givna från uppgiften.
+	 * Testfall 2 med parametrar givna från uppgiften.
 	 */
 	public void runH2() {
 		// kör Håkans andra exempel med identiska parametrar.
-		int simtid = 8; // öppettid
+		double simtid = 8; // öppettid
 		int kassor = 2; // kassor
 		int maxkunder = 7;
 		double lambda = 3.0;

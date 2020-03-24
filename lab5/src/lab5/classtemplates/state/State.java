@@ -19,7 +19,7 @@ public class State extends Observable {
 	 * 
 	 * @param time Starttiden för tillståndet.
 	 */
-	public State(int time) {
+	public State(double time) {
 		timeMax = time;
 		run = true;
 	}

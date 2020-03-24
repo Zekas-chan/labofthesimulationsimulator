@@ -35,6 +35,7 @@ public class MarketView extends View implements Observer {
 		ms.addObserver(this);
 		df = new DecimalFormat("#.##");
 		df.setRoundingMode(RoundingMode.HALF_UP);
+		df.setMinimumFractionDigits(2);
 		parameterPrint();
 		informationColumns(); // skriver ut raden som indikerar vad respektive informationssnutt är
 
@@ -85,12 +86,12 @@ public class MarketView extends View implements Observer {
 	 */
 	private void eventDetails(MarketEvent a) {
 		if (a instanceof StängerEvent) {
-			System.out.print(df.format(ms.globalTime) + "\t" + a.toString() + "\t" + "---" + "\t" + isOpen() + "\t"
+			System.out.print(df.format(a.time) + "\t" + a.toString() + "\t" + "---" + "\t" + isOpen() + "\t"
 					+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
 					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
 					+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
 		} else {
-			System.out.print(df.format(ms.globalTime) + "\t" + a.toString() + "\t" + a.kund.id + "\t" + isOpen() + "\t"
+			System.out.print(df.format(a.time) + "\t" + a.toString() + "\t" + a.kund.id + "\t" + isOpen() + "\t"
 					+ ms.ledigaKassor + "\t" + ms.tidOverksamKassa + "\t" + ms.kunderIButiken.size() + "\t"
 					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
 					+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
@@ -100,9 +101,9 @@ public class MarketView extends View implements Observer {
 
 	private void sparseEvent(MarketEvent e) {
 		if (e instanceof StartEvent) {
-			System.out.println(df.format(ms.globalTime) + "\t" + e.toString());
+			System.out.println(df.format(e.time) + "\t" + e.toString());
 		} else if (e instanceof StopEvent) {
-			System.out.println(df.format(ms.globalTime) + "\t" + e.toString());
+			System.out.println(df.format(e.time) + "\t" + e.toString());
 			results();
 		}
 	}

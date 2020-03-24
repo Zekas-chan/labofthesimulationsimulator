@@ -14,18 +14,16 @@ import lab5.state.MarketState;
  */
 public class StartEvent extends MarketEvent {
 
-	public static void main(String[] args) {
-
-	}
-
 	/**
 	 * Lägger till ett nytt ankomstevent i kön.
 	 */
 	public void execute() {
 		super.marketState.incomingEvent(this);
-		eventQueue.remove(this);
+		
 		new AnkomstEvent(super.marketState, super.eventQueue);
 		new StängerEvent(super.marketState.snabbKöpsÖppettider, super.marketState, super.eventQueue);
+		eventQueue.remove(this);
+		
 	}
 
 	/**

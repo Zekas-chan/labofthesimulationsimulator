@@ -13,25 +13,24 @@ import lab5.state.MarketState;
  *
  */
 public class AnkomstEvent extends MarketEvent {
-	// private MarketState marketstate;
+	
 	/**
-	 * Konstruerar ett ankomstevent.
-	 * 
-	 * @param kund Referens till kunden??
+	 * Konstruerar ett AnkomstEvent.
+	 * @param ms Referens till MarketState
+	 * @param eq Referens till EventQueue
 	 */
 	public AnkomstEvent(MarketState ms, EventQueue eq) {
 		super.marketState = ms;
 		super.eventQueue = eq;
 
-		// kanske ha med att kolla max antal kunder här
 		Kund k = new Kund(ms);
 		k.id = marketState.getID();
 		k.currentEvent = this;
-		
-		super.time = k.ankomstTid; // nuvarande tid + tiden det tar innan det händer
-		super.kund = k;
+		super.time = ms.globalTime + k.ankomstTid; //när det händer
+		kund = k;
 
 		eventQueue.add(this);
+		
 	}
 
 	/**
@@ -39,32 +38,47 @@ public class AnkomstEvent extends MarketEvent {
 	 * den globala tiden. Om snabbköpet är öppet och butiken inte är full så skapas
 	 * en ny kund som tilldelas ett unikt ID. Om butiken inte är öppen eller om den
 	 * är full så 'missas' kunden och respektive statistikvariabel förändras. (det
-	 * här är fel, om snabbköpet stängt ska kunden inte missas.) Slutligen körs
+	 * här är fel, om snabbköpet är stängt ska kunden inte missas.) Slutligen körs
 	 * nästa event och kön omorganiseras.
 	 */
 	public void execute() {
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
 		
+		//Eventet inträffar och tiden sätts till denna tid
 		marketState.globalTime += super.time();
+		
+		//En ny unik kund har anlänt till butiken
 		marketState.unikaKunder++;
 		
-		if (marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
+//		//Ett nytt AnkomstEvent skapas.
+//		new AnkomstEvent(marketState, eventQueue);
+		
+		if(canEnter()) {
 			// När en kund anländer i butiken läggs den till i "kundeributiken" listan
 			marketState.kunderIButiken.add(this.kund);
-			newAnkomst(super.marketState, super.eventQueue);
-		}
-
-		// om det är fullt i butiken eller affären är stängd så ökas antal missade
-		// kunder
-		else {
+			kund.currentEvent = new PlockEvent(kund, super.marketState, super.eventQueue);
+		}else {
+			if(marketState.kunderIButiken.size() == marketState.maxAntalKunder) {
 			marketState.antalMissadeKunder++;
+			}
 		}
-
+		
+		//Tar bort det här eventet ur kön
 		eventQueue.remove(this);
-		kund.currentEvent = new PlockEvent(kund, super.marketState, super.eventQueue);
 		
-		
+		//Genererar ett nytt ankomstevent om butiken är öppen
+		if(marketState.öppet) {
+			new AnkomstEvent(marketState, eventQueue);
+		}
+	}
+	
+	private boolean canEnter() {
+		if(marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	/**

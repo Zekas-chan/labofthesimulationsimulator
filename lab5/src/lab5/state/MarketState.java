@@ -25,7 +25,7 @@ public class MarketState extends State {
 	 */
 	public int antalKassor;
 	public int maxAntalKunder;
-	public int snabbKöpsÖppettider;
+	public double snabbKöpsÖppettider;
 	public double ankomstLambda;
 	public int frö;
 	public double[] plockTid;
@@ -67,7 +67,7 @@ public class MarketState extends State {
 	 *                      plocka varor. @param(saknas) int[] betalningsTider Anger
 	 *                      ett intervall för hur länge det tar att betala.
 	 */
-	public MarketState(int öppetTider, int kassor, double ankomstLambda, int frö, int maxKunder, double[] plocktid, double[] betaltid, EventQueue eq) {
+	public MarketState(double öppetTider, int kassor, double ankomstLambda, int frö, int maxKunder, double[] plocktid, double[] betaltid, EventQueue eq) {
 		/*
 		 * Parameterblock
 		 */
@@ -130,13 +130,11 @@ public class MarketState extends State {
 	/**
 	 * Skickar en uppdatering till MarketView med det Event som kommer att inträffa.
 	 * 
-	 * @param e Eventet som är nästkommande.
+	 * @param e Eventet som är står på tur.
 	 */
 	public void incomingEvent(Event e) {
-
 		setChanged();
 		notifyObservers(e);
-
 	}
 	
 	public double getBetalTid() {

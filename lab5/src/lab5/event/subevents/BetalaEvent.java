@@ -12,8 +12,6 @@ import lab5.Simulator;
  *
  */
 public class BetalaEvent extends MarketEvent{
-
-	public double queueTimer;
 	
 	
 	/**
@@ -21,27 +19,13 @@ public class BetalaEvent extends MarketEvent{
 	 * @param kund En referens till den unika kund som betalar.
 	 */
 	public BetalaEvent(Kund kund, MarketState ms, EventQueue eq) {
-		super.time = kund.betalningsTid;
+		super.time = ms.globalTime + kund.betalningsTid;
 		super.kund = kund;
-		queueTimer = kund.queueTimer;
 		super.marketState = ms;
 		super.eventQueue = eq;
 		eventQueue.add(this);
-		super.harKassa = false;
 	}
 	
-	/**
-	 * När ett event före detta event utförs i kön reduceras tiden tills detta event kan utförs.
-	 * @param elapsedTime Hur lång tid som förflutit.
-	 */
-	public void timeChange (double elapsedTime){		
-		if(harKassa) {
-			time = time - elapsedTime;
-		}
-		else {
-			queueTimer = queueTimer + elapsedTime;
-		}
-	}
 	/**
 	 * Utför en mängd operationer när den körs:
 	 * Tar bort den unika kunden som eventet skapades med från butiken.
@@ -56,16 +40,46 @@ public class BetalaEvent extends MarketEvent{
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
 		
-		marketState.globalTime += super.time();		//När ett event körts så adderas tiden till den globala körstiden
-		marketState.kassaKö.remove(this.kund);
+		//När ett event körts så adderas tiden till den globala körstiden
+		marketState.globalTime = super.time();
+		
+		//Tar bort detta event från kön.
 		eventQueue.remove(this);
+		
+		//Mängden lediga kassor ökar.
 		marketState.ledigaKassor++;
+		
+		//Kunden är nu klar i butiken och tas bort.
 		marketState.kunderIButiken.remove(kund);
+		
+		//Betalningen är klar, antalet genomförda köp ökar
 		marketState.antalGenomfördaKöp++;
-		marketState.tidKassaKö += queueTimer;
 		
+		//Mängden tid kunden stod i kö läggs till i statistiken.
+		marketState.tidKassaKö += kund.queueTimer;
 		
+		//Väntande kunders kötid ökas.
+		queueTime();
+		
+		//Nästa kund i kön läggs nu till i EventQueue och börjar betala. Om det inte finns någon kund i kön ökar antalet lediga kassor, annars förblir det konstant.
+		marketState.ledigaKassor = nextInQueue() ? marketState.ledigaKassor : marketState.ledigaKassor++;
 			
+	}
+	
+	private void queueTime() {
+		for(int i = 0; i < marketState.kassaKö.size(); i++) {
+			marketState.kassaKö.get(i).queueTimer += kund.betalningsTid;
+		}
+	}
+	
+	private boolean nextInQueue() {
+		if(marketState.kassaKö.size() > 0) {
+			new BetalaEvent(marketState.kassaKö.get(0),super.marketState, super.eventQueue);
+			marketState.kassaKö.remove(0);
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	/**
@@ -73,12 +87,6 @@ public class BetalaEvent extends MarketEvent{
 	 */
 	public String toString() {
 		return "Betalning";
-	}
-	/**
-	 * @return Returnerar en boolean gällande huruvida kunden kan betala eller måste ställa sig i kö.
-	 */
-	public void geKassa() {
-		super.harKassa = true;
 	}
 
 }

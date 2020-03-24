@@ -24,19 +24,12 @@ public class Kund {
 
 	public Event currentEvent;
 
-	// Time is described in minutes (simulated time)
-	public int queueTimer;
+	// Time is described in time units (simulated time)
+	public double queueTimer;
 	
 	public double ankomstTid;
 	public double plockTid;
 	public double betalningsTid;
-
-	/*
-	 * Enbart Spår i main
-	 */
-	public static void main(String[] args) {
-
-	}
 
 	/**
 	 * Generar en kund. När kunden genererats bestäms tiderna det tar för kunden att
@@ -47,6 +40,8 @@ public class Kund {
 		ankomstTid = ms.getAnkomst();
 		plockTid = ms.getPlockTid();
 		betalningsTid = ms.getBetalTid();
+		
+		queueTimer = 0;
 
 	}
 }
