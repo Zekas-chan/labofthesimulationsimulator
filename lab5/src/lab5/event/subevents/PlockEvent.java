@@ -1,7 +1,6 @@
 package lab5.event.subevents;
 
 import lab5.Kund;
-import lab5.classtemplates.event.Event;
 import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
 import lab5.state.MarketState;
@@ -19,7 +18,7 @@ public class PlockEvent extends MarketEvent {
 	 * @param kund Referens till den unika kunden som handlar.
 	 */
 	public PlockEvent(Kund kund, MarketState ms, EventQueue eq) {
-		
+
 		super.time = ms.globalTime + kund.getPlockTid();
 		super.kund = kund;
 
@@ -27,7 +26,7 @@ public class PlockEvent extends MarketEvent {
 		super.eventQueue = eq;
 
 		eventQueue.add(this);
-		//System.out.println("Plocktid: "+kund.plockTid); //debug
+		// System.out.println("Plocktid: "+kund.plockTid); //debug
 	}
 
 	/**
@@ -36,37 +35,41 @@ public class PlockEvent extends MarketEvent {
 	 * kör nästa event i händelsekön.
 	 */
 	public void execute() {
-		//Ökar tiden spenderat köande.
+		// Event inträffar, tiden för kassakön ökar
 		registerQueue(time - marketState.globalTime);
-		
-		//
+
+		// Event träffar, tiden för overksamma kassor ökar OM butiken fortfarande är
+		// öppen.
 		idleRegisters(time - marketState.globalTime);
-		
+
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
-		
-		//
+
+		// Eventet inträffar och tiden sätts till denna tid
 		marketState.globalTime = super.time(); // När ett event körts så lägg adderas tiden till den globala körstiden
-		
-		//
+
+		// Tar bort detta event ur kön.
 		eventQueue.remove(this);
-		
-		//
-		if(!registersFull()) {
+
+		// Om det finns lediga kassor så skapas ett nytt BetalaEvent med denna kund,
+		// annars läggs kunden till i kön.
+		if (!registersFull()) {
 			kund.currentEvent = new BetalaEvent(kund, super.marketState, super.eventQueue);
 			marketState.ledigaKassor--;
-		}else {
+		} else {
 			marketState.kassaKö.add(this.kund);
 			marketState.unikaKöandeKunder++;
 		}
-		
-		
+
 	}
-	
+
+	/*
+	 * Evaluerar huruvida alla kassor är upptagna eller inte.
+	 */
 	private boolean registersFull() {
-		if(marketState.ledigaKassor == 0) {
+		if (marketState.ledigaKassor == 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}

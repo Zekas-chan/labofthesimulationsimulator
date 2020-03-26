@@ -3,16 +3,16 @@ package lab5.classtemplates.state;
 import java.util.Observable;
 
 /**
- * Represents the state of the program in a concrete way
+ * Represents the state of the program in a concrete way Representerar
+ * programmets State på ett konkret sätt.
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */
 public class State extends Observable {
-
 	public boolean run; // Nödbromsen.
-	public double globalTime;
-	public double timeMax;
+	public double globalTime; // Tiden simuleringen just nu är vid
+	public double timeMax; // Hur länge simuleringen ska pågå.
 
 	/**
 	 * Konstruerar ett State.

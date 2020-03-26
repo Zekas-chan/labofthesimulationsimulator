@@ -1,12 +1,9 @@
 package lab5;
 
-import lab5.classtemplates.event.*;
-
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
-
 import lab5.classtemplates.view.View;
 import lab5.event.MarketEvent;
 import lab5.event.subevents.StartEvent;
@@ -25,7 +22,7 @@ public class MarketView extends View implements Observer {
 	DecimalFormat df;
 
 	/**
-	 * Konstruerar en MarketView som observerar en MarketState.
+	 * Konstruerar en MarketView som observerar ett MarketState.
 	 * 
 	 * @param ms   Referens till ett MarketState
 	 * @param mode Om satt till true skrivs bara resultatutskriften ut.
@@ -42,7 +39,7 @@ public class MarketView extends View implements Observer {
 	}
 
 	/**
-	 * Skrivet ut vilket event som inträffat. Om simuleringen är klar skrivs
+	 * Skriver ut vilket event som inträffat. Om simuleringen är klar skrivs
 	 * istället statistiken för simuleringen ut.
 	 */
 	public void update(Observable o, Object arg) throws ClassCastException {
@@ -51,7 +48,7 @@ public class MarketView extends View implements Observer {
 				sparseEvent((MarketEvent) arg);
 			}
 
-			else { // Jack och Patrik la till en else
+			else {
 				eventDetails((MarketEvent) arg);
 			}
 
@@ -81,8 +78,6 @@ public class MarketView extends View implements Observer {
 	/*
 	 * Hjälpmetod för update. Tar ett MarketEvent som argument för att kunna veta
 	 * dess typ.
-	 * 
-	 * @param a Ett MarketEvent.
 	 */
 	private void eventDetails(MarketEvent a) {
 		if (a instanceof StängerEvent) {
@@ -145,9 +140,11 @@ public class MarketView extends View implements Observer {
 		System.out.println("RESULTAT\n========\n \n");
 		System.out.println("1) Av " + ms.unikaKunder + " kunder handlade " + ms.antalGenomfördaKöp + " medan "
 				+ ms.antalMissadeKunder + " missades.\n");
-		System.out.println("2) Total tid " + ms.antalKassor + " kassor varit lediga: " + df.format(ms.tidOverksamKassa)
-				+ " te.");
-		System.out.println("   Genomsnittlig ledig kassatid: "+df.format((ms.tidOverksamKassa / ms.antalKassor))+" te (dvs "+df.format(((ms.tidOverksamKassa / ms.antalKassor) / ms.finalPaymentEvent)*100)+"% av tiden från öppning tills sista kunden betalat).\n");
+		System.out.println(
+				"2) Total tid " + ms.antalKassor + " kassor varit lediga: " + df.format(ms.tidOverksamKassa) + " te.");
+		System.out.println("   Genomsnittlig ledig kassatid: " + df.format((ms.tidOverksamKassa / ms.antalKassor))
+				+ " te (dvs " + df.format(((ms.tidOverksamKassa / ms.antalKassor) / ms.finalPaymentEvent) * 100)
+				+ "% av tiden från öppning tills sista kunden betalat).\n");
 		System.out.println("3) Total tid " + ms.unikaKöandeKunder + " tvingats köa: " + df.format(ms.tidKassaKö)
 				+ " te." + ". \n Genomsnittlig kötid: " + df.format((ms.tidKassaKö / ms.unikaKöandeKunder)) + " te.\n");
 	}

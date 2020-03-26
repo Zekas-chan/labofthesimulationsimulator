@@ -25,13 +25,19 @@ public class StopEvent extends MarketEvent {
 	}
 
 	/**
-	 * Stoppar simuleringen när den anropas.
+	 * Stoppar simuleringen vid körning.
 	 */
 	public void execute() {
+		// Uppdatera vyn
 		marketState.incomingEvent(this);
-		
+
+		// Event inträffar, tiden är nu denna händelses tid.
 		marketState.globalTime = time;
+
+		// Simuleringen ska stanna.
 		marketState.run = false;
+
+		// Eventet tas bort från kön.
 		eventQueue.remove(this);
 	}
 

@@ -1,6 +1,5 @@
 package lab5.event.subevents;
 
-import lab5.classtemplates.random.UniformRandomStream;
 import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
 import lab5.state.MarketState;
@@ -29,18 +28,26 @@ public class StängerEvent extends MarketEvent {
 	 * Stänger butiken när den körs.
 	 */
 	public void execute() {	
-		//Ökar tiden spenderat köande.
+		// Event inträffar, tiden för kassakön ökar
 		registerQueue(time - marketState.globalTime);
 				
-		//
+		// Event träffar, tiden för overksamma kassor ökar OM butiken fortfarande är
+		// öppen.
 		idleRegisters(time - marketState.globalTime);
 		
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
 		
+		// Eventet inträffar och tiden sätts till denna tid
 		marketState.globalTime = super.time();
+		
+		//Tar bort detta event ur kön.
 		eventQueue.remove(this);
+		
+		//Butiken har stängt, när alla väntande händelser är klara stoppas simuleringen.
 		new StopEvent(999, marketState, eventQueue);
+		
+		//Butiken är inte längre öppen.
 		marketState.öppet = false;
 		
 		

@@ -18,17 +18,17 @@ public class Simulator {
 
 	public static void main(String[] args) {
 		Simulator s = new Simulator();
-		s.runH2();
+		s.run();
 	}
 
 	/**
 	 * Simulering med testparametrar.
 	 */
 	public void run() {
-		int simtid = 10; // öppettid (när StängerEvent händer)
-		int kassor = 2; // kassor
-		int maxkunder = 5;
-		double lambda = 20;
+		int simtid = 15; // öppettid (när StängerEvent händer)
+		int kassor = 5; // kassor
+		int maxkunder = 10;
+		double lambda = 2;
 		double[] plocktid = { 0.5, 1.0 };
 		double[] betaltid = { 2.0, 3.0 };
 		int frö = 1337;

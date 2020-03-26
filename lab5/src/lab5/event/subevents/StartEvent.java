@@ -1,7 +1,5 @@
 package lab5.event.subevents;
 
-import lab5.Kund;
-import lab5.classtemplates.event.Event;
 import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
 import lab5.state.MarketState;
@@ -15,15 +13,27 @@ import lab5.state.MarketState;
 public class StartEvent extends MarketEvent {
 
 	/**
-	 * Lägger till ett nytt ankomstevent i kön.
+	 * Eventet inträffar och orsakar följande:
+	 * 
+	 * Vyn uppdateras
+	 * 
+	 * Ett nytt AnkomstEvent skapas och läggs till i kön.
+	 * 
+	 * Ett nytt StängerEvent skapas och läggs till i kön.
 	 */
 	public void execute() {
+		// Uppdaterar vyn
 		super.marketState.incomingEvent(this);
-		
+
+		// Ett nytt AnkomstEvent skapas och läggs till i kön.
 		new AnkomstEvent(super.marketState, super.eventQueue);
+
+		// Ett nytt StängerEvent skapas och läggs till i kön.
 		new StängerEvent(super.marketState.snabbKöpsÖppettider, super.marketState, super.eventQueue);
+
+		// Eventet är klart och tas bort från kön.
 		eventQueue.remove(this);
-		
+
 	}
 
 	/**

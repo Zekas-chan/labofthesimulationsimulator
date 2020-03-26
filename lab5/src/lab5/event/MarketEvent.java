@@ -1,12 +1,7 @@
 package lab5.event;
 
-import java.util.ArrayList;
-
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
-import lab5.event.subevents.AnkomstEvent;
-import lab5.event.subevents.BetalaEvent;
-import lab5.event.subevents.StopEvent;
 import lab5.state.MarketState;
 
 /**
@@ -36,10 +31,17 @@ public class MarketEvent extends Event {
 		}
 	}
 
+	/**
+	 * Utför nästa event.
+	 */
 	public void execute() {
 	}
 	
-	public void idleRegisters(double time) {
+	/**
+	 * När ett event inträffar har tid passerat, mängden tid avgör hur länge kassorna har stått overksamma (tiden gånger antalet overksamma kassor).
+	 * @param time Mängden tid
+	 */
+	protected void idleRegisters(double time) {
 		marketState.tidOverksamKassa += time * marketState.ledigaKassor;
 	}
 	
@@ -48,7 +50,7 @@ public class MarketEvent extends Event {
 	 * När ett event inträffat har tid passerat. Mängden tid spenderad i kö är den tiden gånger antalet personer i kön.
 	 * @param time Mängden tid.
 	 */
-	public void registerQueue(double time) {
+	protected void registerQueue(double time) {
 		marketState.tidKassaKö += time * marketState.kassaKö.size();
 	}
 

@@ -2,8 +2,6 @@ package lab5.event;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import lab5.Kund;
 import lab5.classtemplates.event.Event;
 import lab5.event.subevents.BetalaEvent;
 
@@ -61,8 +59,8 @@ public class EventQueue {
 		}
 
 		list = sortedEvent;
-		
-		//Debug
+
+		// Debug
 //		for(int i = 0; i < list.size(); i++) {
 //			System.out.print(list.get(i).toString()+", ");
 //		}

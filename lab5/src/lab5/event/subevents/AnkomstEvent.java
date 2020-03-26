@@ -1,7 +1,6 @@
 package lab5.event.subevents;
 
 import lab5.Kund;
-import lab5.classtemplates.event.Event;
 import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
 import lab5.state.MarketState;
@@ -13,77 +12,94 @@ import lab5.state.MarketState;
  *
  */
 public class AnkomstEvent extends MarketEvent {
-	
+
 	/**
 	 * Konstruerar ett AnkomstEvent.
-	 * @param ms Referens till MarketState
-	 * @param eq Referens till EventQueue
+	 * 
+	 * @param ms Referens till ett MarketState
+	 * @param eq Referens till en EventQueue
 	 */
 	public AnkomstEvent(MarketState ms, EventQueue eq) {
 		marketState = ms;
 		eventQueue = eq;
 
+		// Ny kund kommer anlända; en ny kund skapas.
 		Kund k = new Kund(ms);
-		k.id = marketState.getID();
+		k.id = marketState.getID(); // tilldela identifierare
 		k.currentEvent = this;
-		super.time = ms.globalTime + k.ankomstTid; //när det händer
+		super.time = ms.globalTime + k.ankomstTid;
 		kund = k;
 
 		eventQueue.add(this);
-		//System.out.println("Ankomsttid: "+k.ankomstTid); //debug
+		// System.out.println("Ankomsttid: "+k.ankomstTid); //debug
 	}
 
 	/**
-	 * Gör följande operationer när anropad: Skapar ett nytt PlockEvent. Avancerar
-	 * den globala tiden. Om snabbköpet är öppet och butiken inte är full så skapas
-	 * en ny kund som tilldelas ett unikt ID. Om butiken inte är öppen eller om den
-	 * är full så 'missas' kunden och respektive statistikvariabel förändras. (det
-	 * här är fel, om snabbköpet är stängt ska kunden inte missas.) Slutligen körs
-	 * nästa event och kön omorganiseras.
+	 * Gör en rad operationer när metoden körs:
+	 * 
+	 * Statistikvariabler för overksamma kassor och kassakötid ökar.
+	 * 
+	 * Vyn uppdateras.
+	 * 
+	 * Simuleringstiden är nu detta events tid (med andra ord, händelsen sker nu).
+	 * 
+	 * Om butiken är öppen och inte full läggs en kund in i den och ett PlockEvent
+	 * med denna kund skapas. Annars ökas statistiken för missade kunder.
+	 * 
+	 * Sist skapas ett nytt AnkomstEvent.
 	 */
 	public void execute() {
-		//
+		// Event inträffar, tiden för kassakön ökar
 		registerQueue(time - marketState.globalTime);
-		
-		//
-		if(marketState.öppet) {
+
+		// Event träffar, tiden för overksamma kassor ökar OM butiken fortfarande är
+		// öppen.
+		if (marketState.öppet) {
 			idleRegisters(time - marketState.globalTime);
 		}
-		
+
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
-		
-		//Eventet inträffar och tiden sätts till denna tid
+
+		// Eventet inträffar och tiden sätts till denna tid
 		marketState.globalTime = super.time();
-		
-		if(canEnter()) {
+
+		// Om butiken är öppen och inte full läggs en kund till i butikens lista över
+		// kunder.
+		if (canEnter()) {
 			// När en kund anländer i butiken läggs den till i "kundeributiken" listan
 			marketState.kunderIButiken.add(this.kund);
-			
-			//En ny unik kund har anlänt till butiken
+
+			// En ny unik kund har anlänt till butiken
 			marketState.unikaKunder++;
 			
+			//Kunden börjar handla: Ett nytt PlockEvent skapas.
 			kund.currentEvent = new PlockEvent(kund, super.marketState, super.eventQueue);
-		}else {
-			if(marketState.kunderIButiken.size() == marketState.maxAntalKunder) {
-			marketState.unikaKunder++;
-			marketState.antalMissadeKunder++;
+		} else {
+			// Om butiken är öppen OCH full så ökar antalet unika kunder samt antalet
+			// missade kunder.
+			if (marketState.kunderIButiken.size() == marketState.maxAntalKunder) {
+				marketState.unikaKunder++;
+				marketState.antalMissadeKunder++;
 			}
 		}
-		
-		//Tar bort det här eventet ur kön
+
+		// Tar bort det här eventet ur kön
 		eventQueue.remove(this);
-		
-		//Genererar ett nytt ankomstevent om butiken är öppen
-		if(marketState.öppet) {
+
+		// Genererar ett nytt ankomstevent om butiken är öppen
+		if (marketState.öppet) {
 			new AnkomstEvent(marketState, eventQueue);
 		}
 	}
-	
+
+	/*
+	 * Hjälpmetod för execute.
+	 */
 	private boolean canEnter() {
-		if(marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
+		if (marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
