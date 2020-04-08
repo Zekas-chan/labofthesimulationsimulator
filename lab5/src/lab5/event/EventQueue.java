@@ -102,10 +102,10 @@ public class EventQueue {
 	}
 
 	/**
-	 * Hämtar det första objektet som står i kö.
+	 * Hämtar det första Eventet som står i kö.
 	 */
-	public void getNext() {
-		getList().get(0);
+	public Event getNext() {
+		return getList().get(0);
 	}
 
 	/**
