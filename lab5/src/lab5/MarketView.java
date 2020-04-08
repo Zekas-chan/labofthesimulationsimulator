@@ -80,18 +80,11 @@ public class MarketView extends View implements Observer {
 	 * dess typ.
 	 */
 	private void eventDetails(MarketEvent a) {
-		if (a instanceof StängerEvent) {
-			System.out.print(df.format(a.time) + "\t" + a.toString() + "\t" + "---" + "\t" + isOpen() + "\t"
+			System.out.print(df.format(a.time) + "\t" + a.toString() + "\t" + (a instanceof StängerEvent ? "---" : a.kund.id) + "\t" + isOpen() + "\t"
 					+ ms.ledigaKassor + "\t" + df.format(ms.tidOverksamKassa) + "\t" + ms.kunderIButiken.size() + "\t"
 					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
 					+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
-		} else {
-			System.out.print(df.format(a.time) + "\t" + a.toString() + "\t" + a.kund.id + "\t" + isOpen() + "\t"
-					+ ms.ledigaKassor + "\t" + df.format(ms.tidOverksamKassa) + "\t" + ms.kunderIButiken.size() + "\t"
-					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
-					+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
-		}
-		System.out.println(); // ny rad
+		System.out.println();
 	}
 
 	private void sparseEvent(MarketEvent e) {
@@ -109,11 +102,7 @@ public class MarketView extends View implements Observer {
 	 * @return Ö om det är öppet, annars S för stängt.
 	 */
 	private String isOpen() {
-		if (ms.öppet) {
-			return "Ö";
-		} else {
-			return "S";
-		}
+		return ms.öppet ? "Ö" : "S";
 	}
 
 	/*

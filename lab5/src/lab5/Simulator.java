@@ -1,5 +1,7 @@
 package lab5;
 
+import java.util.Random;
+
 import lab5.event.EventQueue;
 import lab5.event.subevents.StartEvent;
 import lab5.state.MarketState;
@@ -22,21 +24,21 @@ public class Simulator {
 	}
 
 	/**
-	 * Simulering med testparametrar.
+	 * Simulering med testparametrar. Använder ett slumpat frö.
 	 */
 	public void run() {
+		Random r = new Random(System.currentTimeMillis());
 		int simtid = 15; // öppettid (när StängerEvent händer)
 		int kassor = 5; // kassor
 		int maxkunder = 10;
 		double lambda = 2;
 		double[] plocktid = { 0.5, 1.0 };
-		double[] betaltid = { 2.0, 3.0 };
-		int frö = 1337;
+		double[] betaltid = { 2.0, 4.0 };
+		int frö = r.nextInt(Integer.MAX_VALUE);
 
-		eventQueue = new EventQueue();
-		marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid, eventQueue);
+		marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid);
 		vy = new MarketView(marketState);
-		startEvent = new StartEvent(marketState, eventQueue);
+		marketState.start();
 
 	}
 
@@ -54,7 +56,7 @@ public class Simulator {
 		int frö = 1234;
 
 		eventQueue = new EventQueue();
-		marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid, eventQueue);
+		marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid);
 		vy = new MarketView(marketState);
 		startEvent = new StartEvent(marketState, eventQueue);
 	}
@@ -72,10 +74,8 @@ public class Simulator {
 		double[] betaltid = { 0.35, 0.6 };
 		int frö = 13;
 
-		eventQueue = new EventQueue();
-		marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid, eventQueue);
+		marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid);
 		vy = new MarketView(marketState);
-		startEvent = new StartEvent(marketState, eventQueue);
 	}
 
 }

@@ -33,6 +33,8 @@ public class StartEvent extends MarketEvent {
 
 		// Eventet är klart och tas bort från kön.
 		eventQueue.remove(this);
+		
+		super.runNextEvent();
 
 	}
 
@@ -47,7 +49,6 @@ public class StartEvent extends MarketEvent {
 		super.eventQueue = eq;
 		super.time = 0;
 		eq.add(this);
-		super.runNextEvent();
 	}
 
 	/**

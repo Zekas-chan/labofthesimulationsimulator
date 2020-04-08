@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import lab5.Kund;
 import lab5.classtemplates.event.Event;
 import lab5.classtemplates.random.ExponentialRandomStream;
-import lab5.classtemplates.random.RandomMin;
 import lab5.classtemplates.random.UniformRandomStream;
 import lab5.classtemplates.state.*;
 import lab5.event.EventQueue;
-import lab5.event.MarketEvent;
+import lab5.event.subevents.StartEvent;
 
 /**
  * 
@@ -54,26 +53,23 @@ public class MarketState extends State {
 	private UniformRandomStream rM; //betalningar
 	private UniformRandomStream rMB; //plock
 	private ExponentialRandomStream rE; //ankomster
-
+	
 	/**
 	 * Konstruerar ett nytt MarketState.
 	 * 
-	 * @param öppetTider    Anger hur länge butiken är öppen.
-	 * @param kassor        Anger hur många kassor som är bemannade.
-	 * @param ankomstLambda Anger i hur snabb takt kunder anländer.
-	 * @param frö           Fröet för slumpningstider som används.
-	 * @param maxKunder     Maximalt antal kunder som kan vistas i butiken.
-	 * @param eq            Referens till en EventQueue. @param(saknas) int[]
-	 *                      plockTider Anger ett intervall för hur länge det tar att
-	 *                      plocka varor. @param(saknas) int[] betalningsTider Anger
-	 *                      ett intervall för hur länge det tar att betala.
+	 * @param öppetTider	Anger hur länge butiken är öppen.
+	 * @param kassor		Anger hur många kassor som är bemannade.
+	 * @param ankomstLambda	Anger i hur snabb takt kunder anländer.
+	 * @param frö			Fröet för slumpningstider som används.
+	 * @param maxKunder		Maximalt antal kunder som kan vistas i butiken.
+	 * @param plocktid		Anger ett intervall för hur länge det tar att plocka varor.
+	 * @param betaltid		Anger ett intervall för hur länge det tar att betala.
 	 */
-	public MarketState(double öppetTider, int kassor, double ankomstLambda, int frö, int maxKunder, double[] plocktid, double[] betaltid, EventQueue eq) {
+	public MarketState(double öppetTider, int kassor, double ankomstLambda, int frö, int maxKunder, double[] plocktid, double[] betaltid) {
 		/*
 		 * Parameterblock
 		 */
 		super(öppetTider); // State.timeMax
-		this.eq = eq;
 		this.kunderIButiken = new ArrayList<Kund>();
 		this.kassaKö = new ArrayList<Kund>();
 		this.antalKassor = kassor;
@@ -107,6 +103,19 @@ public class MarketState extends State {
 		rM = new UniformRandomStream(plockTid[0], plockTid[1], frö);
 		rMB = new UniformRandomStream(betalTid[0], betalTid[1], frö);
 		rE = new ExponentialRandomStream(ankomstLambda, frö);
+		
+		/*
+		 * Skapar händelsekön och lägger till ett StartEvent.
+		 */
+		eq = new EventQueue();
+		StartEvent startEvent = new StartEvent(this, eq);
+	}
+	
+	/**
+	 * Startar simuleringen genom att köra första eventet i kön (StartEvent).
+	 */
+	public void start() {
+		eq.getNext().execute();
 	}
 
 	public int getID() {
