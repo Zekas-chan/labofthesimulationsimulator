@@ -48,7 +48,7 @@ public class BetalaEvent extends MarketEvent {
 
 		// Variabeln för tidpunkten när senaste betalningen skedde sätts till detta
 		// events tidpunkt.
-		marketState.finalPaymentEvent = super.time();
+		marketState.setFinalPaymentEvent(super.time());
 
 		// Uppdaterar vyn
 		marketState.incomingEvent(this);
@@ -60,24 +60,24 @@ public class BetalaEvent extends MarketEvent {
 		eventQueue.remove(this);
 
 		// Kunden är nu klar i butiken och tas bort.
-		marketState.kunderIButiken.remove(kund);
+		marketState.getKunderIButiken().remove(kund);
 
 		// Betalningen är klar, antalet genomförda köp ökar
-		marketState.antalGenomfördaKöp++;
+		marketState.incAntalGenomfördaKöp();
 
 		// Mängden tid kunden stod i kö läggs till i statistiken.
-		marketState.tidKassaKö += kund.queueTimer;
+		marketState.addTidKassaKö(kund.queueTimer);
 
 		// Nästa kund i kön läggs nu till i EventQueue och börjar betala. Om det inte
 		// finns någon kund i kön ökar antalet lediga kassor, annars förblir det
 		// konstant.
-		marketState.ledigaKassor += nextInQueue() ? marketState.ledigaKassor : 1;
+		marketState.incLedigaKassor(nextInQueue() ? 0 : 1);
 
 		// Om det finns kunder i kön skapas ett nytt betalaevent med den första kunden,
 		// och kunden tas bort från kassakön.
 		if (nextInQueue()) {
-			new BetalaEvent(marketState.kassaKö.get(0), super.marketState, super.eventQueue);
-			marketState.kassaKö.remove(0);
+			new BetalaEvent(marketState.getKassaKö().get(0), super.marketState, super.eventQueue);
+			marketState.getKassaKö().remove(0);
 		}
 	}
 
@@ -85,7 +85,7 @@ public class BetalaEvent extends MarketEvent {
 	 * Hjälpmetod för execute. Avgör om det finns kunder i kön.
 	 */
 	private boolean nextInQueue() {
-		if (marketState.kassaKö.size() > 0) {
+		if (marketState.getKassaKö().size() > 0) {
 			return true;
 		} else {
 			return false;

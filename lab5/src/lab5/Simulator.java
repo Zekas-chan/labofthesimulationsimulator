@@ -20,7 +20,7 @@ public class Simulator {
 
 	public static void main(String[] args) {
 		Simulator s = new Simulator();
-		s.run();
+		s.runH2();
 	}
 
 	/**
@@ -59,6 +59,7 @@ public class Simulator {
 		marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid);
 		vy = new MarketView(marketState);
 		startEvent = new StartEvent(marketState, eventQueue);
+		marketState.start();
 	}
 
 	/**
@@ -76,6 +77,7 @@ public class Simulator {
 
 		marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid);
 		vy = new MarketView(marketState);
+		marketState.start();
 	}
 
 }

@@ -10,12 +10,12 @@ import lab5.state.MarketState;
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */
-public class StängerEvent extends MarketEvent {
-
+public class StängerEvent extends MarketEvent {	
 	/**
 	 * Konstruerar ett StängerEvent.
-	 * 
 	 * @param time Tiden vid vilken butiken ska stänga.
+	 * @param ms Referens till ett MarketState
+	 * @param eq Referens till händelsekön.
 	 */
 	public StängerEvent(double time, MarketState ms, EventQueue eq) {
 		super.time = time;
@@ -45,10 +45,10 @@ public class StängerEvent extends MarketEvent {
 		eventQueue.remove(this);
 		
 		//Butiken har stängt, när alla väntande händelser är klara stoppas simuleringen.
-		new StopEvent(999, marketState, eventQueue);
+		
 		
 		//Butiken är inte längre öppen.
-		marketState.öppet = false;
+		marketState.setÖppet(false);
 		
 		
 	}

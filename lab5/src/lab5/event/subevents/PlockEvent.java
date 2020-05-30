@@ -55,10 +55,10 @@ public class PlockEvent extends MarketEvent {
 		// annars läggs kunden till i kön.
 		if (!registersFull()) {
 			kund.currentEvent = new BetalaEvent(kund, super.marketState, super.eventQueue);
-			marketState.ledigaKassor--;
+			marketState.decLedigaKassor();
 		} else {
-			marketState.kassaKö.add(this.kund);
-			marketState.unikaKöandeKunder++;
+			marketState.getKassaKö().add(this.kund);
+			marketState.incUnikaKöandeKunder();
 		}
 
 	}
@@ -67,7 +67,7 @@ public class PlockEvent extends MarketEvent {
 	 * Evaluerar huruvida alla kassor är upptagna eller inte.
 	 */
 	private boolean registersFull() {
-		if (marketState.ledigaKassor == 0) {
+		if (marketState.getledigaKassor() == 0) {
 			return true;
 		} else {
 			return false;

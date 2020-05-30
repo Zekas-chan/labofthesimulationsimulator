@@ -54,7 +54,7 @@ public class AnkomstEvent extends MarketEvent {
 
 		// Event träffar, tiden för overksamma kassor ökar OM butiken fortfarande är
 		// öppen.
-		if (marketState.öppet) {
+		if (marketState.isÖppet()) {
 			idleRegisters(time - marketState.globalTime);
 		}
 
@@ -68,19 +68,19 @@ public class AnkomstEvent extends MarketEvent {
 		// kunder.
 		if (canEnter()) {
 			// När en kund anländer i butiken läggs den till i "kundeributiken" listan
-			marketState.kunderIButiken.add(this.kund);
+			marketState.getKunderIButiken().add(this.kund);
 
 			// En ny unik kund har anlänt till butiken
-			marketState.unikaKunder++;
+			marketState.incUnikaKunder();
 			
 			//Kunden börjar handla: Ett nytt PlockEvent skapas.
 			kund.currentEvent = new PlockEvent(kund, super.marketState, super.eventQueue);
 		} else {
 			// Om butiken är öppen OCH full så ökar antalet unika kunder samt antalet
 			// missade kunder.
-			if (marketState.kunderIButiken.size() == marketState.maxAntalKunder) {
-				marketState.unikaKunder++;
-				marketState.antalMissadeKunder++;
+			if (marketState.getKunderIButiken().size() == marketState.maxAntalKunder) {
+				marketState.incUnikaKunder();
+				marketState.incMissadeKunder();
 			}
 		}
 
@@ -88,7 +88,7 @@ public class AnkomstEvent extends MarketEvent {
 		eventQueue.remove(this);
 
 		// Genererar ett nytt ankomstevent om butiken är öppen
-		if (marketState.öppet) {
+		if (marketState.isÖppet()) {
 			new AnkomstEvent(marketState, eventQueue);
 		}
 	}
@@ -97,7 +97,7 @@ public class AnkomstEvent extends MarketEvent {
 	 * Hjälpmetod för execute.
 	 */
 	private boolean canEnter() {
-		if (marketState.öppet && marketState.kunderIButiken.size() < marketState.maxAntalKunder) {
+		if (marketState.isÖppet() && marketState.getKunderIButiken().size() < marketState.maxAntalKunder) {
 			return true;
 		} else {
 			return false;

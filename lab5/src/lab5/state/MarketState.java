@@ -22,34 +22,34 @@ public class MarketState extends State {
 	/*
 	 * Variabler för parametrar.
 	 */
-	public int antalKassor;
-	public int maxAntalKunder;
-	public double snabbKöpsÖppettider;
-	public double ankomstLambda;
-	public int frö;
-	public double[] plockTid;
-	public double[] betalTid;
+	public final int antalKassor;
+	public final int maxAntalKunder;
+	public final double snabbKöpsÖppettider;
+	public final double ankomstLambda;
+	public final int frö;
+	public final double[] plockTid;
+	public final double[] betalTid;
 
 	/*
 	 * Variabler för statistik.
 	 */
-	public int antalGenomfördaKöp;
-	public int unikaKunder; // antal kunder som kom, oavsett om dom missades eller inte
-	public int unikaKöandeKunder; // antal unika kunder som behövde köa
-	public int antalMissadeKunder;
-	public double tidOverksamKassa;
-	public double tidKassaKö;
-	public double finalPaymentEvent;
+	int antalGenomfördaKöp;
+	int unikaKunder; // antal kunder som kom, oavsett om dom missades eller inte
+	int unikaKöandeKunder; // antal unika kunder som behövde köa
+	int antalMissadeKunder;
+	double tidOverksamKassa;
+	double tidKassaKö;
+	double finalPaymentEvent;
 
 	/*
 	 * Variabler/referenser relevanta under körning.
 	 */
-	public ArrayList<Kund> kunderIButiken;
-	public ArrayList<Kund> kassaKö;
-	public EventQueue eq;
-	public int ledigaKassor;
+	private ArrayList<Kund> kunderIButiken;
+	private ArrayList<Kund> kassaKö;
+	private EventQueue eq;
+	private int ledigaKassor;
 	private boolean öppnaKassor;
-	public boolean öppet;
+	private boolean öppet;
 	private UniformRandomStream rM; //betalningar
 	private UniformRandomStream rMB; //plock
 	private ExponentialRandomStream rE; //ankomster
@@ -70,7 +70,7 @@ public class MarketState extends State {
 		 * Parameterblock
 		 */
 		super(öppetTider); // State.timeMax
-		this.kunderIButiken = new ArrayList<Kund>();
+		this.setKunderIButiken(new ArrayList<Kund>());
 		this.kassaKö = new ArrayList<Kund>();
 		this.antalKassor = kassor;
 		this.snabbKöpsÖppettider = öppetTider;
@@ -94,7 +94,7 @@ public class MarketState extends State {
 		 */
 		ledigaKassor = antalKassor;
 		öppnaKassor = true;
-		öppet = true;
+		setÖppet(true);
 		this.kundID = -1;
 		
 		/*
@@ -116,11 +116,6 @@ public class MarketState extends State {
 	 */
 	public void start() {
 		eq.getNext().execute();
-	}
-
-	public int getID() {
-		kundID++;
-		return this.kundID;
 	}
 
 	/**
@@ -148,19 +143,131 @@ public class MarketState extends State {
 		notifyObservers(e);
 	}
 	
+	//Setters
+	public void setKunderIButiken(ArrayList<Kund> kunderIButiken) {
+		this.kunderIButiken = kunderIButiken;
+	}
+	
+	public void setÖppet(boolean öppet) {
+		this.öppet = öppet;
+	}
+	
+	public void incUnikaKunder() {
+		unikaKunder++;
+	}
+	
+	public void incUnikaKöandeKunder() {
+		unikaKöandeKunder++;
+	}
+	
+	public void incLedigaKassor(int antal) {
+		ledigaKassor += antal;
+	}
+	
+	public void decLedigaKassor() {
+		ledigaKassor--;
+	}
+	
+	public void incMissadeKunder() {
+		antalMissadeKunder++;
+	}
+	
+	public void incAntalGenomfördaKöp() {
+		antalGenomfördaKöp++;
+	}
+	
+	public void addTidKassaKö(double time) {
+		tidKassaKö += time;
+	}
+	
+	public void addTidOverksamKassa(double time) {
+		tidOverksamKassa += time;
+	}
+	
+	public void setFinalPaymentEvent(double time) {
+		finalPaymentEvent = time;
+	}
+	
+	//======================================================
+	//Getters
+	public int getAntalGenomfördaKöp() {
+		return antalGenomfördaKöp;
+	}
+	
+	public double getTidOverksamKassa() {
+		return tidOverksamKassa;
+	}
+	
+	public int getledigaKassor() {
+		return ledigaKassor;
+	}
+	
+	public int getID() {
+		kundID++;
+		return this.kundID;
+	}
+	
+	public double getSnabbKöpsÖppettider() {
+		return snabbKöpsÖppettider;
+	}
+
+	public ArrayList<Kund> getKunderIButiken() {
+		return kunderIButiken;
+	}
+	
+	public boolean isÖppet() {
+		return öppet;
+	}
+	
+	public int getAntalMissadeKunder() {
+		return antalMissadeKunder;
+	}
+	
+	public int getUnikaKöandeKunder() {
+		return unikaKöandeKunder;
+	}
+	
+	public int getUnikaKunder() {
+		return unikaKunder;
+	}
+	
+	public double getTidKassaKö() {
+		return tidKassaKö;
+	}
+	
+	/**
+	 * Genererar en betaltid.
+	 * @return
+	 */
 	public double getBetalTid() {
 		double rmB = rMB.nextDouble();
 		return rmB;
 	}
 	
+	/**
+	 * Genererar en plocktid.
+	 * @return
+	 */
 	public double getPlockTid() {
 		double rm = rM.nextDouble();
 		return rm;
 	}
 	
+	/**
+	 * Genererar en ankomsttid.
+	 * @return
+	 */
 	public double getAnkomst() {
 		double re = rE.next();
 		return re;
+	}
+
+	public ArrayList<Kund> getKassaKö() {
+		return kassaKö;
+	}
+
+	public double getFinalPaymentEvent() {
+		return finalPaymentEvent;
 	}
 
 }

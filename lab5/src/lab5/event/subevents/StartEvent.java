@@ -11,7 +11,7 @@ import lab5.state.MarketState;
  *
  */
 public class StartEvent extends MarketEvent {
-
+	final static int stopTime = 999;
 	/**
 	 * Eventet inträffar och orsakar följande:
 	 * 
@@ -29,8 +29,11 @@ public class StartEvent extends MarketEvent {
 		new AnkomstEvent(super.marketState, super.eventQueue);
 
 		// Ett nytt StängerEvent skapas och läggs till i kön.
-		new StängerEvent(super.marketState.snabbKöpsÖppettider, super.marketState, super.eventQueue);
-
+		new StängerEvent(super.marketState.getSnabbKöpsÖppettider(), super.marketState, super.eventQueue);
+		
+		//Ett nytt StopEvent läggs till i kön.
+		new StopEvent(stopTime, marketState, eventQueue);
+		
 		// Eventet är klart och tas bort från kön.
 		eventQueue.remove(this);
 		

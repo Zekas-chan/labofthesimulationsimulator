@@ -42,7 +42,7 @@ public class MarketEvent extends Event {
 	 * @param time Mängden tid
 	 */
 	protected void idleRegisters(double time) {
-		marketState.tidOverksamKassa += time * marketState.ledigaKassor;
+		marketState.addTidOverksamKassa(time * marketState.getledigaKassor());
 	}
 	
 	
@@ -51,7 +51,7 @@ public class MarketEvent extends Event {
 	 * @param time Mängden tid.
 	 */
 	protected void registerQueue(double time) {
-		marketState.tidKassaKö += time * marketState.kassaKö.size();
+		marketState.addTidKassaKö(time * marketState.getKassaKö().size());
 	}
 
 }

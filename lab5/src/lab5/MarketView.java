@@ -25,7 +25,6 @@ public class MarketView extends View implements Observer {
 	 * Konstruerar en MarketView som observerar ett MarketState.
 	 * 
 	 * @param ms   Referens till ett MarketState
-	 * @param mode Om satt till true skrivs bara resultatutskriften ut.
 	 */
 	public MarketView(MarketState ms) {
 		this.ms = ms;
@@ -81,9 +80,9 @@ public class MarketView extends View implements Observer {
 	 */
 	private void eventDetails(MarketEvent a) {
 			System.out.print(df.format(a.time) + "\t" + a.toString() + "\t" + (a instanceof StängerEvent ? "---" : a.kund.id) + "\t" + isOpen() + "\t"
-					+ ms.ledigaKassor + "\t" + df.format(ms.tidOverksamKassa) + "\t" + ms.kunderIButiken.size() + "\t"
-					+ ms.antalGenomfördaKöp + "\t" + ms.antalMissadeKunder + "\t" + ms.unikaKöandeKunder + "\t"
-					+ df.format(ms.tidKassaKö) + "\t" + ms.kassaKö.size() + "\t" + köTillSträng());
+					+ ms.getledigaKassor() + "\t" + df.format(ms.getTidOverksamKassa()) + "\t" + ms.getKunderIButiken().size() + "\t"
+					+ ms.getAntalGenomfördaKöp() + "\t" + ms.getAntalMissadeKunder() + "\t" + ms.getUnikaKöandeKunder() + "\t"
+					+ df.format(ms.getTidKassaKö()) + "\t" + ms.getKassaKö().size() + "\t" + köTillSträng());
 		System.out.println();
 	}
 
@@ -102,7 +101,7 @@ public class MarketView extends View implements Observer {
 	 * @return Ö om det är öppet, annars S för stängt.
 	 */
 	private String isOpen() {
-		return ms.öppet ? "Ö" : "S";
+		return ms.isÖppet() ? "Ö" : "S";
 	}
 
 	/*
@@ -111,9 +110,9 @@ public class MarketView extends View implements Observer {
 	 */
 	private String köTillSträng() {
 		String arraystr = "[";
-		for (int i = 0; i < ms.kassaKö.size(); i++) {
-			arraystr += ms.kassaKö.get(i).id;
-			if (i < ms.kassaKö.size() - 1) {
+		for (int i = 0; i < ms.getKassaKö().size(); i++) {
+			arraystr += ms.getKassaKö().get(i).id;
+			if (i < ms.getKassaKö().size() - 1) {
 				arraystr += ", ";
 			}
 		}
@@ -126,15 +125,15 @@ public class MarketView extends View implements Observer {
 	 * statistikvariabler ut.
 	 */
 	private void results() {
-		System.out.println("RESULTAT\n========\n \n");
-		System.out.println("1) Av " + ms.unikaKunder + " kunder handlade " + ms.antalGenomfördaKöp + " medan "
-				+ ms.antalMissadeKunder + " missades.\n");
+		System.out.println("\nRESULTAT\n========\n \n");
+		System.out.println("1) Av " + ms.getUnikaKunder() + " kunder handlade " + ms.getAntalGenomfördaKöp() + " medan "
+				+ ms.getAntalMissadeKunder() + " missades.\n");
 		System.out.println(
-				"2) Total tid " + ms.antalKassor + " kassor varit lediga: " + df.format(ms.tidOverksamKassa) + " te.");
-		System.out.println("   Genomsnittlig ledig kassatid: " + df.format((ms.tidOverksamKassa / ms.antalKassor))
-				+ " te (dvs " + df.format(((ms.tidOverksamKassa / ms.antalKassor) / ms.finalPaymentEvent) * 100)
+				"2) Total tid " + ms.antalKassor + " kassor varit lediga: " + df.format(ms.getTidOverksamKassa()) + " te.");
+		System.out.println("   Genomsnittlig ledig kassatid: " + df.format((ms.getTidOverksamKassa() / ms.antalKassor))
+				+ " te (dvs " + df.format(((ms.getTidOverksamKassa() / ms.antalKassor) / ms.getFinalPaymentEvent()) * 100)
 				+ "% av tiden från öppning tills sista kunden betalat).\n");
-		System.out.println("3) Total tid " + ms.unikaKöandeKunder + " tvingats köa: " + df.format(ms.tidKassaKö)
-				+ " te." + ". \n Genomsnittlig kötid: " + df.format((ms.tidKassaKö / ms.unikaKöandeKunder)) + " te.\n");
+		System.out.println("3) Total tid " + ms.getUnikaKöandeKunder() + " tvingats köa: " + df.format(ms.getTidKassaKö())
+				+ " te." + ". \n Genomsnittlig kötid: " + df.format((ms.getTidKassaKö() / ms.getUnikaKöandeKunder())) + " te.\n");
 	}
 }

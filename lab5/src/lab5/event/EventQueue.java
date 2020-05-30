@@ -25,10 +25,10 @@ public class EventQueue {
 		reorganize();
 	}
 
-	/**
+	/*
 	 * Omorganiserar listan.
 	 */
-	public void reorganize() {
+	private void reorganize() {
 
 		// Sortering
 		ArrayList<Double> sortedTime = new ArrayList<Double>();

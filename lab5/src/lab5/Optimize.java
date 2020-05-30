@@ -13,12 +13,7 @@ public class Optimize {
 	double lambda = 1.0;
 	double[] plocktid = { 0.5, 1.0 };
 	double[] betaltid = { 2.0, 3.0 };
-
-	/**
-	 * Kör en simulering med fixerade parametrar och returnerar sluttillståndet.
-	 * 
-	 * @return Sluttillståndet (MarketState)
-	 */
+	
 	/**
 	 * Kör en simulering med angivna parametrar.
 	 * @param registers Antal kassor.
@@ -42,8 +37,8 @@ public class Optimize {
 		int missadeNext = 0;
 		
 		while(true) {
-			missade = metod1(kassor, FRÖ).antalMissadeKunder;
-			missadeNext = metod1(kassor+1, FRÖ).antalMissadeKunder;
+			missade = metod1(kassor, FRÖ).getAntalMissadeKunder();
+			missadeNext = metod1(kassor+1, FRÖ).getAntalMissadeKunder();
 			if(missade == missadeNext) {
 				break;
 			}else {
@@ -59,10 +54,10 @@ public class Optimize {
 	 */
 	public void metod3() {
 		Random r = new Random(System.currentTimeMillis());
-		int previousRun = metod2(r.nextInt(Integer.MAX_VALUE));
+		int previousRun = 0;
 		int check = 0;
 		int change = 0;
-		while (change < 100) {
+		while (change < 9999) {
 			check = metod2(r.nextInt(Integer.MAX_VALUE));
 			if(check > previousRun) { //om mängden kassor är större än förra körningen
 				change = 0; //nollställ räkning
