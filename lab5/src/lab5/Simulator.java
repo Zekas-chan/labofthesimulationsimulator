@@ -7,7 +7,7 @@ import lab5.event.subevents.StartEvent;
 import lab5.state.MarketState;
 
 /**
- * Runs the simulation
+ * Runs the simulation with the specified parameters.
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *

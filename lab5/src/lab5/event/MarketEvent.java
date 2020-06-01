@@ -6,7 +6,7 @@ import lab5.state.Kund;
 import lab5.state.MarketState;
 
 /**
- * 
+ * Representerar generella butiksevent.
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
  */

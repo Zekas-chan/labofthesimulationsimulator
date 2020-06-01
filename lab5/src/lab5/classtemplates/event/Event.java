@@ -5,7 +5,7 @@ import lab5.classtemplates.state.State;
 import lab5.event.EventQueue;
 
 /**
- * Representerar Events på ett konkret sätt.
+ * Representerar generella Events.
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *

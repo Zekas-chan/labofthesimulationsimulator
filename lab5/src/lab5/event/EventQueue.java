@@ -5,7 +5,7 @@ import java.util.Collections;
 import lab5.classtemplates.event.Event;
 
 /**
- * A queue with events
+ * En generell händelsekö.
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
@@ -115,20 +115,4 @@ public class EventQueue {
 	public ArrayList<Event> getList() {
 		return list;
 	}
-
-	/**
-	 * Räknar hur många BetalaEvent som finns i kön.
-	 * 
-	 * @return Antalet BetalaEvent som en int.
-	 */
-//	public int antalBetalaEvent() {
-//		int räknare = 0;
-//		for (int i = 0; i < list.size(); i++) {
-//			if (list.get(i) instanceof BetalaEvent) {
-//				räknare++;
-//			}
-//		}
-//		return räknare;
-//
-//	}
 }

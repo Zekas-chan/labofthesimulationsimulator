@@ -6,7 +6,7 @@ import lab5.state.CustomerFactory;
 import lab5.state.MarketState;
 
 /**
- * Startar simuleringen.
+ * Startar simuleringen när den körs, samt skapar ett ankomstevent, ett stängerevent och ett stopevent.
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *

@@ -5,7 +5,7 @@ import lab5.event.MarketEvent;
 import lab5.state.MarketState;
 
 /**
- * Ett event som stänger butiken när dess execute körs.
+ * Ett event som representerar att butiken stänger när dess execute körs.
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *

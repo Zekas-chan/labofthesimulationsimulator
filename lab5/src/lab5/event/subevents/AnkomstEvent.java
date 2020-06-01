@@ -6,7 +6,7 @@ import lab5.state.CustomerFactory;
 import lab5.state.MarketState;
 
 /**
- * Ett event som skapar en kund när det körs.
+ * Representerar en händelse där en kund anländer till en butik.
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *

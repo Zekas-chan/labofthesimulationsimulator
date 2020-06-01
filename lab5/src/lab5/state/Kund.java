@@ -3,7 +3,7 @@ package lab5.state;
 import lab5.classtemplates.event.Event;
 
 /**
- * Represents a customer in a supermarket
+ * Representerar en kund i en butik.
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *

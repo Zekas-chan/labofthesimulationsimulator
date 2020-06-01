@@ -2,13 +2,17 @@ package lab5;
 
 import java.util.Random;
 import lab5.state.MarketState;
-
+/**
+ * Hittar den optimala mängden kassor för en butik med specifika parametrar.
+ * @author Philip Larsson, Patrik Grund
+ *
+ */
 public class Optimize {
 	public static void main(String[] args) {
 		Optimize opt = new Optimize();
 		opt.findOptimalRegisters();
 	}
-	int simtid = 50; // öppettid
+	int simtid = 500; // öppettid
 	int maxkunder = 5;
 	double lambda = 1.0;
 	double[] plocktid = { 0.5, 1.0 };

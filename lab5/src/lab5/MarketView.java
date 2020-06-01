@@ -12,7 +12,7 @@ import lab5.event.subevents.StängerEvent;
 import lab5.state.MarketState;
 
 /**
- * Concrete view of the program.
+ * Skriver ut parametrar, händelser och slutstatistik för en butikssimulering.
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *

@@ -9,6 +9,7 @@ import lab5.event.EventQueue;
 import lab5.event.subevents.StartEvent;
 
 /**
+ * Representerar statistik och körningsvariabler för en butik.
  * 
  * @author Philip Larsson, Patrik Grund, Jack Florberg, Johan Mölder
  *
@@ -47,22 +48,24 @@ public class MarketState extends State {
 	private int ledigaKassor;
 	private boolean öppnaKassor;
 	private boolean öppet;
-	private UniformRandomStream rM; //betalningar
-	private UniformRandomStream rMB; //plock
-	private ExponentialRandomStream rE; //ankomster
-	
+	private UniformRandomStream rM; // betalningar
+	private UniformRandomStream rMB; // plock
+	private ExponentialRandomStream rE; // ankomster
+
 	/**
 	 * Konstruerar ett nytt MarketState.
 	 * 
-	 * @param öppetTider	Anger hur länge butiken är öppen.
-	 * @param kassor		Anger hur många kassor som är bemannade.
-	 * @param ankomstLambda	Anger i hur snabb takt kunder anländer.
-	 * @param frö			Fröet för slumpningstider som används.
-	 * @param maxKunder		Maximalt antal kunder som kan vistas i butiken.
-	 * @param plocktid		Anger ett intervall för hur länge det tar att plocka varor.
-	 * @param betaltid		Anger ett intervall för hur länge det tar att betala.
+	 * @param öppetTider    Anger hur länge butiken är öppen.
+	 * @param kassor        Anger hur många kassor som är bemannade.
+	 * @param ankomstLambda Anger i hur snabb takt kunder anländer.
+	 * @param frö           Fröet för slumpningstider som används.
+	 * @param maxKunder     Maximalt antal kunder som kan vistas i butiken.
+	 * @param plocktid      Anger ett intervall för hur länge det tar att plocka
+	 *                      varor.
+	 * @param betaltid      Anger ett intervall för hur länge det tar att betala.
 	 */
-	public MarketState(double öppetTider, int kassor, double ankomstLambda, int frö, int maxKunder, double[] plocktid, double[] betaltid) {
+	public MarketState(double öppetTider, int kassor, double ankomstLambda, int frö, int maxKunder, double[] plocktid,
+			double[] betaltid) {
 		/*
 		 * Parameterblock
 		 */
@@ -92,14 +95,14 @@ public class MarketState extends State {
 		ledigaKassor = antalKassor;
 		öppnaKassor = true;
 		setÖppet(true);
-		
+
 		/*
 		 * Initiering av slumpmotorer.
 		 */
 		rM = new UniformRandomStream(plockTid[0], plockTid[1], frö);
 		rMB = new UniformRandomStream(betalTid[0], betalTid[1], frö);
 		rE = new ExponentialRandomStream(ankomstLambda, frö);
-		
+
 		/*
 		 * Skapar händelsekön och lägger till ett StartEvent.
 		 */
@@ -107,7 +110,7 @@ public class MarketState extends State {
 		CustFac = new CustomerFactory();
 		new StartEvent(this, eq, CustFac);
 	}
-	
+
 	/**
 	 * Startar simuleringen genom att köra första eventet i kön (StartEvent).
 	 */
@@ -139,66 +142,70 @@ public class MarketState extends State {
 		setChanged();
 		notifyObservers(e);
 	}
-	
-	//Setters
+
+	// Setters
 	public void setKunderIButiken(ArrayList<Kund> kunderIButiken) {
 		this.kunderIButiken = kunderIButiken;
 	}
-	
+
 	public void setÖppet(boolean öppet) {
 		this.öppet = öppet;
 	}
-	
+
 	public void incUnikaKunder() {
 		unikaKunder++;
 	}
-	
+
 	public void incUnikaKöandeKunder() {
 		unikaKöandeKunder++;
 	}
-	
+
 	public void incLedigaKassor(int antal) {
 		ledigaKassor += antal;
 	}
-	
+
 	public void decLedigaKassor() {
 		ledigaKassor--;
 	}
-	
+
 	public void incMissadeKunder() {
 		antalMissadeKunder++;
 	}
-	
+
 	public void incAntalGenomfördaKöp() {
 		antalGenomfördaKöp++;
 	}
-	
+
 	public void addTidKassaKö(double time) {
 		tidKassaKö += time;
 	}
-	
+
 	public void addTidOverksamKassa(double time) {
 		tidOverksamKassa += time;
 	}
-	
+
+	/**
+	 * 
+	 * @param time
+	 */
 	public void setFinalPaymentEvent(double time) {
 		finalPaymentEvent = time;
 	}
-	
-	//======================================================
-	//Getters
+
+	// ======================================================
+	// Getters
 	public int getAntalGenomfördaKöp() {
 		return antalGenomfördaKöp;
 	}
-	
+
 	public double getTidOverksamKassa() {
 		return tidOverksamKassa;
 	}
-	
+
 	public int getledigaKassor() {
 		return ledigaKassor;
 	}
-	
+
 	public double getSnabbKöpsÖppettider() {
 		return snabbKöpsÖppettider;
 	}
@@ -206,47 +213,50 @@ public class MarketState extends State {
 	public ArrayList<Kund> getKunderIButiken() {
 		return kunderIButiken;
 	}
-	
+
 	public boolean isÖppet() {
 		return öppet;
 	}
-	
+
 	public int getAntalMissadeKunder() {
 		return antalMissadeKunder;
 	}
-	
+
 	public int getUnikaKöandeKunder() {
 		return unikaKöandeKunder;
 	}
-	
+
 	public int getUnikaKunder() {
 		return unikaKunder;
 	}
-	
+
 	public double getTidKassaKö() {
 		return tidKassaKö;
 	}
-	
+
 	/**
 	 * Genererar en betaltid.
+	 * 
 	 * @return
 	 */
 	public double getBetalTid() {
 		double rmB = rMB.nextDouble();
 		return rmB;
 	}
-	
+
 	/**
 	 * Genererar en plocktid.
+	 * 
 	 * @return
 	 */
 	public double getPlockTid() {
 		double rm = rM.nextDouble();
 		return rm;
 	}
-	
+
 	/**
 	 * Genererar en ankomsttid.
+	 * 
 	 * @return
 	 */
 	public double getAnkomst() {
