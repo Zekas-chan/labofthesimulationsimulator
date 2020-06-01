@@ -1,8 +1,8 @@
 package lab5.event.subevents;
 
-import lab5.Kund;
 import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
+import lab5.state.Kund;
 import lab5.state.MarketState;
 
 

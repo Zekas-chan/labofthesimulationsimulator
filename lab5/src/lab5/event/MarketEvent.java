@@ -1,7 +1,8 @@
 package lab5.event;
 
-import lab5.Kund;
 import lab5.classtemplates.event.Event;
+import lab5.state.CustomerFactory;
+import lab5.state.Kund;
 import lab5.state.MarketState;
 
 /**
@@ -10,10 +11,11 @@ import lab5.state.MarketState;
  *
  */
 public class MarketEvent extends Event {
-
 	public MarketState marketState;
-
+	
 	public Kund kund;
+	
+	protected CustomerFactory custfac;
 
 	/**
 	 * Kör nästa event och drar bort tiden ifrån resten

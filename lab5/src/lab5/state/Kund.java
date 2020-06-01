@@ -1,6 +1,5 @@
-package lab5;
+package lab5.state;
 
-import lab5.state.MarketState;
 import lab5.classtemplates.event.Event;
 
 /**
@@ -27,7 +26,7 @@ public class Kund {
 	/**
 	 * Konstruerar ett kundobjekt.
 	 */
-	public Kund(MarketState ms) {
+	Kund(MarketState ms) {
 		this.ms = ms;
 
 		ankomstTid = ms.getAnkomst();

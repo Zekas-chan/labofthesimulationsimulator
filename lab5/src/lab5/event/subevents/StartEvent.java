@@ -2,6 +2,7 @@ package lab5.event.subevents;
 
 import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
+import lab5.state.CustomerFactory;
 import lab5.state.MarketState;
 
 /**
@@ -26,7 +27,7 @@ public class StartEvent extends MarketEvent {
 		super.marketState.incomingEvent(this);
 
 		// Ett nytt AnkomstEvent skapas och läggs till i kön.
-		new AnkomstEvent(super.marketState, super.eventQueue);
+		new AnkomstEvent(super.marketState, super.eventQueue, custfac);
 
 		// Ett nytt StängerEvent skapas och läggs till i kön.
 		new StängerEvent(super.marketState.getSnabbKöpsÖppettider(), super.marketState, super.eventQueue);
@@ -47,9 +48,10 @@ public class StartEvent extends MarketEvent {
 	 * @param ms Referens till ett MarketState
 	 * @param eq Referens till en EventQueue
 	 */
-	public StartEvent(MarketState ms, EventQueue eq) {
+	public StartEvent(MarketState ms, EventQueue eq, CustomerFactory custfac) {
 		super.marketState = ms;
 		super.eventQueue = eq;
+		super.custfac = custfac;
 		super.time = 0;
 		eq.add(this);
 	}

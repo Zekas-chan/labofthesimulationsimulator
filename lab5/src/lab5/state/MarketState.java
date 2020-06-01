@@ -1,8 +1,6 @@
 package lab5.state;
 
 import java.util.ArrayList;
-
-import lab5.Kund;
 import lab5.classtemplates.event.Event;
 import lab5.classtemplates.random.ExponentialRandomStream;
 import lab5.classtemplates.random.UniformRandomStream;
@@ -16,8 +14,6 @@ import lab5.event.subevents.StartEvent;
  *
  */
 public class MarketState extends State {
-
-	public int kundID;
 
 	/*
 	 * Variabler för parametrar.
@@ -47,6 +43,7 @@ public class MarketState extends State {
 	private ArrayList<Kund> kunderIButiken;
 	private ArrayList<Kund> kassaKö;
 	private EventQueue eq;
+	private CustomerFactory CustFac;
 	private int ledigaKassor;
 	private boolean öppnaKassor;
 	private boolean öppet;
@@ -95,7 +92,6 @@ public class MarketState extends State {
 		ledigaKassor = antalKassor;
 		öppnaKassor = true;
 		setÖppet(true);
-		this.kundID = -1;
 		
 		/*
 		 * Initiering av slumpmotorer.
@@ -108,7 +104,8 @@ public class MarketState extends State {
 		 * Skapar händelsekön och lägger till ett StartEvent.
 		 */
 		eq = new EventQueue();
-		StartEvent startEvent = new StartEvent(this, eq);
+		CustFac = new CustomerFactory();
+		new StartEvent(this, eq, CustFac);
 	}
 	
 	/**
@@ -200,11 +197,6 @@ public class MarketState extends State {
 	
 	public int getledigaKassor() {
 		return ledigaKassor;
-	}
-	
-	public int getID() {
-		kundID++;
-		return this.kundID;
 	}
 	
 	public double getSnabbKöpsÖppettider() {

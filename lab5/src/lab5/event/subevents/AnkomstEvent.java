@@ -1,8 +1,8 @@
 package lab5.event.subevents;
 
-import lab5.Kund;
 import lab5.event.EventQueue;
 import lab5.event.MarketEvent;
+import lab5.state.CustomerFactory;
 import lab5.state.MarketState;
 
 /**
@@ -12,23 +12,22 @@ import lab5.state.MarketState;
  *
  */
 public class AnkomstEvent extends MarketEvent {
-
+	
 	/**
 	 * Konstruerar ett AnkomstEvent.
 	 * 
 	 * @param ms Referens till ett MarketState
 	 * @param eq Referens till en EventQueue
 	 */
-	public AnkomstEvent(MarketState ms, EventQueue eq) {
+	public AnkomstEvent(MarketState ms, EventQueue eq, CustomerFactory custfac) {
 		marketState = ms;
 		eventQueue = eq;
+		this.custfac = custfac;
 
 		// Ny kund kommer anlända; en ny kund skapas.
-		Kund k = new Kund(ms);
-		k.id = marketState.getID(); // tilldela identifierare
-		k.currentEvent = this;
-		super.time = ms.globalTime + k.ankomstTid;
-		kund = k;
+		kund = custfac.createCustomer(ms);
+		kund.currentEvent = this;
+		super.time = ms.globalTime + kund.ankomstTid;
 
 		eventQueue.add(this);
 		// System.out.println("Ankomsttid: "+k.ankomstTid); //debug
@@ -89,7 +88,7 @@ public class AnkomstEvent extends MarketEvent {
 
 		// Genererar ett nytt ankomstevent om butiken är öppen
 		if (marketState.isÖppet()) {
-			new AnkomstEvent(marketState, eventQueue);
+			new AnkomstEvent(marketState, eventQueue, custfac);
 		}
 	}
 

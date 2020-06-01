@@ -58,7 +58,6 @@ public class Simulator {
 		eventQueue = new EventQueue();
 		marketState = new MarketState(simtid, kassor, lambda, frö, maxkunder, plocktid, betaltid);
 		vy = new MarketView(marketState);
-		startEvent = new StartEvent(marketState, eventQueue);
 		marketState.start();
 	}
 
