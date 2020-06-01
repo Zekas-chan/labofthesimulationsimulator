@@ -144,47 +144,87 @@ public class MarketState extends State {
 	}
 
 	// Setters
+	/**
+	 * 
+	 * @param kunderIButiken
+	 */
 	public void setKunderIButiken(ArrayList<Kund> kunderIButiken) {
 		this.kunderIButiken = kunderIButiken;
 	}
 
+	/**
+	 * styr ifall butik är öppen.
+	 * 
+	 * @param öppet
+	 */
 	public void setÖppet(boolean öppet) {
 		this.öppet = öppet;
 	}
 
+	/**
+	 * ökar antalet kunder som har varit i butiken
+	 */
 	public void incUnikaKunder() {
 		unikaKunder++;
 	}
 
+	/**
+	 * ökar antalet kunder som stått kö
+	 */
 	public void incUnikaKöandeKunder() {
 		unikaKöandeKunder++;
 	}
 
+	/**
+	 * ökar antalet lediga kassor
+	 * 
+	 * @param antal
+	 */
 	public void incLedigaKassor(int antal) {
 		ledigaKassor += antal;
 	}
 
+	/**
+	 * minskar antalet lediga kassor
+	 */
 	public void decLedigaKassor() {
 		ledigaKassor--;
 	}
 
+	/**
+	 * ökar antalet missade kunder
+	 */
 	public void incMissadeKunder() {
 		antalMissadeKunder++;
 	}
 
+	/**
+	 * ökar antalet genomförda köp
+	 */
 	public void incAntalGenomfördaKöp() {
 		antalGenomfördaKöp++;
 	}
 
+	/**
+	 * ökar antalet kötid
+	 * 
+	 * @param time
+	 */
 	public void addTidKassaKö(double time) {
 		tidKassaKö += time;
 	}
 
+	/**
+	 * ökar tid som kassor stått tomma
+	 * 
+	 * @param time
+	 */
 	public void addTidOverksamKassa(double time) {
 		tidOverksamKassa += time;
 	}
 
 	/**
+	 * sätt tid som senaste betalninghändelse var
 	 * 
 	 * @param time
 	 */
@@ -194,42 +234,92 @@ public class MarketState extends State {
 
 	// ======================================================
 	// Getters
+	/**
+	 * hämtar antalet genomförda köp
+	 * 
+	 * @return
+	 */
 	public int getAntalGenomfördaKöp() {
 		return antalGenomfördaKöp;
 	}
 
+	/**
+	 * hämtar tid kassor stått tomma
+	 * 
+	 * @return
+	 */
 	public double getTidOverksamKassa() {
 		return tidOverksamKassa;
 	}
 
+	/**
+	 * hämtar antalet lediga kassor
+	 * 
+	 * @return
+	 */
 	public int getledigaKassor() {
 		return ledigaKassor;
 	}
 
+	/**
+	 * hämtar snabbköptets öppettider
+	 * 
+	 * @return
+	 */
 	public double getSnabbKöpsÖppettider() {
 		return snabbKöpsÖppettider;
 	}
 
+	/**
+	 * hämtar listan med kunder i butiken
+	 * 
+	 * @return
+	 */
 	public ArrayList<Kund> getKunderIButiken() {
 		return kunderIButiken;
 	}
 
+	/**
+	 * hämmtar om affären är öpen
+	 * 
+	 * @return
+	 */
 	public boolean isÖppet() {
 		return öppet;
 	}
 
+	/**
+	 * hämtar antalet missade kunder
+	 * 
+	 * @return
+	 */
 	public int getAntalMissadeKunder() {
 		return antalMissadeKunder;
 	}
 
+	/**
+	 * hämtar antalet köande kunder
+	 * 
+	 * @return
+	 */
 	public int getUnikaKöandeKunder() {
 		return unikaKöandeKunder;
 	}
 
+	/**
+	 * hämtar antalet kunder
+	 * 
+	 * @return
+	 */
 	public int getUnikaKunder() {
 		return unikaKunder;
 	}
 
+	/**
+	 * hämtar tid som köats
+	 * 
+	 * @return
+	 */
 	public double getTidKassaKö() {
 		return tidKassaKö;
 	}
@@ -264,10 +354,20 @@ public class MarketState extends State {
 		return re;
 	}
 
+	/**
+	 * hämtar en lista med kunder i kassakön
+	 * 
+	 * @return
+	 */
 	public ArrayList<Kund> getKassaKö() {
 		return kassaKö;
 	}
 
+	/**
+	 * hämtar senaste betala eventets tid
+	 * 
+	 * @return
+	 */
 	public double getFinalPaymentEvent() {
 		return finalPaymentEvent;
 	}
