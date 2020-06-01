@@ -79,10 +79,10 @@ public class MarketView extends View implements Observer {
 	 * dess typ.
 	 */
 	private void eventDetails(MarketEvent a) {
-			System.out.print(df.format(a.time) + "\t" + a.toString() + "\t" + (a instanceof StängerEvent ? "---" : a.kund.id) + "\t" + isOpen() + "\t"
-					+ ms.getledigaKassor() + "\t" + df.format(ms.getTidOverksamKassa()) + "\t" + ms.getKunderIButiken().size() + "\t"
-					+ ms.getAntalGenomfördaKöp() + "\t" + ms.getAntalMissadeKunder() + "\t" + ms.getUnikaKöandeKunder() + "\t"
-					+ df.format(ms.getTidKassaKö()) + "\t" + ms.getKassaKö().size() + "\t" + köTillSträng());
+		System.out.print(df.format(a.time) + "\t" + a.toString() + "\t" + (a instanceof StängerEvent ? "---" : a.kund.id) + "\t" + isOpen() + "\t"
+				+ ms.getledigaKassor() + "\t" + df.format(ms.getTidOverksamKassa()) + "\t" + ms.getKunderIButiken().size() + "\t"
+				+ ms.getAntalGenomfördaKöp() + "\t" + ms.getAntalMissadeKunder() + "\t" + ms.getUnikaKöandeKunder() + "\t"
+				+ df.format(ms.getTidKassaKö()) + "\t" + ms.getKassaKö().size() + "\t" + köTillSträng());
 		System.out.println();
 	}
 

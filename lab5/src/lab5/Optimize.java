@@ -6,7 +6,7 @@ import lab5.state.MarketState;
 public class Optimize {
 	public static void main(String[] args) {
 		Optimize opt = new Optimize();
-		opt.metod3();
+		opt.findOptimalRegisters();
 	}
 	int simtid = 50; // öppettid
 	int maxkunder = 5;
@@ -20,7 +20,7 @@ public class Optimize {
 	 * @param FRÖ Fröet som ska användas.
 	 * @return Sluttillståndet (MarketState-objekt).
 	 */
-	public MarketState metod1(int registers, int FRÖ) {
+	public MarketState runSim(int registers, int FRÖ) { //metod 1
 		MarketState marketState = new MarketState(simtid, registers, lambda, FRÖ, maxkunder, plocktid, betaltid);
 		marketState.start();
 		return marketState;
@@ -31,14 +31,14 @@ public class Optimize {
 	 * @param FRÖ Fröet som simuleringen ska använda.
 	 * @return Optimal mängd kassor.
 	 */
-	public int metod2(int FRÖ) {
+	public int findRegisters(int FRÖ) { //metod 2
 		int kassor = 1;
 		int missade = 0;
 		int missadeNext = 0;
 		
 		while(true) {
-			missade = metod1(kassor, FRÖ).getAntalMissadeKunder();
-			missadeNext = metod1(kassor+1, FRÖ).getAntalMissadeKunder();
+			missade = runSim(kassor, FRÖ).getAntalMissadeKunder();
+			missadeNext = runSim(kassor+1, FRÖ).getAntalMissadeKunder();
 			if(missade == missadeNext) {
 				break;
 			}else {
@@ -52,13 +52,13 @@ public class Optimize {
 	/**
 	 * Kör en simulering med varierande frön.
 	 */
-	public void metod3() {
+	public void findOptimalRegisters() { //metod 3
 		Random r = new Random(System.currentTimeMillis());
 		int previousRun = 0;
 		int check = 0;
 		int change = 0;
 		while (change < 9999) {
-			check = metod2(r.nextInt(Integer.MAX_VALUE));
+			check = findRegisters(r.nextInt(Integer.MAX_VALUE));
 			if(check > previousRun) { //om mängden kassor är större än förra körningen
 				change = 0; //nollställ räkning
 				previousRun = check; //nytt högsta
