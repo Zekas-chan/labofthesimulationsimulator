@@ -1,7 +1,7 @@
 package lab5.state;
 /**
  * Skapar en kund och tilldelar ett ID till kunden.
- * @author Philip Larsson, Patrik Grund
+ * @author Philip Larsson, Patrik Grund, Jack Florberg
  *
  */
 public class CustomerFactory {
